@@ -1,13 +1,15 @@
 package Model;
 
-public class Track {
+
+public class Track implements Comparable<Track> {
+
     private String name;
     private String artist;
     private Genre genre;
 
     public Track(String name, String artist, Genre genre) {
-        this.name=name;
-        this.artist=artist;
+        this.name = name;
+        this.artist = artist;
         this.genre = genre;
     }
 
@@ -34,7 +36,12 @@ public class Track {
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
+
     public String toString(){
         return name+":"+" "+artist+","+" "+genre.getName();
+    }
+
+    public int compareTo(Track track){
+        return name.compareTo(track.getName());
     }
 }

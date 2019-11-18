@@ -1,6 +1,6 @@
 package Model;
 
-public class Genre {
+public class Genre implements Comparable<Genre> {
     private String name;
 
     public Genre(String name) {
@@ -14,7 +14,12 @@ public class Genre {
     public void setName(String name) {
         this.name = name;
     }
+
     public String toString(){
         return name;
+    }
+
+    public int compareTo(Genre genre){
+        return name.compareTo(genre.getName());
     }
 }
