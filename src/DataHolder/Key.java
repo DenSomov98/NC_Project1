@@ -9,6 +9,7 @@ public enum Key {
         GENRE,
         NAME,
         ARTIST,
+        HELP,
         EXIT,
-        NOT_A_KEY
+        NOT_A_KEY;
 }

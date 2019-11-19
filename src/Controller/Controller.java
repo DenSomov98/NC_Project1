@@ -34,6 +34,8 @@ public class Controller {
                 return Key.ARTIST;
             case "exit":
                 return Key.EXIT;
+            case "help":
+                return Key.HELP;
             default:
                 return Key.NOT_A_KEY;
         }
@@ -186,6 +188,7 @@ public class Controller {
                         return incorrectCommand();
                 }
             }
+            case HELP:
             case EXIT: {
                 return stringTokenizer.hasMoreTokens() ?
                         incorrectCommand()
@@ -207,7 +210,6 @@ public class Controller {
                 "add track <name artist> - Добавление трека без жанра (без названия/исполнителя не допускается)\n" +
                 "add genre <name> - Добавление жанра (Дубликаты не допускаются)\n" +
                 "edit genre name <id new_name> Изменение названия жанра по id(отразится на всех его треках)\n" +
-                "edit genre name <genre_name new_genre_name> - Изменение названия жанра по старому названию\n" +
                 "edit track name <id new_name> - Изменение названия трека по id\n" +
                 "edit track artist <id new_artist> - Изменение исполнителя трека\n" +
                 "edit track genre <id new_genre_name> - Изменениие жанра трека(также на существующий)\n" +
