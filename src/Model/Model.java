@@ -1,6 +1,7 @@
 package Model;
 
 import DataHolder.InputDataHolder;
+import DataHolder.Key;
 
 public class Model {
     private Tracks tracks;
@@ -11,11 +12,45 @@ public class Model {
         this.genres = genres;
     }
 
-    /*public OutputDataHolder validate(InputDataHolder command) {
-
+    //убрать излишнюю вложенность(доделаю позже)
+    public OutputDataHolder validate(InputDataHolder command) {
+        Key[] keys = command.getKeys();
+        switch (keys[0]) {
+            case ADD:
+                switch (keys[1]) {
+                    case GENRE:
+                        return genres.validateAddGenre(command);
+                    case TRACK:
+                        return tracks.validateAddTrack(command, genres.getGenre(command.getArguments()[2]));
+                    default:
+                        return null; //?
+                }
+            case EDIT:
+                switch (keys[1]) {
+                    case GENRE:
+                        return genres.validateAddGenre(command);
+                    case TRACK:
+                        return tracks.validateEditTrack(command, genres.getGenre(command.getArguments()[2]));
+                    default:
+                        return null; //?
+                }
+            case REMOVE:
+                switch (keys[1]) {
+                    case GENRE:
+                        return genres.validateRemoveGenre(command);
+                    case TRACK:
+                        return tracks.validateRemoveTrack(command);
+                    default:
+                        return null; //?
+                }
+            default:
+                return null; //?
+        }
     }
 
-    public void execute(OutputDataHolder ) {
+    //нужен метод(ы) для работы с view
+
+    /*public void execute(OutputDataHolder ) {
 
     }*/
 }

@@ -1,8 +1,14 @@
 package Model;
 
+import DataHolder.InputDataHolder;
+
 public interface Tracks {
 
-    public void addTrack(String name, String artist, String genreName);
+    public OutputDataHolder validateAddTrack(InputDataHolder command, Genre genre);
+
+    public void addTrack(String name, String artist, Genre genre);
+
+    public OutputDataHolder validateRemoveTrack(InputDataHolder command);
 
     public void removeTrack(int index);
 
@@ -10,7 +16,9 @@ public interface Tracks {
 
     public void editArtist(int index, String newArtist);
 
-    public void editGenre(int index, String newGenreName);
+    public OutputDataHolder validateEditTrack(InputDataHolder command, Genre genre);
+
+    public void editGenre(int index, Genre newGenre);
 
     //public void setGenreToNull(String genreName);//////////мб станет не нужен
 
