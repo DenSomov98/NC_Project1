@@ -1,46 +1,48 @@
 package DataHolder;
 
+import java.util.ArrayList;
+
 public class InputDataHolder {
 
-    private boolean isIncorrect;
-    private Key[] keys;
-    private int id = -1;
-    private String[] arguments;
+    private boolean isCorrect;
+    private ArrayList<Key> keys;
+    //private int id = -1;/////////////////////////////////////////
+    private ArrayList<String> arguments;
 
-    public InputDataHolder(boolean isIncorrect, Key[] keys) {
-        this.isIncorrect = isIncorrect;
-        this.keys = keys;
+    public InputDataHolder(boolean isCorrect, ArrayList<Key> keys) {
+        this.isCorrect = isCorrect;
+        this.keys = (ArrayList<Key>) keys.clone();
         this.arguments = null;
     }
 
-    public InputDataHolder(boolean isIncorrect, Key[] keys, String[] arguments) {
-        this.isIncorrect = isIncorrect;
-        this.keys = keys;
-        this.arguments = arguments;
+    public InputDataHolder(boolean isCorrect, ArrayList<Key> keys, ArrayList<String> arguments) {
+        this.isCorrect = isCorrect;
+        this.keys = (ArrayList<Key>) keys.clone();
+        this.arguments = (ArrayList<String>) arguments.clone();
     }
 
-    public InputDataHolder(boolean isIncorrect, Key[] keys, int id, String[] arguments) {
-        this.isIncorrect = isIncorrect;
+    /*public InputDataHolder(boolean isCorrect, ArrayList<Key> keys, int id, ArrayList<String> arguments) {
+        this.isCorrect = isCorrect;
         this.keys = keys;
         this.id = id;
         this.arguments = arguments;
-    }
+    }*/
 
-    public boolean isIncorrect() { return isIncorrect; }
+    public boolean isCorrect() { return isCorrect; }
 
-    public Key[] getKeys() { return keys; }
+    public Key[] getKeys() { return keys.toArray(new Key[0]); }
 
-    public boolean hasID() { return id>0; }
+    /*public boolean hasID() { return id>0; }
 
-    public int getID() { return id; }
+    public int getID() { return id; }*/
 
     public boolean hasArguments() { return arguments!=null;}
 
-    public String[] getArguments() { return arguments;}
+    public String[] getArguments() { return arguments.toArray(new String[0]);}
 
     public void print() {
-        System.out.println("incorrect = " + isIncorrect);
-        System.out.println("ID: " + hasID() + " " + id);
+        System.out.println("incorrect = " + isCorrect);
+        //System.out.println("ID: " + hasID() + " " + id);
         if(keys!=null)
             for(Key key: keys) {
                 System.out.print(key + " ");

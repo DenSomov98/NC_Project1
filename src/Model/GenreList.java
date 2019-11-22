@@ -1,15 +1,14 @@
 package Model;
 
-import DataHolder.Key;
-import DataHolder.InputDataHolder;
-import DataHolder.OutputDataHolder;
+import DataHolder.*;
 import java.util.Collections;
 import java.util.LinkedList;
 
-public class GenreModel {
+public class GenreList implements Genres{
 
     private LinkedList<Genre> genres;
 
+    //Перенести в Model
     public OutputDataHolder validate(InputDataHolder holder){
         int id = Integer.parseInt(holder.getArguments()[0]);
         String[] arguments = holder.getArguments();
@@ -34,6 +33,7 @@ public class GenreModel {
         return outputDataHolder;
     }
 
+    @Override
     public void addGenre(String name) throws IllegalArgumentException{
         for (Genre genre : genres) {
             if (genre.getName().equals(name)) throw new IllegalArgumentException("Жанр с таким именем уже существует");
@@ -43,14 +43,17 @@ public class GenreModel {
         genres.add(index, newGenre);
     }
 
+    @Override
     public void addGenre(Genre genre){
         genres.addLast(genre);
     }
 
+    @Override
     public void removeGenre(int index){
         genres.remove(index);
     }
 
+    @Override
     public void editName(int index, String newName)throws IllegalArgumentException{
         for (Genre genre : genres) {
             if (genre.getName().equals(newName)) throw new IllegalArgumentException("Жанр с таким именем уже существует");
@@ -63,14 +66,20 @@ public class GenreModel {
         //сортирвка
     }
 
-    public LinkedList<Genre> getViewList(){
-        return genres;
-    }
-
     public Genre getGenre(String name){
         for (Genre genre : genres) {
             if (genre.getName().equals(name))return genre;
         }
         return null;
+    }
+
+    @Override
+    public Genre getGenre(int id) {
+        return genres.get(id);
+    }
+
+    @Override
+    public Genre[] getAllGenres() {
+        return genres.toArray(new Genre[0]);
     }
 }

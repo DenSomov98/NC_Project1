@@ -10,8 +10,8 @@ import java.util.StringTokenizer;
 public class Controller {
 
 
-    //private TrackModel trackModel = new TrackModel();
-    //private GenreModel genreModel = new GenreModel();
+    //private TrackList trackModel = new TrackList();
+    //private GenreList genreModel = new GenreList();
     //private View view = new View(trackModel, genreModel);
 
     private Key tokenCode(String token) {
@@ -41,8 +41,9 @@ public class Controller {
         }
     }
 
-    private InputDataHolder incorrectCommand() { return new InputDataHolder(true, null);}
+    private InputDataHolder incorrectCommand() { return new InputDataHolder(false, null);}
 
+    ////to add 1st arg
     private InputDataHolder parsing(String command) {
         StringTokenizer stringTokenizer = new StringTokenizer(command, " <>");
         if(!stringTokenizer.hasMoreTokens())
@@ -61,6 +62,7 @@ public class Controller {
                     case TRACK:
                         keys.add(k);
                         token = stringTokenizer.nextToken();
+                        arguments.add(token);
                         if (stringTokenizer.hasMoreTokens())
                             return incorrectCommand();
                         int id;
@@ -69,11 +71,11 @@ public class Controller {
                             id = Integer.parseInt(token);
                         } catch (NumberFormatException e) {
                             return token.equals("all") ?
-                                    new InputDataHolder(false, keys.toArray(new Key[2]), new String[]{token})
+                                    new InputDataHolder(true, keys, arguments)
                                     : incorrectCommand();
                         }
-                        return Integer.toString(id).equals(token) ?
-                                new InputDataHolder(false, keys.toArray(new Key[2]), id, new String[]{token})
+                        return Integer.toString(id).equals(token) && id > 0?
+                                new InputDataHolder(true, keys, arguments)
                                 : incorrectCommand();
                     default:
                         return incorrectCommand();
@@ -87,9 +89,10 @@ public class Controller {
                     case GENRE:
                         keys.add(k);
                         token = stringTokenizer.nextToken();
+                        arguments.add(token);
                         return stringTokenizer.hasMoreTokens() ?
                                 incorrectCommand()
-                                : new InputDataHolder(false, keys.toArray(new Key[2]), new String[]{token});
+                                : new InputDataHolder(true, keys, arguments);
                     case TRACK:
                         keys.add(k);
                         while (stringTokenizer.hasMoreTokens() && arguments.size() < 3) {
@@ -103,13 +106,13 @@ public class Controller {
                             try {
                                 id = Integer.parseInt(token);
                             } catch (NumberFormatException e) {
-                                return new InputDataHolder(false, keys.toArray(new Key[2]), arguments.toArray(new String[3]));
+                                return new InputDataHolder(true, keys, arguments);
                             }
-                            return Integer.toString(id).equals(token) ?
-                                    new InputDataHolder(false, keys.toArray(new Key[2]), id, arguments.toArray(new String[3]))
-                                    : new InputDataHolder(false, keys.toArray(new Key[2]), arguments.toArray(new String[3]));
+                            return Integer.toString(id).equals(token) && id > 0?
+                                    new InputDataHolder(true, keys, arguments)
+                                    : new InputDataHolder(true, keys, arguments);
                         }
-                        return new InputDataHolder(false, keys.toArray(new Key[2]), arguments.toArray(new String[2]));
+                        return new InputDataHolder(true, keys, arguments);
                     default:
                         return incorrectCommand();
                 }
@@ -133,11 +136,11 @@ public class Controller {
                         try {
                             id = Integer.parseInt(token);
                         } catch (NumberFormatException e) {
-                            return new InputDataHolder(false, keys.toArray(new Key[3]), arguments.toArray(new String[2]));
+                            return new InputDataHolder(true, keys, arguments);
                         }
-                        return Integer.toString(id).equals(token) ?
-                                new InputDataHolder(false, keys.toArray(new Key[3]), id, arguments.toArray(new String[2]))
-                                : new InputDataHolder(false, keys.toArray(new Key[3]), arguments.toArray(new String[2]));
+                        return Integer.toString(id).equals(token) && id > 0 ?
+                                new InputDataHolder(true, keys, arguments)
+                                : new InputDataHolder(true, keys, arguments);
                     case TRACK:
                         keys.add(k);
                         token = stringTokenizer.nextToken();
@@ -153,8 +156,8 @@ public class Controller {
                         } catch (NumberFormatException e) {
                             return incorrectCommand();
                         }
-                        return Integer.toString(id).equals(token) ?
-                                new InputDataHolder(false, keys.toArray(new Key[3]), id, arguments.toArray(new String[2]))
+                        return Integer.toString(id).equals(token) && id > 0 ?
+                                new InputDataHolder(true, keys, arguments)
                                 : incorrectCommand();
                     default:
                         return incorrectCommand();
@@ -169,6 +172,7 @@ public class Controller {
                     case TRACK:
                         keys.add(k);
                         token = stringTokenizer.nextToken();
+                        arguments.add(token);
                         if (stringTokenizer.hasMoreTokens())
                             return incorrectCommand();
                         int id;
@@ -176,13 +180,13 @@ public class Controller {
                             id = Integer.parseInt(token);
                         } catch (NumberFormatException e) {
                             return token.equals("all") || k == Key.GENRE ?
-                                    new InputDataHolder(false, keys.toArray(new Key[2]), new String[]{token})
+                                    new InputDataHolder(true, keys, arguments)
                                     : incorrectCommand();
                         }
-                        return Integer.toString(id).equals(token) ?
-                                new InputDataHolder(false, keys.toArray(new Key[2]), id, new String[]{token})
+                        return Integer.toString(id).equals(token) && id > 0 ?
+                                new InputDataHolder(true, keys, arguments)
                                 : k == Key.GENRE ?
-                                new InputDataHolder(false, keys.toArray(new Key[2]), new String[]{token})
+                                new InputDataHolder(true, keys, arguments)
                                 : incorrectCommand();
                     default:
                         return incorrectCommand();
@@ -192,7 +196,7 @@ public class Controller {
             case EXIT: {
                 return stringTokenizer.hasMoreTokens() ?
                         incorrectCommand()
-                        : new InputDataHolder(false, new Key[]{Key.EXIT});
+                        : new InputDataHolder(false, keys);
             }
             default:
                 return incorrectCommand();

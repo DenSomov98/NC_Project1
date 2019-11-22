@@ -1,5 +1,6 @@
-package DataHolder;
+package Model;
 
+import DataHolder.Key;
 import Model.Genre;
 
 public class OutputDataHolder {
@@ -7,17 +8,19 @@ public class OutputDataHolder {
     private boolean indexError;
     private boolean genreEqualsNameError;
     private boolean trackWithoutGenreError;
-    private int id;
+    //private int id;
+    private Key[] keys;
     private String[] arguments;
 
-    public OutputDataHolder(int id, String[] arguments) {
-        this.id = id;
+    //package-private
+    OutputDataHolder(int id, String[] arguments) {
+        //this.id = id;
         this.arguments = arguments;
     }
 
-    public int getId() {
-        return id;
-    }
+    //public int getId() {
+     //   return id;
+    ///}
 
     public String[] getArguments() {
         return arguments;

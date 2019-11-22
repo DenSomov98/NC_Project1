@@ -1,20 +1,16 @@
 package View;
 
-import DataHolder.OutputDataHolder;
-import Model.Genre;
-import Model.GenreModel;
-import Model.Track;
-import Model.TrackModel;
+import Model.*;
 
 import java.util.LinkedList;
 
 public class View {
-    private TrackModel trackModel;
-    private GenreModel genreModel;
+    //private Tracks trackModel;
+    //private GenreList genreModel;
+    private Model model;
 
-    public View(TrackModel trackModel, GenreModel genreModel){
-        this.trackModel = trackModel;
-        this.genreModel = genreModel;
+    public View(Model model){
+        this.model = model;
     }
 
     public void printHelpMenu(){
@@ -40,14 +36,14 @@ public class View {
     }
 
     public void printListTrack(){
-        LinkedList<Track> linkedListTrack = trackModel.getViewList();
+        LinkedList<Track> linkedListTrack = null;//trackModel.getViewList();
         for(int i = 0; i < linkedListTrack.size(); i++){
             System.out.println(i + ". " + linkedListTrack.get(i).toString());
         }
     }
 
     public void printListGenre(){
-        LinkedList<Genre> linkedListGenre = genreModel.getViewList();
+        LinkedList<Genre> linkedListGenre = null;//genreModel.getViewList();
         for(int i = 0; i < linkedListGenre.size(); i++){
             System.out.println(i + ". " + linkedListGenre.get(i).toString());
         }
