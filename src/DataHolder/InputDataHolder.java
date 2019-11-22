@@ -9,6 +9,9 @@ public class InputDataHolder {
     //private int id = -1;/////////////////////////////////////////
     private ArrayList<String> arguments;
 
+    private InputDataHolder() {isCorrect=false;}
+    public static InputDataHolder makeIncorrect() {return new InputDataHolder();}
+
     public InputDataHolder(boolean isCorrect, ArrayList<Key> keys) {
         this.isCorrect = isCorrect;
         this.keys = (ArrayList<Key>) keys.clone();
@@ -41,7 +44,7 @@ public class InputDataHolder {
     public String[] getArguments() { return arguments.toArray(new String[0]);}
 
     public void print() {
-        System.out.println("incorrect = " + isCorrect);
+        System.out.println("isCorrect = " + isCorrect);
         //System.out.println("ID: " + hasID() + " " + id);
         if(keys!=null)
             for(Key key: keys) {

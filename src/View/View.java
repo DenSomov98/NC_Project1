@@ -1,16 +1,20 @@
 package View;
 
+import DataHolder.InputDataHolder;
+import DataHolder.Key;
 import Model.*;
 
 import java.util.LinkedList;
 
 public class View {
-    //private Tracks trackModel;
-    //private GenreList genreModel;
     private Model model;
 
     public View(Model model){
         this.model = model;
+    }
+
+    public static void showInputError() {
+        System.out.println("Введена некорректная команда, попробуйте снова.");
     }
 
     public void printHelpMenu(){
@@ -53,11 +57,25 @@ public class View {
         if(outputDataHolder.isIndexError()){
             System.out.println("Ошибка! Введен неверный индекс. ");
         }
-        else if(outputDataHolder.isTrackWithoutGenreError()){
+        else if(outputDataHolder.isTrackWithoutGenreWarning()){
             System.out.println("Внимание! Добавлен трек без жанра. ");
         }
         else if(outputDataHolder.isGenreEqualsNameError()){
             System.out.println("Ошибка! Жанр с таким именем уже содержится в списке. ");
         }
+    }
+
+    public void printResult(OutputDataHolder data) {
+        Key[] keys = data.getKeys();
+        switch (keys[0]) {
+            case ADD:
+                if(keys[1]==Key.GENRE)
+                    System.out.println("Жанр добавлен.");
+                else
+                    System.out.println("Трек добавлен");
+        }
+    }
+
+    public void show(InputDataHolder parsed) {
     }
 }

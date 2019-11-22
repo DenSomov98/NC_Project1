@@ -1,36 +1,33 @@
 package Model;
 
 import DataHolder.Key;
-import Model.Genre;
 
 public class OutputDataHolder {
 
     private boolean indexError;
     private boolean genreEqualsNameError;
-    private boolean trackWithoutGenreError;
-    //private int id;
+    private boolean trackWithoutGenreWarning;
     private Key[] keys;
     private String[] arguments;
 
-    //package-private
-    OutputDataHolder(int id, String[] arguments) {
-        //this.id = id;
+    OutputDataHolder(Key[] keys, String[] arguments) {
+        this.keys = keys;
         this.arguments = arguments;
     }
 
-    //public int getId() {
-     //   return id;
-    ///}
+    public Key[] getKeys() {
+        return keys.clone();
+    }
 
     public String[] getArguments() {
-        return arguments;
+        return arguments.clone();
     }
 
     public boolean isIndexError() {
         return indexError;
     }
 
-    public void setIndexError(boolean indexError) {
+    void setIndexError(boolean indexError) {
         this.indexError = indexError;
     }
 
@@ -38,15 +35,18 @@ public class OutputDataHolder {
         return genreEqualsNameError;
     }
 
-    public void setGenreEqualsNameError(boolean genreEqualsNameError) {
+    void setGenreEqualsNameError(boolean genreEqualsNameError) {
         this.genreEqualsNameError = genreEqualsNameError;
     }
 
-    public boolean isTrackWithoutGenreError() {
-        return trackWithoutGenreError;
+    public boolean isTrackWithoutGenreWarning() {
+        return trackWithoutGenreWarning;
     }
 
-    public void setTrackWithoutGenreError(boolean trackWithoutGenreError) {
-        this.trackWithoutGenreError = trackWithoutGenreError;
+    void setTrackWithoutGenreWarning(boolean trackWithoutGenreWarning) {
+        this.trackWithoutGenreWarning = trackWithoutGenreWarning;
     }
+
+    public boolean hasErrors() {return indexError || genreEqualsNameError;}
+    public boolean hasWarnings() {return trackWithoutGenreWarning;}
 }

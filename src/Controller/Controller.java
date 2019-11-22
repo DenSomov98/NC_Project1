@@ -2,6 +2,8 @@ package Controller;
 
 import DataHolder.Key;
 import DataHolder.InputDataHolder;
+import Model.*;
+import View.View;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,10 +11,8 @@ import java.util.StringTokenizer;
 
 public class Controller {
 
-
-    //private TrackList trackModel = new TrackList();
-    //private GenreList genreModel = new GenreList();
-    //private View view = new View(trackModel, genreModel);
+    private Model model = new Model(new TrackList(), new GenreList());
+    private View view = new View(model);
 
     private Key tokenCode(String token) {
         switch (token) {
@@ -41,9 +41,98 @@ public class Controller {
         }
     }
 
-    private InputDataHolder incorrectCommand() { return new InputDataHolder(false, null);}
+    private InputDataHolder incorrectCommand() { return InputDataHolder.makeIncorrect();}
 
-    ////to add 1st arg
+    private InputDataHolder firstIsViewOrRemove(ArrayList<Key> keys, StringTokenizer stringTokenizer,
+                                        ArrayList<String> arguments) {
+        if(stringTokenizer.countTokens()!=2)
+            return incorrectCommand();
+        String token = stringTokenizer.nextToken();
+        Key k = tokenCode(token);
+        keys.add(k);
+        switch (k) {
+            case GENRE:
+            case TRACK:
+                token = stringTokenizer.nextToken();
+                arguments.add(token);
+                int id = -1;
+                try {
+                    id = Integer.parseInt(token);
+                } catch (NumberFormatException ignored) {}
+                return token.equals("all") || k == Key.GENRE || id > 0 && Integer.toString(id).equals(token) ?
+                        new InputDataHolder(true, keys, arguments)
+                        : incorrectCommand();
+            default:
+                return incorrectCommand();
+        }
+    }
+
+    private InputDataHolder firstIsAdd(ArrayList<Key> keys, StringTokenizer stringTokenizer,
+                                        ArrayList<String> arguments) {
+        if(stringTokenizer.countTokens() < 2)
+            return incorrectCommand();
+        String token = stringTokenizer.nextToken();
+        Key k = tokenCode(token);
+        keys.add(k);
+        switch (k) {
+            case GENRE:
+                token = stringTokenizer.nextToken();
+                arguments.add(token);
+                return stringTokenizer.hasMoreTokens() ?
+                        incorrectCommand()
+                        : new InputDataHolder(true, keys, arguments);
+            case TRACK:
+                while (stringTokenizer.hasMoreTokens()) {
+                    token = stringTokenizer.nextToken();
+                    arguments.add(token);
+                }
+                return (arguments.size() < 2 || arguments.size() > 3) ?
+                        incorrectCommand()
+                        : new InputDataHolder(true, keys, arguments);
+            default:
+                return incorrectCommand();
+        }
+    }
+
+    private InputDataHolder firstIsEdit(ArrayList<Key> keys, StringTokenizer stringTokenizer,
+                                       ArrayList<String> arguments) {
+        if(stringTokenizer.countTokens() != 4)
+            return incorrectCommand();
+        String token = stringTokenizer.nextToken();
+        Key k = tokenCode(token);
+        keys.add(k);
+        switch (k) {
+            case GENRE:
+                token = stringTokenizer.nextToken();
+                k = tokenCode(token);
+                if (k != Key.NAME)
+                    return incorrectCommand();
+                keys.add(k);
+                arguments.add(stringTokenizer.nextToken());
+                arguments.add(stringTokenizer.nextToken());
+                return new InputDataHolder(true, keys, arguments);
+
+            case TRACK:
+                token = stringTokenizer.nextToken();
+                k = tokenCode(token);
+                if (k != Key.NAME && k != Key.ARTIST && k != Key.GENRE)
+                    return incorrectCommand();
+                keys.add(k);
+                token = stringTokenizer.nextToken();
+                arguments.add(token);
+                arguments.add(stringTokenizer.nextToken());
+                int id = -1;
+                try {
+                    id = Integer.parseInt(token);
+                } catch (NumberFormatException ignored) {}
+                return Integer.toString(id).equals(token) && id > 0 ?
+                        new InputDataHolder(true, keys, arguments)
+                        : incorrectCommand();
+            default:
+                return incorrectCommand();
+        }
+    }
+
     private InputDataHolder parsing(String command) {
         StringTokenizer stringTokenizer = new StringTokenizer(command, " <>");
         if(!stringTokenizer.hasMoreTokens())
@@ -52,186 +141,61 @@ public class Controller {
         ArrayList<String> arguments = new ArrayList<>(3);
         String token = stringTokenizer.nextToken();
         Key k = tokenCode(token);
+        keys.add(k);
         switch (k) {
-            case VIEW: {
-                keys.add(k);
-                token = stringTokenizer.nextToken();
-                k = tokenCode(token);
-                switch (k) {
-                    case GENRE:
-                    case TRACK:
-                        keys.add(k);
-                        token = stringTokenizer.nextToken();
-                        arguments.add(token);
-                        if (stringTokenizer.hasMoreTokens())
-                            return incorrectCommand();
-                        int id;
-                        try {
+            case VIEW:
 
-                            id = Integer.parseInt(token);
-                        } catch (NumberFormatException e) {
-                            return token.equals("all") ?
-                                    new InputDataHolder(true, keys, arguments)
-                                    : incorrectCommand();
-                        }
-                        return Integer.toString(id).equals(token) && id > 0?
-                                new InputDataHolder(true, keys, arguments)
-                                : incorrectCommand();
-                    default:
-                        return incorrectCommand();
-                }
-            }
-            case ADD: {
-                keys.add(k);
-                token = stringTokenizer.nextToken();
-                k = tokenCode(token);
-                switch (k) {
-                    case GENRE:
-                        keys.add(k);
-                        token = stringTokenizer.nextToken();
-                        arguments.add(token);
-                        return stringTokenizer.hasMoreTokens() ?
-                                incorrectCommand()
-                                : new InputDataHolder(true, keys, arguments);
-                    case TRACK:
-                        keys.add(k);
-                        while (stringTokenizer.hasMoreTokens() && arguments.size() < 3) {
-                            token = stringTokenizer.nextToken();
-                            arguments.add(token);
-                        }
-                        if (arguments.size() < 2 || arguments.size() > 3)
-                            return incorrectCommand();
-                        int id;
-                        if (arguments.size() == 3) {
-                            try {
-                                id = Integer.parseInt(token);
-                            } catch (NumberFormatException e) {
-                                return new InputDataHolder(true, keys, arguments);
-                            }
-                            return Integer.toString(id).equals(token) && id > 0?
-                                    new InputDataHolder(true, keys, arguments)
-                                    : new InputDataHolder(true, keys, arguments);
-                        }
-                        return new InputDataHolder(true, keys, arguments);
-                    default:
-                        return incorrectCommand();
-                }
-            }
-            case EDIT: {
-                keys.add(k);
-                token = stringTokenizer.nextToken();
-                k = tokenCode(token);
-                switch (k) {
-                    case GENRE:
-                        keys.add(k);
-                        token = stringTokenizer.nextToken();
-                        k = tokenCode(token);
-                        if (k != Key.NAME || stringTokenizer.countTokens() != 2)
-                            return incorrectCommand();
-                        keys.add(k);
-                        token = stringTokenizer.nextToken();
-                        arguments.add(token);
-                        arguments.add(stringTokenizer.nextToken());
-                        int id;
-                        try {
-                            id = Integer.parseInt(token);
-                        } catch (NumberFormatException e) {
-                            return new InputDataHolder(true, keys, arguments);
-                        }
-                        return Integer.toString(id).equals(token) && id > 0 ?
-                                new InputDataHolder(true, keys, arguments)
-                                : new InputDataHolder(true, keys, arguments);
-                    case TRACK:
-                        keys.add(k);
-                        token = stringTokenizer.nextToken();
-                        k = tokenCode(token);
-                        if ((k != Key.NAME && k != Key.ARTIST && k != Key.GENRE) || stringTokenizer.countTokens() != 2)
-                            return incorrectCommand();
-                        keys.add(k);
-                        token = stringTokenizer.nextToken();
-                        arguments.add(token);
-                        arguments.add(stringTokenizer.nextToken());
-                        try {
-                            id = Integer.parseInt(token);
-                        } catch (NumberFormatException e) {
-                            return incorrectCommand();
-                        }
-                        return Integer.toString(id).equals(token) && id > 0 ?
-                                new InputDataHolder(true, keys, arguments)
-                                : incorrectCommand();
-                    default:
-                        return incorrectCommand();
-                }
-            }
-            case REMOVE: {
-                keys.add(k);
-                token = stringTokenizer.nextToken();
-                k = tokenCode(token);
-                switch (k) {
-                    case GENRE:
-                    case TRACK:
-                        keys.add(k);
-                        token = stringTokenizer.nextToken();
-                        arguments.add(token);
-                        if (stringTokenizer.hasMoreTokens())
-                            return incorrectCommand();
-                        int id;
-                        try {
-                            id = Integer.parseInt(token);
-                        } catch (NumberFormatException e) {
-                            return token.equals("all") || k == Key.GENRE ?
-                                    new InputDataHolder(true, keys, arguments)
-                                    : incorrectCommand();
-                        }
-                        return Integer.toString(id).equals(token) && id > 0 ?
-                                new InputDataHolder(true, keys, arguments)
-                                : k == Key.GENRE ?
-                                new InputDataHolder(true, keys, arguments)
-                                : incorrectCommand();
-                    default:
-                        return incorrectCommand();
-                }
-            }
-            case HELP:
-            case EXIT: {
+            case REMOVE:
+                return firstIsViewOrRemove(keys, stringTokenizer,arguments);
+
+            case ADD:
+                return firstIsAdd(keys, stringTokenizer, arguments);
+
+            case EDIT:
+                return firstIsEdit(keys, stringTokenizer, arguments);
+
+            case HELP: case EXIT:
                 return stringTokenizer.hasMoreTokens() ?
                         incorrectCommand()
-                        : new InputDataHolder(false, keys);
-            }
+                        : new InputDataHolder(true, keys);
             default:
                 return incorrectCommand();
         }
     }
 
-    /*private String getHelpInfo() {
-        return "Список доступных команд:\n" +
-                "view genre <all> - Вывод всех жанров на экран\n" +
-                "view genre <id> - Вывод жанра по id\n" +
-                "view track <all> - Вывод всех треков на экран\n" +
-                "view track <id> - Вывод трека по id\n" +
-                "add track <name artist genre_name> - Добавление трека с заданными параметрами\n" +
-                "(Жанр с указанным именем должен быть добавлен заранее, иначе трек будет добавлен без жанра)\n" +
-                "add track <name artist> - Добавление трека без жанра (без названия/исполнителя не допускается)\n" +
-                "add genre <name> - Добавление жанра (Дубликаты не допускаются)\n" +
-                "edit genre name <id new_name> Изменение названия жанра по id(отразится на всех его треках)\n" +
-                "edit track name <id new_name> - Изменение названия трека по id\n" +
-                "edit track artist <id new_artist> - Изменение исполнителя трека\n" +
-                "edit track genre <id new_genre_name> - Изменениие жанра трека(также на существующий)\n" +
-                "remove genre <all> - Удаление всех жанров\n" +
-                "remove genre <id> - Удаление жанра по id\n" +
-                "remove track <all> - Удаление всех треков\n" +
-                "remove track <id> - Удаление трека по id\n" +
-                "exit - Выход из программы\n";
-    }*/
-
-    public void execute() {
-        Scanner scanner = new Scanner(System.in);
-        boolean exitPressed = false;
-        while (!exitPressed) {
-            String command = scanner.nextLine();
-            parsing(command).print();
+    private void performData(InputDataHolder parsed) {
+        OutputDataHolder result = model.validate(parsed);
+        if(result.hasErrors())
+            view.printError(result);
+        else {
+            view.execute(result);
+            view.printResult(result);
         }
     }
 
+    public void execute() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String command = scanner.nextLine();
+            InputDataHolder parsed = parsing(command);
+            if(!parsed.isCorrect())
+                View.showInputError();
+            else{
+                Key first = parsed.getKeys()[0];
+                switch (first) {
+                    case EXIT:
+                        return;
+                    case HELP:
+                        view.printHelpMenu();
+                        break;
+                    case VIEW:
+                        view.show(parsed);
+                        break;
+                    default:
+                        performData(parsed);
+                }
+            }
+        }
+    }
 }
 
