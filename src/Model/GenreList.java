@@ -12,7 +12,7 @@ public class GenreList implements Genres{
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (getGenre(command.getArguments()[0]) != null) {
+        if (getGenre(arguments[0]) != null) {
             outputDataHolder.setGenreEqualsNameError(true);
         }
         return outputDataHolder;
@@ -48,7 +48,7 @@ public class GenreList implements Genres{
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (getGenre(command.getArguments()[1]) != null) {
+        if (getGenre(arguments[1]) != null) {
             outputDataHolder.setGenreEqualsNameError(true);
         }
         return outputDataHolder;
