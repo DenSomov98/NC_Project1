@@ -11,8 +11,10 @@ public class GenreModel {
     private LinkedList<Genre> genres;
 
     public OutputDataHolder validate(InputDataHolder holder){
-        OutputDataHolder outputDataHolder = new OutputDataHolder(holder.getID(), holder.getArguments());
-        if(holder.hasID() && (holder.getID() >= genres.size() || holder.getID() < 0))//ошибка индексации
+        int id = Integer.parseInt(holder.getArguments()[0]);
+        String[] arguments = holder.getArguments();
+        OutputDataHolder outputDataHolder = new OutputDataHolder(id, arguments);
+        if(id >= genres.size() || id < 0 || !(Integer.toString(id).equals(arguments[0])));//ошибка индексации
             outputDataHolder.setIndexError(true);
         if(holder.hasArguments()){
             Key[] keys = holder.getKeys();
