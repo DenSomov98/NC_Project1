@@ -59,7 +59,7 @@ public class Controller {
                 try {
                     id = Integer.parseInt(token);
                 } catch (NumberFormatException ignored) {}
-                return token.equals("all") || id > 0 && Integer.toString(id).equals(token) ?
+                return token.equals("all") || id >= 0 && Integer.toString(id).equals(token) ?
                         new InputDataHolder(true, keys, arguments)
                         : incorrectCommand();
             default:
@@ -125,7 +125,7 @@ public class Controller {
                 try {
                     id = Integer.parseInt(token);
                 } catch (NumberFormatException ignored) {}
-                return Integer.toString(id).equals(token) && id > 0 ?
+                return Integer.toString(id).equals(token) && id >= 0 ?
                         new InputDataHolder(true, keys, arguments)
                         : incorrectCommand();
             default:

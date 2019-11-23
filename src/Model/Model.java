@@ -57,6 +57,7 @@ public class Model {
                 id = Integer.parseInt(arguments[0]);
                 Track[] track = new Track[1];
                 track[0] = tracks.getTrack(id);
+                System.out.println(track[0].getName());
                 return track;
             } catch (NumberFormatException ignored) {}
         }
@@ -164,10 +165,13 @@ public class Model {
         switch (keys[0]) {
             case ADD:
                 executeAdd(keys, arguments);
+                break;
             case EDIT:
                 executeEdit(keys, arguments);
+                break;
             case REMOVE:
-
+                executeRemove(keys, arguments);
+                break;
             default:
                 throw new IllegalArgumentException();
         }

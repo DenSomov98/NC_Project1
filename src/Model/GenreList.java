@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class GenreList implements Genres{
 
-    private LinkedList<Genre> genres;
+    private LinkedList<Genre> genres = new LinkedList<Genre>();
 
     public OutputDataHolder validateAddGenre(InputDataHolder command){
         Key[] keys = command.getKeys();

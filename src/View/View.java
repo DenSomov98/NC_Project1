@@ -74,11 +74,13 @@ public class View {
                     System.out.println("Жанр добавлен.");
                 else
                     System.out.println("Трек добавлен. ");
+                break;
             case REMOVE:
                 if(keys[1]==Key.GENRE)
                     System.out.println("Жанр удален.");
                 else
                     System.out.println("Трек удален.");
+                break;
             case EDIT:
                 if(keys[1]==Key.GENRE)
                     System.out.println("Название у выбранного жанра изменено. ");
@@ -88,6 +90,7 @@ public class View {
                     System.out.println("Исполнитель у выбранного трека изменен. ");
                 else
                     System.out.println("Жанр у выбранного трека изменен. ");
+                break;
         }
     }
 

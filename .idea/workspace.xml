@@ -5,6 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/GenreList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/GenreList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/TrackList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/TrackList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/View.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -85,6 +88,7 @@
       <option name="presentableId" value="Default" />
       <updated>1573489818103</updated>
       <workItem from="1574496170875" duration="10341000" />
+      <workItem from="1574550560225" duration="2314000" />
     </task>
     <task id="LOCAL-00001" summary="основа для новой модели">
       <created>1574432592443</created>

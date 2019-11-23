@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 
 public class TrackList implements Tracks {
-    private LinkedList<Track> tracks;
+    private LinkedList<Track> tracks = new LinkedList<Track>();
 
 
     public OutputDataHolder validateAddTrack(InputDataHolder command, Genre genre){
