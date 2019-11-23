@@ -4,23 +4,24 @@ import DataHolder.InputDataHolder;
 
 public interface Genres {
 
-    public OutputDataHolder validateAddGenre(InputDataHolder command);
+    OutputDataHolder validateAddGenre(InputDataHolder command);
 
-    public void addGenre(String name);
+    void addGenre(String name);
 
-    public OutputDataHolder validateRemoveGenre(InputDataHolder command);
+    OutputDataHolder validateRemoveGenre(InputDataHolder command);
 
-    public void removeGenre(int index);
+    void removeGenre(int index);
 
-    public OutputDataHolder validateEditGenre(InputDataHolder command);
+    void removeAllGenres();
 
-    public void editName(int index, String newName);
+    OutputDataHolder validateEditGenre(InputDataHolder command);
 
-    public Genre getGenre(int id);
+    void editName(int index, String newName);
 
-    public Genre getGenre(String name);
+    Genre getGenre(int id);
 
-    public Genre[] getAllGenres();
+    Genre getGenre(String name);
 
-    //public Genre getGenre(String name);  //Перейдет в функционал поиска
+    Genre[] getAllGenres();
+
 }

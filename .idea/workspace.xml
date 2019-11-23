@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4bb8f98-2d80-4bbe-8cae-3988d8edeec2" name="Default Changelist" comment="">
+    <list default="true" id="a4bb8f98-2d80-4bbe-8cae-3988d8edeec2" name="Default Changelist" comment="+execute в Модели&#10;+методы удаления всех элементов&#10;-команды обращения к жанру по имени">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataHolder/InputDataHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataHolder/InputDataHolder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/GenreList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/GenreList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/OutputDataHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/OutputDataHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Genres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Genres.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/TrackList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/TrackList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Tracks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Tracks.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,11 +32,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
+  <component name="ProjectId" id="1U0arXkFNUMCCljQdFbdQbyMMh5" />
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
@@ -85,6 +88,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573489818103</updated>
+      <workItem from="1574496170875" duration="10341000" />
     </task>
     <task id="LOCAL-00001" summary="основа для новой модели">
       <created>1574432592443</created>
@@ -93,15 +97,37 @@
       <option name="project" value="LOCAL" />
       <updated>1574432592443</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Controller готов">
+      <created>1574449017954</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1574449017954</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -109,6 +135,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="основа для новой модели" />
-    <option name="LAST_COMMIT_MESSAGE" value="основа для новой модели" />
+    <MESSAGE value="Controller готов" />
+    <MESSAGE value="+execute в Модели&#10;+методы удаления всех элементов&#10;-команды обращения к жанру по имени" />
+    <option name="LAST_COMMIT_MESSAGE" value="+execute в Модели&#10;+методы удаления всех элементов&#10;-команды обращения к жанру по имени" />
   </component>
 </project>

@@ -78,7 +78,98 @@ public class Model {
         return null;
     }
 
-    /*public void execute(OutputDataHolder ) {
+    private int parseID(String s) {
+        int id;
+        try {
+            id = Integer.parseInt(s);
+        }
+        catch (NumberFormatException e) {throw new IllegalArgumentException();}
+        return id;
+    }
 
-    }*/
+    private void executeAdd(Key[] keys, String[] arguments) {
+        switch (keys[1]) {
+            case GENRE:
+                genres.addGenre(arguments [0]);
+                break;
+            case TRACK:
+                Genre genre = null;
+                if(arguments.length == 3)
+                    genre = genres.getGenre(arguments[2]);
+                tracks.addTrack(arguments[0], arguments[1], genre);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    private void executeEdit(Key[] keys, String[] arguments) {
+        switch (keys[1]) {
+            case GENRE:
+                Genre genre = genres.getGenre(arguments[0]);
+                if(genre == null) {
+                    genre = genres.getGenre(parseID(arguments[0]));
+                }
+                genre.setName(arguments[1]);
+                break;
+            case TRACK:
+                int id = parseID(arguments[0]);
+                switch (keys[2]) {
+                    case NAME:
+                        tracks.editName(id, arguments[1]);
+                        break;
+                    case ARTIST:
+                        tracks.editArtist(id, arguments[1]);
+                        break;
+                    case GENRE:
+                        genre = genres.getGenre(arguments[0]);
+                        if(genre == null) {
+                            genre = genres.getGenre(parseID(arguments[0]));
+                        }
+                        tracks.editGenre(id, genre);
+                        break;
+                    default:
+                        throw new IllegalArgumentException();
+                }
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    private void executeRemove(Key[] keys, String[] arguments) {
+        switch (keys[1]) {
+            case GENRE:
+                if (arguments[0].equals("all"))
+                    genres.removeAllGenres();
+                else
+                    genres.removeGenre(parseID(arguments[0]));
+                break;
+            case TRACK:
+                if (arguments[0].equals("all"))
+                    tracks.removeAllTracks();
+                else
+                    tracks.removeTrack(parseID(arguments[0]));
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    public void execute(OutputDataHolder command) {
+        if(command.hasErrors())
+            throw new IllegalArgumentException();
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        switch (keys[0]) {
+            case ADD:
+                executeAdd(keys, arguments);
+            case EDIT:
+                executeEdit(keys, arguments);
+            case REMOVE:
+
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
 }

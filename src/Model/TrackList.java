@@ -44,6 +44,11 @@ public class TrackList implements Tracks {
     }
 
     @Override
+    public void removeAllTracks(){
+        tracks.clear();
+    }
+
+    @Override
     public void editName(int index, String newName){
         tracks.get(index).setName(newName);
         Collections.sort(tracks);

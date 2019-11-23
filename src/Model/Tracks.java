@@ -4,25 +4,28 @@ import DataHolder.InputDataHolder;
 
 public interface Tracks {
 
-    public OutputDataHolder validateAddTrack(InputDataHolder command, Genre genre);
+    OutputDataHolder validateAddTrack(InputDataHolder command, Genre genre);
 
-    public void addTrack(String name, String artist, Genre genre);
+    void addTrack(String name, String artist, Genre genre);
 
-    public OutputDataHolder validateRemoveTrack(InputDataHolder command);
+    OutputDataHolder validateRemoveTrack(InputDataHolder command);
 
-    public void removeTrack(int index);
+    void removeTrack(int index);
 
-    public void editName(int index, String newName);
+    void removeAllTracks();
 
-    public void editArtist(int index, String newArtist);
+    void editName(int index, String newName);
 
-    public OutputDataHolder validateEditTrack(InputDataHolder command, Genre genre);
+    void editArtist(int index, String newArtist);
 
-    public void editGenre(int index, Genre newGenre);
+    OutputDataHolder validateEditTrack(InputDataHolder command, Genre genre);
 
-    //public void setGenreToNull(String genreName);//////////мб станет не нужен
+    void editGenre(int index, Genre newGenre);
 
-    public Track getTrack(int id);
+    //void setGenreToNull(String genreName);//////////мб станет не нужен
 
-    public Track[] getAllTracks();
+    Track getTrack(int id);
+
+    Track[] getAllTracks();
+
 }

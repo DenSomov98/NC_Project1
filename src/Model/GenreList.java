@@ -41,6 +41,11 @@ public class GenreList implements Genres{
         genres.remove(index);
     }
 
+    @Override
+    public void removeAllGenres(){
+        genres.clear();
+    }
+
     public OutputDataHolder validateEditGenre(InputDataHolder command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();

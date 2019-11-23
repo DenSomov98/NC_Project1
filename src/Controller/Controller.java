@@ -59,7 +59,7 @@ public class Controller {
                 try {
                     id = Integer.parseInt(token);
                 } catch (NumberFormatException ignored) {}
-                return token.equals("all") || k == Key.GENRE || id > 0 && Integer.toString(id).equals(token) ?
+                return token.equals("all") || id > 0 && Integer.toString(id).equals(token) ?
                         new InputDataHolder(true, keys, arguments)
                         : incorrectCommand();
             default:
@@ -168,7 +168,7 @@ public class Controller {
         if(result.hasErrors())
             view.printError(result);
         else {
-            view.execute(result);
+            model.execute(result);
             view.printResult(result);
         }
     }
