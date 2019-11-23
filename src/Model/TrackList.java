@@ -80,7 +80,10 @@ public class TrackList implements Tracks {
     }
 
     @Override
-    public Track getTrack(int id) { return tracks.get(id); }
+    public Track getTrack(int id) {
+        if (id > tracks.size() || id < 0) return null;
+        return tracks.get(id);
+    }
 
     @Override
     public Track[] getAllTracks() { return tracks.toArray(new Track[0]); }

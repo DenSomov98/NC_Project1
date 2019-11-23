@@ -8,8 +8,6 @@ public interface Genres {
 
     public void addGenre(String name);
 
-    public void addGenre(Genre genre);
-
     public OutputDataHolder validateRemoveGenre(InputDataHolder command);
 
     public void removeGenre(int index);

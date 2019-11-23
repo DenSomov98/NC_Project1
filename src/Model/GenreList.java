@@ -19,15 +19,12 @@ public class GenreList implements Genres{
     }
 
     @Override
-    public void addGenre(String name) throws IllegalArgumentException{
-        genres.addLast(getGenre(name));
+    public void addGenre(String name){
+        genres.addLast(new Genre(name));
         Collections.sort(genres);
     }
 
-    @Override
-    public void addGenre(Genre genre){
-        genres.addLast(genre);
-    }
+
 
     public OutputDataHolder validateRemoveGenre(InputDataHolder command){
         Key[] keys = command.getKeys();
@@ -69,6 +66,7 @@ public class GenreList implements Genres{
 
     @Override
     public Genre getGenre(int id) {
+        if (id > genres.size()|| id < 0) return null;
         return genres.get(id);
     }
 
