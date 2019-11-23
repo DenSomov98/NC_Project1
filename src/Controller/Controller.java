@@ -175,11 +175,12 @@ public class Controller {
 
     public void execute() {
         Scanner scanner = new Scanner(System.in);
+        view.printHelpMenu();
         while (true) {
             String command = scanner.nextLine();
             InputDataHolder parsed = parsing(command);
             if(!parsed.isCorrect())
-                View.showInputError();
+                view.showInputError();
             else{
                 Key first = parsed.getKeys()[0];
                 switch (first) {

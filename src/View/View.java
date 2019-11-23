@@ -13,7 +13,7 @@ public class View {
         this.model = model;
     }
 
-    public static void showInputError() {
+    public void showInputError() {
         System.out.println("Введена некорректная команда, попробуйте снова.");
     }
 
@@ -36,20 +36,21 @@ public class View {
         System.out.println("remove genre <id> - Удаление жанра по id ");
         System.out.println("remove track <all> - Удаление всех треков ");
         System.out.println("remove track <id> - Удаление трека по id ");
+        System.out.println("help - Вывод списка доступных команд ");
         System.out.println("exit - Выход из программы ");
     }
 
-    public void printListTrack(){
-        LinkedList<Track> linkedListTrack = null;//trackModel.getViewList();
-        for(int i = 0; i < linkedListTrack.size(); i++){
-            System.out.println(i + ". " + linkedListTrack.get(i).toString());
+    public void printTrack(InputDataHolder command){
+        Track[] arrayTrack = model.viewTrack(command);//trackModel.getViewList();
+        for(int i = 0; i < arrayTrack.length; i++){
+            System.out.println(i + ". " + arrayTrack[i].toString());
         }
     }
 
-    public void printListGenre(){
-        LinkedList<Genre> linkedListGenre = null;//genreModel.getViewList();
-        for(int i = 0; i < linkedListGenre.size(); i++){
-            System.out.println(i + ". " + linkedListGenre.get(i).toString());
+    public void printGenre(InputDataHolder command){
+        Genre[] arrayGenre = model.viewGenre(command);//genreModel.getViewList();
+        for(int i = 0; i < arrayGenre.length; i++){
+            System.out.println(i + ". " + arrayGenre[i].toString());
         }
     }
 
@@ -72,10 +73,31 @@ public class View {
                 if(keys[1]==Key.GENRE)
                     System.out.println("Жанр добавлен.");
                 else
-                    System.out.println("Трек добавлен");
+                    System.out.println("Трек добавлен. ");
+            case REMOVE:
+                if(keys[1]==Key.GENRE)
+                    System.out.println("Жанр удален.");
+                else
+                    System.out.println("Трек удален.");
+            case EDIT:
+                if(keys[1]==Key.GENRE)
+                    System.out.println("Название у выбранного жанра изменено. ");
+                else if(keys[1]==Key.TRACK&&keys[2]==Key.NAME)
+                    System.out.println("Название у выбранного трека изменено. ");
+                else if(keys[1]==Key.TRACK&&keys[2]==Key.ARTIST)
+                    System.out.println("Исполнитель у выбранного трека изменен. ");
+                else
+                    System.out.println("Жанр у выбранного трека изменен. ");
         }
     }
 
     public void show(InputDataHolder parsed) {
+        Key[] keys = parsed.getKeys();
+        switch (keys[1]){
+            case GENRE:
+                printGenre(parsed);
+            case TRACK:
+                printTrack(parsed);
+        }
     }
 }
