@@ -14,11 +14,13 @@ public interface Tracks {
 
     void removeAllTracks();
 
+    OutputDataHolder validateEditByArtistOrNameTrack(InputDataHolder command);
+
     void editName(int index, String newName);
 
     void editArtist(int index, String newArtist);
 
-    OutputDataHolder validateEditTrack(InputDataHolder command, Genre genre);
+    OutputDataHolder validateEditByGenreTrack(InputDataHolder command, Genre genre);
 
     void editGenre(int index, Genre newGenre);
 

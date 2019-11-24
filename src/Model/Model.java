@@ -21,18 +21,23 @@ public class Model {
                     case GENRE:
                         return genres.validateAddGenre(command);
                     case TRACK:
-                        return tracks.validateAddTrack(command, genres.getGenre(command.getArguments()[2]));
+                        Genre genre;
+                        if (command.getArguments().length < 3) genre = null;
+                        else genre = genres.getGenre(command.getArguments()[2]);
+                        return tracks.validateAddTrack(command, genre);//ошибка при добавлении без жанра
                     default:
-                        return null; //?
+                        throw new IllegalArgumentException();//?
                 }
             case EDIT:
                 switch (keys[1]) {
                     case GENRE:
                         return genres.validateAddGenre(command);
                     case TRACK:
-                        return tracks.validateEditTrack(command, genres.getGenre(command.getArguments()[2]));
+                        if (keys[3] == Key.GENRE) return tracks.validateEditByGenreTrack(command, genres.getGenre(command.getArguments()[1]));
+                        else
+                            return tracks.validateEditByArtistOrNameTrack(command);
                     default:
-                        return null; //?
+                        throw new IllegalArgumentException(); //?
                 }
             case REMOVE:
                 switch (keys[1]) {
@@ -41,10 +46,10 @@ public class Model {
                     case TRACK:
                         return tracks.validateRemoveTrack(command);
                     default:
-                        return null; //?
+                        throw new IllegalArgumentException(); //?
                 }
             default:
-                return null; //?
+                throw new IllegalArgumentException(); //?
         }
     }
 

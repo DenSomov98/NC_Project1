@@ -54,17 +54,30 @@ public class TrackList implements Tracks {
         Collections.sort(tracks);
     }
 
+    public OutputDataHolder validateEditByArtistOrNameTrack(InputDataHolder command){
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
+        if(Integer.parseInt(command.getArguments()[0]) > tracks.size() && Integer.parseInt(command.getArguments()[0]) < 0){
+            outputDataHolder.setIndexError(true);
+        }
+        return outputDataHolder;
+    }
+
     @Override
     public void editArtist(int index, String newArtist){
         tracks.get(index).setArtist(newArtist);
     }
 
-    public OutputDataHolder validateEditTrack(InputDataHolder command, Genre genre){
+    public OutputDataHolder validateEditByGenreTrack(InputDataHolder command, Genre genre){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
         if(genre == null){
             outputDataHolder.setTrackWithoutGenreWarning(true);
+        }
+        if(Integer.parseInt(command.getArguments()[0]) > tracks.size() && Integer.parseInt(command.getArguments()[0]) < 0){
+            outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
     }
