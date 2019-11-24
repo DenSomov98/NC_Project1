@@ -50,9 +50,11 @@ public class GenreList implements Genres{
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (getGenre(arguments[1]) != null) {
-            outputDataHolder.setGenreEqualsNameError(true);
+        if (getGenre(arguments[0]) == null) {
+            outputDataHolder.setObjectNotFoundedError(true);
         }
+        else if (Model.parseID(arguments[0]) < 0 && Model.parseID(arguments[0]) > genres.size()) outputDataHolder.setIndexError(true);
+        if (getGenre(arguments[1]) != null) outputDataHolder.setGenreEqualsNameError(true);
         return outputDataHolder;
     }
 

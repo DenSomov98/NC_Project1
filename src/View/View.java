@@ -4,8 +4,6 @@ import DataHolder.InputDataHolder;
 import DataHolder.Key;
 import Model.*;
 
-import java.util.LinkedList;
-
 public class View {
     private Model model;
 
@@ -64,6 +62,9 @@ public class View {
         else if(outputDataHolder.isGenreEqualsNameError()){
             System.out.println("Ошибка! Жанр с таким именем уже содержится в списке. ");
         }
+        else if(outputDataHolder.isObjectNotFoundedError()){
+            System.out.println("Ошибка! Жанр с таким именем не существует. ");
+        }
     }
 
     public void printResult(OutputDataHolder data) {
@@ -77,9 +78,9 @@ public class View {
                 break;
             case REMOVE:
                 if(keys[1]==Key.GENRE)
-                    System.out.println("Жанр удален.");
+                    System.out.println("Жанр(ы) удален(ы).");
                 else
-                    System.out.println("Трек удален.");
+                    System.out.println("Трек(и) удален(ы).");
                 break;
             case EDIT:
                 if(keys[1]==Key.GENRE)
@@ -99,8 +100,10 @@ public class View {
         switch (keys[1]){
             case GENRE:
                 printGenre(parsed);
+                break;
             case TRACK:
                 printTrack(parsed);
+                break;
         }
     }
 }

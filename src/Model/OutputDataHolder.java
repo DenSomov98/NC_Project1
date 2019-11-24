@@ -6,6 +6,7 @@ public class OutputDataHolder {
 
     private boolean indexError;
     private boolean genreEqualsNameError;
+    private boolean objectNotFoundedError;
     private boolean trackWithoutGenreWarning;
     private Key[] keys;
     private String[] arguments;
@@ -21,6 +22,14 @@ public class OutputDataHolder {
 
     public String[] getArguments() {
         return arguments.clone();
+    }
+
+    public boolean isObjectNotFoundedError() {
+        return objectNotFoundedError;
+    }
+
+    public void setObjectNotFoundedError(boolean objectNotFoundedError) {
+        this.objectNotFoundedError = objectNotFoundedError;
     }
 
     public boolean isIndexError() {
@@ -47,6 +56,6 @@ public class OutputDataHolder {
         this.trackWithoutGenreWarning = trackWithoutGenreWarning;
     }
 
-    public boolean hasErrors() {return indexError || genreEqualsNameError;}
+    public boolean hasErrors() {return indexError || genreEqualsNameError || objectNotFoundedError;}
     public boolean hasWarnings() {return trackWithoutGenreWarning;}
 }

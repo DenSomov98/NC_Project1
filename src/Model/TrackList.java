@@ -32,7 +32,7 @@ public class TrackList implements Tracks {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (!command.getArguments()[0].equals("all") && (Integer.parseInt(command.getArguments()[0]) > tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0)){
+        if (!command.getArguments()[0].equals("all") && (Integer.parseInt(command.getArguments()[0]) >= tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0)){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
@@ -58,7 +58,7 @@ public class TrackList implements Tracks {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if(Integer.parseInt(command.getArguments()[0]) > tracks.size() && Integer.parseInt(command.getArguments()[0]) < 0){
+        if(Integer.parseInt(command.getArguments()[0]) > tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
@@ -76,7 +76,7 @@ public class TrackList implements Tracks {
         if(genre == null){
             outputDataHolder.setTrackWithoutGenreWarning(true);
         }
-        if(Integer.parseInt(command.getArguments()[0]) > tracks.size() && Integer.parseInt(command.getArguments()[0]) < 0){
+        if(Integer.parseInt(command.getArguments()[0]) > tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
@@ -87,13 +87,17 @@ public class TrackList implements Tracks {
         tracks.get(index).setGenre(newGenre);
     }
 
-    //под вопросом
-    public void setGenreToNull(String genreName){
-        Genre oldGenre = null;// genreModel.getGenre(genreName);
-        if(oldGenre != null) {
+    public void setGenreToNull(Genre genre){
+        if (genre != null){
             for (Track track : tracks) {
-                if (track.getGenre() == oldGenre) track.setGenre(null);
+                if (track.getGenre() == genre) track.setGenre(null);
             }
+        }
+    }
+
+    public void setAllGenreToNull(){
+        for (Track track : tracks) {
+             track.setGenre(null);
         }
     }
 

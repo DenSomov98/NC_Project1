@@ -33,7 +33,7 @@ public class Model {
                     case GENRE:
                         return genres.validateEditGenre(command);
                     case TRACK:
-                        if (keys[3] == Key.GENRE) return tracks.validateEditByGenreTrack(command, genres.getGenre(command.getArguments()[1]));
+                        if (keys[2] == Key.GENRE) return tracks.validateEditByGenreTrack(command, genres.getGenre(command.getArguments()[1]));
                         else
                             return tracks.validateEditByArtistOrNameTrack(command);
                     default:
@@ -84,12 +84,12 @@ public class Model {
         return null;
     }
 
-    private int parseID(String s) {
-        int id;
+    static int parseID(String s) {
+        int id = -1;
         try {
             id = Integer.parseInt(s);
         }
-        catch (NumberFormatException e) {throw new IllegalArgumentException();}
+        catch (NumberFormatException ignored) {}
         return id;
     }
 
@@ -100,8 +100,14 @@ public class Model {
                 break;
             case TRACK:
                 Genre genre = null;
-                if(arguments.length == 3)
+                int id;
+                if(arguments.length == 3) {
                     genre = genres.getGenre(arguments[2]);
+                    id = parseID(arguments[2]);
+                    if (genre == null && id >= 0) {
+                        genre = genres.getGenre(id);
+                    }
+                }
                 tracks.addTrack(arguments[0], arguments[1], genre);
                 break;
             default:
@@ -112,14 +118,19 @@ public class Model {
     private void executeEdit(Key[] keys, String[] arguments) {
         switch (keys[1]) {
             case GENRE:
-                Genre genre = genres.getGenre(arguments[0]);
-                if(genre == null) {
-                    genre = genres.getGenre(parseID(arguments[0]));
+                Genre genre = null;
+                int id;
+                if(arguments.length == 3) {
+                    genre = genres.getGenre(arguments[2]);
+                    id = parseID(arguments[2]);
+                    if (genre == null && id >= 0) {
+                        genre = genres.getGenre(id);
+                    }
                 }
-                genre.setName(arguments[1]);
+                tracks.addTrack(arguments[0], arguments[1], genre);
                 break;
             case TRACK:
-                int id = parseID(arguments[0]);
+                id = parseID(arguments[0]);
                 switch (keys[2]) {
                     case NAME:
                         tracks.editName(id, arguments[1]);
@@ -146,10 +157,14 @@ public class Model {
     private void executeRemove(Key[] keys, String[] arguments) {
         switch (keys[1]) {
             case GENRE:
-                if (arguments[0].equals("all"))
+                if (arguments[0].equals("all")) {
+                    tracks.setAllGenreToNull();
                     genres.removeAllGenres();
-                else
+                }
+                else {
+                    tracks.setGenreToNull(genres.getGenre(parseID(arguments[0])));
                     genres.removeGenre(parseID(arguments[0]));
+                }
                 break;
             case TRACK:
                 if (arguments[0].equals("all"))

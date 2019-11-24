@@ -24,7 +24,9 @@ public interface Tracks {
 
     void editGenre(int index, Genre newGenre);
 
-    //void setGenreToNull(String genreName);//////////мб станет не нужен
+    void setGenreToNull(Genre genre);
+
+    void setAllGenreToNull();
 
     Track getTrack(int id);
 
