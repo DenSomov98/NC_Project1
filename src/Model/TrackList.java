@@ -76,7 +76,7 @@ public class TrackList implements Tracks {
         if(genre == null){
             outputDataHolder.setTrackWithoutGenreWarning(true);
         }
-        if(Integer.parseInt(command.getArguments()[0]) > tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0){
+        if(Integer.parseInt(command.getArguments()[0]) >= tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
