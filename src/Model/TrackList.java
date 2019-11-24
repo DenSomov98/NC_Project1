@@ -32,7 +32,7 @@ public class TrackList implements Tracks {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (!command.getArguments()[0].equals("all") || (Integer.parseInt(command.getArguments()[0]) > tracks.size() && Integer.parseInt(command.getArguments()[0]) < 0)){
+        if (!command.getArguments()[0].equals("all") && (Integer.parseInt(command.getArguments()[0]) > tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0)){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;

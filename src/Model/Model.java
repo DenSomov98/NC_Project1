@@ -31,7 +31,7 @@ public class Model {
             case EDIT:
                 switch (keys[1]) {
                     case GENRE:
-                        return genres.validateAddGenre(command);
+                        return genres.validateEditGenre(command);
                     case TRACK:
                         if (keys[3] == Key.GENRE) return tracks.validateEditByGenreTrack(command, genres.getGenre(command.getArguments()[1]));
                         else

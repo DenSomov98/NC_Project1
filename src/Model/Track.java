@@ -38,6 +38,7 @@ public class Track implements Comparable<Track> {
     }
 
     public String toString(){
+        if (genre == null) return name+":"+" "+artist+","+" "+"жанр отсутствует";
         return name+":"+" "+artist+","+" "+genre.getName();
     }
 
