@@ -24,6 +24,8 @@ public class Controller {
                 return Key.EDIT;
             case "remove":
                 return Key.REMOVE;
+            case "find":
+                return Key.FIND;
             case "track":
                 return Key.TRACK;
             case "genre":
@@ -133,6 +135,25 @@ public class Controller {
         }
     }
 
+    private InputDataHolder firstIsFind(ArrayList<Key> keys, StringTokenizer stringTokenizer,
+                                        ArrayList<String> arguments) {
+        if (stringTokenizer.countTokens() != 4)
+            return incorrectCommand();
+        String token = stringTokenizer.nextToken();
+        Key k = tokenCode(token);
+        keys.add(k);
+        switch (k) {
+
+            case TRACK:
+                for (int i = 0; i < 3; i++) {
+                    arguments.add(stringTokenizer.nextToken());
+                }
+                return new InputDataHolder(true, keys, arguments);
+            default:
+                return incorrectCommand();
+        }
+    }
+
     private InputDataHolder parsing(String command) {
         StringTokenizer stringTokenizer = new StringTokenizer(command, " <>");
         if(!stringTokenizer.hasMoreTokens())
@@ -153,6 +174,9 @@ public class Controller {
 
             case EDIT:
                 return firstIsEdit(keys, stringTokenizer, arguments);
+
+            case FIND:
+                return firstIsFind(keys, stringTokenizer, arguments);
 
             case HELP: case EXIT:
                 return stringTokenizer.hasMoreTokens() ?
@@ -191,6 +215,9 @@ public class Controller {
                         break;
                     case VIEW:
                         view.show(parsed);
+                        break;
+                    case FIND:
+                        view.printSearchResults(parsed);
                         break;
                     default:
                         performData(parsed);

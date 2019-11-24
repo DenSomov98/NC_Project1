@@ -24,6 +24,8 @@ public interface Tracks {
 
     void editGenre(int index, Genre newGenre);
 
+    Track[] find(String name, String artist, String genre);
+
     void setGenreToNull(Genre genre);
 
     void setAllGenreToNull();

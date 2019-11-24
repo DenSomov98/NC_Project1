@@ -42,6 +42,16 @@ public class Track implements Comparable<Track> {
         return name+":"+" "+artist+","+" "+genre.getName();
     }
 
+    public boolean searchCompare(String name, String artist, String genre) {
+        if(!this.name.equals(name) && !name.equals("*"))
+            return false;
+        if(!this.artist.equals(artist) && !artist.equals("*"))
+            return false;
+        if(this.genre != null && !this.genre.getName().equals(genre) && !genre.equals("*"))
+            return false;
+        return true;
+    }
+
     public int compareTo(Track track){
         return name.compareTo(track.getName());
     }

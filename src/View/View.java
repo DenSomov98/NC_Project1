@@ -52,6 +52,13 @@ public class View {
         }
     }
 
+    public void printSearchResults(InputDataHolder command) {
+        Track[] result = model.findTracks(command);
+        for(Track track : result) {
+            System.out.println(track.toString());
+        }
+    }
+
     public void printError(OutputDataHolder outputDataHolder){
         if(outputDataHolder.isIndexError()){
             System.out.println("Ошибка! Введен неверный индекс. ");

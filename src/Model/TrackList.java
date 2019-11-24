@@ -58,7 +58,7 @@ public class TrackList implements Tracks {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if(Integer.parseInt(command.getArguments()[0]) > tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0){
+        if(Integer.parseInt(command.getArguments()[0]) >= tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
@@ -85,6 +85,16 @@ public class TrackList implements Tracks {
     @Override
     public void editGenre(int index, Genre newGenre){
         tracks.get(index).setGenre(newGenre);
+    }
+
+    @Override
+    public Track[] find(String name, String artist, String genre) {
+        LinkedList<Track> result = new LinkedList<>();
+        for(Track track : tracks) {
+            if(track.searchCompare(name, artist, genre))
+                result.add(track);
+        }
+        return result.toArray(new Track[0]);
     }
 
     public void setGenreToNull(Genre genre){

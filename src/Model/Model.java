@@ -55,7 +55,7 @@ public class Model {
 
     public Track[] viewTrack(InputDataHolder command) {
         String[] arguments = command.getArguments();
-        int id = -1;
+        int id;
         if (arguments[0].equals("all")) return tracks.getAllTracks();
         else {
             id = parseID(arguments[0]);
@@ -68,7 +68,7 @@ public class Model {
 
     public Genre[] viewGenre(InputDataHolder command) {
         String[] arguments = command.getArguments();
-        int id = -1;
+        int id;
         if (arguments[0].equals("all")) return genres.getAllGenres();
         else {
             id = parseID(arguments[0]);
@@ -77,6 +77,11 @@ public class Model {
                     new Genre[0]
                     :new Genre[]{genre};
         }
+    }
+
+    public Track[] findTracks(InputDataHolder command) {
+        String[] args = command.getArguments();
+        return tracks.find(args[0], args[1], args[2]);
     }
 
     static int parseID(String s) {
