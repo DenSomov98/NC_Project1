@@ -103,7 +103,7 @@ public class TrackList implements Tracks {
 
     @Override
     public Track getTrack(int id) {
-        if (id > tracks.size() || id < 0) return null;
+        if (id >= tracks.size() || id < 0) return null;
         return tracks.get(id);
     }
 

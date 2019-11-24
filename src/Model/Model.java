@@ -58,15 +58,12 @@ public class Model {
         int id = -1;
         if (arguments[0].equals("all")) return tracks.getAllTracks();
         else {
-            try {
-                id = Integer.parseInt(arguments[0]);
-                Track[] track = new Track[1];
-                track[0] = tracks.getTrack(id);
-                System.out.println(track[0].getName());
-                return track;
-            } catch (NumberFormatException ignored) {}
+            id = parseID(arguments[0]);
+            Track track = tracks.getTrack(id);
+            return track == null ?
+                    new Track[0]
+                    :new Track[]{track};
         }
-        return null;
     }
 
     public Genre[] viewGenre(InputDataHolder command) {
@@ -74,14 +71,12 @@ public class Model {
         int id = -1;
         if (arguments[0].equals("all")) return genres.getAllGenres();
         else {
-            try {
-                id = Integer.parseInt(arguments[0]);
-                Genre[] genre = new Genre[1];
-                genre[0] = genres.getGenre(id);
-                return genre;
-            } catch (NumberFormatException ignored) {}
+            id = parseID(arguments[0]);
+            Genre genre = genres.getGenre(id);
+            return genre == null ?
+                    new Genre[0]
+                    :new Genre[]{genre};
         }
-        return null;
     }
 
     static int parseID(String s) {

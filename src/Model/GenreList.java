@@ -73,7 +73,7 @@ public class GenreList implements Genres{
 
     @Override
     public Genre getGenre(int id) {
-        if (id > genres.size()|| id < 0) return null;
+        if (id >= genres.size()|| id < 0) return null;
         return genres.get(id);
     }
 

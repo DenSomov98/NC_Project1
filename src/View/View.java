@@ -39,14 +39,14 @@ public class View {
     }
 
     public void printTrack(InputDataHolder command){
-        Track[] arrayTrack = model.viewTrack(command);//trackModel.getViewList();
+        Track[] arrayTrack = model.viewTrack(command);
         for(int i = 0; i < arrayTrack.length; i++){
             System.out.println(i + ". " + arrayTrack[i].toString());
         }
     }
 
     public void printGenre(InputDataHolder command){
-        Genre[] arrayGenre = model.viewGenre(command);//genreModel.getViewList();
+        Genre[] arrayGenre = model.viewGenre(command);
         for(int i = 0; i < arrayGenre.length; i++){
             System.out.println(i + ". " + arrayGenre[i].toString());
         }
