@@ -72,6 +72,9 @@ public class View {
         else if(outputDataHolder.isObjectNotFoundedError()){
             System.out.println("Ошибка! Жанр с таким именем не существует. ");
         }
+        else if(outputDataHolder.isFileError()) {
+            System.out.println("Ошибка при работе с файлом!");
+        }
     }
 
     public void printResult(OutputDataHolder data) {
@@ -100,6 +103,12 @@ public class View {
                     System.out.println("Жанр у выбранного трека изменен. ");
                 break;
         }
+        showWarnings(data);
+    }
+
+    private void showWarnings(OutputDataHolder data) {
+        if(data.isTrackWithoutGenreWarning())
+            System.out.println("Внимание, трек добавлен без жанра!");
     }
 
     public void show(InputDataHolder parsed) {

@@ -8,6 +8,7 @@ public class OutputDataHolder {
     private boolean genreEqualsNameError;
     private boolean objectNotFoundedError;
     private boolean trackWithoutGenreWarning;
+    private boolean fileError;
     private Key[] keys;
     private String[] arguments;
 
@@ -47,6 +48,10 @@ public class OutputDataHolder {
     void setGenreEqualsNameError(boolean genreEqualsNameError) {
         this.genreEqualsNameError = genreEqualsNameError;
     }
+
+    public boolean isFileError() {return fileError;}
+
+    void setFileError(boolean fileError) {this.fileError = fileError;}
 
     public boolean isTrackWithoutGenreWarning() {
         return trackWithoutGenreWarning;

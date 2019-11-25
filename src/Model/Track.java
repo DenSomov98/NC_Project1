@@ -1,13 +1,16 @@
 package Model;
 
+import java.io.Serializable;
 
-public class Track implements Comparable<Track> {
+public class Track implements Comparable<Track>, Serializable {
 
     private String name;
     private String artist;
-    private Genre genre;
+    private String genre;
 
-    public Track(String name, String artist, Genre genre) {
+    public Track() {}
+
+    public Track(String name, String artist, String genre) {
         this.name = name;
         this.artist = artist;
         this.genre = genre;
@@ -29,17 +32,17 @@ public class Track implements Comparable<Track> {
         this.artist = artist;
     }
 
-    public Genre getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
     public String toString(){
         if (genre == null) return name+":"+" "+artist+","+" "+"жанр отсутствует";
-        return name+":"+" "+artist+","+" "+genre.getName();
+        return name+":"+" "+artist+","+" "+genre;
     }
 
     public boolean searchCompare(String name, String artist, String genre) {
@@ -47,12 +50,16 @@ public class Track implements Comparable<Track> {
             return false;
         if(!this.artist.equals(artist) && !artist.equals("*"))
             return false;
-        if(this.genre == null || !this.genre.getName().equals(genre) && !genre.equals("*"))
+        if(this.genre == null || !this.genre.equals(genre) && !genre.equals("*"))
             return false;
         return true;
     }
 
     public int compareTo(Track track){
-        return name.compareTo(track.getName());
+        return name.compareTo(track.name) == 0 ?
+                artist.compareTo(track.artist) == 0 ?
+                genre.compareTo(track.genre)
+                : artist.compareTo(track.artist)
+                : name.compareTo(track.name);
     }
 }

@@ -1,7 +1,11 @@
 package Model;
 
-public class Genre implements Comparable<Genre> {
+import java.io.Serializable;
+
+public class Genre implements Comparable<Genre>, Serializable {
     private String name;
+
+    public Genre() {}
 
     public Genre(String name) {
         this.name = name;

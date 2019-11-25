@@ -16,12 +16,14 @@ public interface Genres {
 
     OutputDataHolder validateEditGenre(InputDataHolder command);
 
-    void editName(int index, String newName);
+    void editName(String genre, String newName);
 
-    Genre getGenre(int id);
+    Genre getGenre(String genre);
 
-    Genre getGenre(String name);
+    Genre findGenre(String name);
 
     Genre[] getAllGenres();
+
+    void addReadGenres(Genre[] genres);
 
 }

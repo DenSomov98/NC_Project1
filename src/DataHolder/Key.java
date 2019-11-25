@@ -6,6 +6,8 @@ public enum Key {
         EDIT,
         REMOVE,
         FIND,
+        SAVE,
+        LOAD,
         TRACK,
         GENRE,
         NAME,

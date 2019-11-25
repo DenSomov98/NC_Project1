@@ -1,12 +1,16 @@
 package Model;
 
 import DataHolder.*;
+
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 
-public class GenreList implements Genres{
+public class GenreList implements Genres, Serializable {
 
     private LinkedList<Genre> genres = new LinkedList<Genre>();
+
+    public GenreList () {}
 
     public OutputDataHolder validateAddGenre(InputDataHolder command){
         Key[] keys = command.getKeys();
@@ -30,7 +34,7 @@ public class GenreList implements Genres{
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (!command.getArguments()[0].equals("all") || (Integer.parseInt(command.getArguments()[0]) > genres.size() && Integer.parseInt(command.getArguments()[0]) < 0)){
+        if (!arguments[0].equals("all") && getGenre(arguments[0]) == null){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
@@ -50,35 +54,46 @@ public class GenreList implements Genres{
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (getGenre(arguments[0]) == null) {
-            outputDataHolder.setObjectNotFoundedError(true);
-        }
-        else if (Model.parseID(arguments[0]) < 0 && Model.parseID(arguments[0]) > genres.size()) outputDataHolder.setIndexError(true);
-        if (getGenre(arguments[1]) != null) outputDataHolder.setGenreEqualsNameError(true);
+        Genre genre = getGenre(arguments[0]);
+        if (genre == null) outputDataHolder.setObjectNotFoundedError(true);
+        if (findGenre(arguments[1]) != null) outputDataHolder.setGenreEqualsNameError(true);
         return outputDataHolder;
     }
 
     @Override
-    public void editName(int index, String newName){
-        genres.get(index).setName(newName);
+    public void editName(String genre, String newName){
+        getGenre(genre).setName(newName);
         Collections.sort(genres);
     }
 
-    public Genre getGenre(String name){
-        for (Genre genre : genres) {
-            if (genre.getName().equals(name))return genre;
+    public Genre getGenre(String genre){
+        for (Genre igenre : genres) {
+            if (igenre.getName().equals(genre))return igenre;
+        }
+        int id = Model.parseID(genre);
+        if (id >= genres.size()|| id < 0) return null;
+        return genres.get(id);
+    }
+
+    public Genre findGenre(String name) {
+        for(Genre genre : genres) {
+            if(genre.getName().equals(name))
+                return genre;
         }
         return null;
     }
 
     @Override
-    public Genre getGenre(int id) {
-        if (id >= genres.size()|| id < 0) return null;
-        return genres.get(id);
+    public Genre[] getAllGenres() {
+        return genres.toArray(new Genre[0]);
     }
 
     @Override
-    public Genre[] getAllGenres() {
-        return genres.toArray(new Genre[0]);
+    public void addReadGenres(Genre[] genres) {
+        for(Genre genre : genres) {
+            if(findGenre(genre.getName()) == null)
+                this.genres.add(genre);
+        }
+        Collections.sort(this.genres);
     }
 }

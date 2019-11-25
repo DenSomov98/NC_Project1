@@ -3,11 +3,15 @@ package Model;
 import DataHolder.InputDataHolder;
 import DataHolder.Key;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.*;
+
 public class Model {
     private Tracks tracks;
     private Genres genres;
 
-    public Model(Tracks tracks, Genres genres) {
+    public Model(TrackList tracks, Genres genres) {
         this.tracks = tracks;
         this.genres = genres;
     }
@@ -21,10 +25,7 @@ public class Model {
                     case GENRE:
                         return genres.validateAddGenre(command);
                     case TRACK:
-                        Genre genre;
-                        if (command.getArguments().length < 3) genre = null;
-                        else genre = genres.getGenre(command.getArguments()[2]);
-                        return tracks.validateAddTrack(command, genre);//ошибка при добавлении без жанра
+                        return tracks.validateAddTrack(command);//ошибка при добавлении без жанра
                     default:
                         throw new IllegalArgumentException();//?
                 }
@@ -33,7 +34,7 @@ public class Model {
                     case GENRE:
                         return genres.validateEditGenre(command);
                     case TRACK:
-                        if (keys[2] == Key.GENRE) return tracks.validateEditByGenreTrack(command, genres.getGenre(command.getArguments()[1]));
+                        if (keys[2] == Key.GENRE) return tracks.validateEditByGenreTrack(command);
                         else
                             return tracks.validateEditByArtistOrNameTrack(command);
                     default:
@@ -48,6 +49,22 @@ public class Model {
                     default:
                         throw new IllegalArgumentException(); //?
                 }
+            case SAVE:
+                OutputDataHolder result = new OutputDataHolder(command.getKeys(), command.getArguments());
+                try {
+                    new FileOutputStream(command.getArguments()[0]).close();
+                } catch (IOException e) {
+                    result.setFileError(true);
+                }
+                return result;
+            case LOAD:
+                result = new OutputDataHolder(command.getKeys(), command.getArguments());
+                try {
+                    new FileInputStream(command.getArguments()[0]).close();
+                } catch (IOException e) {
+                    result.setFileError(true);
+                }
+                return result;
             default:
                 throw new IllegalArgumentException(); //?
         }
@@ -68,11 +85,9 @@ public class Model {
 
     public Genre[] viewGenre(InputDataHolder command) {
         String[] arguments = command.getArguments();
-        int id;
         if (arguments[0].equals("all")) return genres.getAllGenres();
         else {
-            id = parseID(arguments[0]);
-            Genre genre = genres.getGenre(id);
+            Genre genre = genres.getGenre(arguments[0]);
             return genre == null ?
                     new Genre[0]
                     :new Genre[]{genre};
@@ -90,47 +105,42 @@ public class Model {
             id = Integer.parseInt(s);
         }
         catch (NumberFormatException ignored) {}
-        return id;
+        return Integer.toString(id).equals(s) ? id : -1;
     }
 
-    private void executeAdd(Key[] keys, String[] arguments) {
+    private void executeAdd(OutputDataHolder command) {
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
         switch (keys[1]) {
             case GENRE:
                 genres.addGenre(arguments [0]);
                 break;
             case TRACK:
-                Genre genre = null;
-                int id;
+                String genreName = null;
                 if(arguments.length == 3) {
-                    genre = genres.getGenre(arguments[2]);
-                    id = parseID(arguments[2]);
-                    if (genre == null && id >= 0) {
-                        genre = genres.getGenre(id);
-                    }
+                    Genre genre = genres.getGenre(arguments[2]);
+                    if(genre != null)
+                        genreName = genre.getName();
                 }
-                tracks.addTrack(arguments[0], arguments[1], genre);
+                if(genreName == null)
+                    command.setTrackWithoutGenreWarning(true);
+                tracks.addTrack(arguments[0], arguments[1], genreName);
                 break;
             default:
                 throw new IllegalArgumentException();
         }
     }
 
-    private void executeEdit(Key[] keys, String[] arguments) {
+    private void executeEdit(OutputDataHolder command) {
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
         switch (keys[1]) {
             case GENRE:
-                Genre genre = null;
-                int id;
-                if(arguments.length == 3) {
-                    genre = genres.getGenre(arguments[2]);
-                    id = parseID(arguments[2]);
-                    if (genre == null && id >= 0) {
-                        genre = genres.getGenre(id);
-                    }
-                }
-                tracks.addTrack(arguments[0], arguments[1], genre);
+                genres.editName(arguments[0], arguments[1]);
+                tracks.editGenreName(arguments[0], arguments[1]);
                 break;
             case TRACK:
-                id = parseID(arguments[0]);
+                int id = parseID(arguments[0]);
                 switch (keys[2]) {
                     case NAME:
                         tracks.editName(id, arguments[1]);
@@ -139,11 +149,11 @@ public class Model {
                         tracks.editArtist(id, arguments[1]);
                         break;
                     case GENRE:
-                        genre = genres.getGenre(arguments[0]);
-                        if(genre == null) {
-                            genre = genres.getGenre(parseID(arguments[0]));
-                        }
-                        tracks.editGenre(id, genre);
+                        Genre genre = genres.getGenre(arguments[1]);
+                        String newGenre = genre == null ? null : genre.getName();
+                        if(newGenre == null)
+                            command.setTrackWithoutGenreWarning(true);
+                        tracks.editGenre(id, newGenre);
                         break;
                     default:
                         throw new IllegalArgumentException();
@@ -154,7 +164,9 @@ public class Model {
         }
     }
 
-    private void executeRemove(Key[] keys, String[] arguments) {
+    private void executeRemove(OutputDataHolder command) {
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
         switch (keys[1]) {
             case GENRE:
                 if (arguments[0].equals("all")) {
@@ -162,7 +174,7 @@ public class Model {
                     genres.removeAllGenres();
                 }
                 else {
-                    tracks.setGenreToNull(genres.getGenre(parseID(arguments[0])));
+                    tracks.setGenreToNull(genres.getGenre(arguments[0]).getName());
                     genres.removeGenre(parseID(arguments[0]));
                 }
                 break;
@@ -184,16 +196,48 @@ public class Model {
         String[] arguments = command.getArguments();
         switch (keys[0]) {
             case ADD:
-                executeAdd(keys, arguments);
+                executeAdd(command);
                 break;
             case EDIT:
-                executeEdit(keys, arguments);
+                executeEdit(command);
                 break;
             case REMOVE:
-                executeRemove(keys, arguments);
+                executeRemove(command);
+                break;
+            case SAVE:
+                saveIntoFile(arguments[0]);
+                break;
+            case LOAD:
+                loadFromFile(arguments[0]);
                 break;
             default:
                 throw new IllegalArgumentException();
         }
+    }
+
+    private void saveIntoFile(String filePath) {
+        XMLEncoder encoder= null;
+        try {
+            encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filePath)));
+        } catch (FileNotFoundException e) {
+            throw new IllegalArgumentException();
+        }
+        encoder.writeObject(tracks.getAllTracks());
+        encoder.writeObject(genres.getAllGenres());
+        encoder.close();
+    }
+
+    private void loadFromFile(String filePath) {
+        XMLDecoder decoder = null;
+        try {
+            decoder = decoder=new XMLDecoder(new BufferedInputStream(new FileInputStream(filePath)));
+        } catch (FileNotFoundException e) {
+            throw new IllegalArgumentException();
+        }
+        Track[] tracks = (Track[]) decoder.readObject();
+        Genre[] genres = (Genre[]) decoder.readObject();
+        decoder.close();
+        this.genres.addReadGenres(genres);
+        this.tracks.addReadTracks(tracks);
     }
 }

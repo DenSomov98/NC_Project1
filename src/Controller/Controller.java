@@ -26,6 +26,10 @@ public class Controller {
                 return Key.REMOVE;
             case "find":
                 return Key.FIND;
+            case "save":
+                return Key.SAVE;
+            case "load":
+                return Key.LOAD;
             case "track":
                 return Key.TRACK;
             case "genre":
@@ -177,6 +181,14 @@ public class Controller {
 
             case FIND:
                 return firstIsFind(keys, stringTokenizer, arguments);
+
+            case SAVE: case LOAD:
+                if( stringTokenizer.countTokens() != 1 )
+                 return incorrectCommand();
+                else {
+                    arguments.add(stringTokenizer.nextToken());
+                    return new InputDataHolder(true, keys, arguments);
+                }
 
             case HELP: case EXIT:
                 return stringTokenizer.hasMoreTokens() ?

@@ -3,26 +3,28 @@ package Model;
 
 import DataHolder.*;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 
 
-public class TrackList implements Tracks {
+public class TrackList implements Tracks, Serializable {
     private LinkedList<Track> tracks = new LinkedList<Track>();
 
+    public TrackList () {}
 
-    public OutputDataHolder validateAddTrack(InputDataHolder command, Genre genre){
+    public OutputDataHolder validateAddTrack(InputDataHolder command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (command.getArguments().length < 3 || genre == null) {
+        if (command.getArguments().length < 3 || arguments[2] == null) {
             outputDataHolder.setTrackWithoutGenreWarning(true);
         }
         return outputDataHolder;
     }
 
     @Override
-    public void addTrack(String name, String artist, Genre genre){
+    public void addTrack(String name, String artist, String genre){
         Track newTrack = new Track(name, artist, genre);
         tracks.addLast(newTrack);
         Collections.sort(tracks);
@@ -54,6 +56,15 @@ public class TrackList implements Tracks {
         Collections.sort(tracks);
     }
 
+    @Override
+    public void editGenreName(String oldName, String newName){
+        for(Track track : tracks) {
+            if(track.getGenre().equals(oldName))
+                track.setGenre(newName);
+        }
+        Collections.sort(tracks);
+    }
+
     public OutputDataHolder validateEditByArtistOrNameTrack(InputDataHolder command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
@@ -67,13 +78,14 @@ public class TrackList implements Tracks {
     @Override
     public void editArtist(int index, String newArtist){
         tracks.get(index).setArtist(newArtist);
+        Collections.sort(tracks);
     }
 
-    public OutputDataHolder validateEditByGenreTrack(InputDataHolder command, Genre genre){
+    public OutputDataHolder validateEditByGenreTrack(InputDataHolder command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if(genre == null){
+        if(arguments[1] == null){
             outputDataHolder.setTrackWithoutGenreWarning(true);
         }
         if(Integer.parseInt(command.getArguments()[0]) >= tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0){
@@ -83,7 +95,7 @@ public class TrackList implements Tracks {
     }
 
     @Override
-    public void editGenre(int index, Genre newGenre){
+    public void editGenre(int index, String newGenre){
         tracks.get(index).setGenre(newGenre);
     }
 
@@ -97,10 +109,10 @@ public class TrackList implements Tracks {
         return result.toArray(new Track[0]);
     }
 
-    public void setGenreToNull(Genre genre){
+    public void setGenreToNull(String genre){
         if (genre != null){
             for (Track track : tracks) {
-                if (track.getGenre() == genre) track.setGenre(null);
+                if (track.getGenre().equals(genre)) track.setGenre(null);
             }
         }
     }
@@ -119,4 +131,11 @@ public class TrackList implements Tracks {
 
     @Override
     public Track[] getAllTracks() { return tracks.toArray(new Track[0]); }
+
+    @Override
+    public void addReadTracks(Track[] tracks) {
+        for(Track track : tracks)
+            this.tracks.add(track);
+        Collections.sort(this.tracks);
+    }
 }

@@ -4,9 +4,9 @@ import DataHolder.InputDataHolder;
 
 public interface Tracks {
 
-    OutputDataHolder validateAddTrack(InputDataHolder command, Genre genre);
+    OutputDataHolder validateAddTrack(InputDataHolder command);
 
-    void addTrack(String name, String artist, Genre genre);
+    void addTrack(String name, String artist, String genre);
 
     OutputDataHolder validateRemoveTrack(InputDataHolder command);
 
@@ -20,13 +20,13 @@ public interface Tracks {
 
     void editArtist(int index, String newArtist);
 
-    OutputDataHolder validateEditByGenreTrack(InputDataHolder command, Genre genre);
+    OutputDataHolder validateEditByGenreTrack(InputDataHolder command);
 
-    void editGenre(int index, Genre newGenre);
+    void editGenre(int index, String newGenre);
 
     Track[] find(String name, String artist, String genre);
 
-    void setGenreToNull(Genre genre);
+    void setGenreToNull(String genre);
 
     void setAllGenreToNull();
 
@@ -34,4 +34,7 @@ public interface Tracks {
 
     Track[] getAllTracks();
 
+    void editGenreName(String oldName, String newName);
+
+    void addReadTracks(Track[] tracks);
 }
