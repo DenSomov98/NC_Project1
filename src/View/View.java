@@ -16,7 +16,7 @@ public class View {
     }
 
     public void printHelpMenu(){
-        System.out.println("Список доступных команд: ");
+        System.out.println("Список доступных команд: (Скобки - опционально, пробелы не допускаются)");
         System.out.println("view genre <all> - Вывод всех жанров на экран ");
         System.out.println("view genre <id> - Вывод жанра по id ");
         System.out.println("view track <all> - Вывод всех треков на экран ");
@@ -34,6 +34,9 @@ public class View {
         System.out.println("remove genre <id> - Удаление жанра по id ");
         System.out.println("remove track <all> - Удаление всех треков ");
         System.out.println("remove track <id> - Удаление трека по id ");
+        System.out.println("find track <name artist genre> - Поиск трека по параметрам(Укажите * вместо ненужных)");
+        System.out.println("save <filename> - Сохранение в указанный XML - файл");
+        System.out.println("load <filename> - Загрузка из указанного XML - файла(Жанры не дублируются");
         System.out.println("help - Вывод списка доступных команд ");
         System.out.println("exit - Выход из программы ");
     }
