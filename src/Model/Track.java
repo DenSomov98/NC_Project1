@@ -47,7 +47,7 @@ public class Track implements Comparable<Track> {
             return false;
         if(!this.artist.equals(artist) && !artist.equals("*"))
             return false;
-        if(this.genre != null && !this.genre.getName().equals(genre) && !genre.equals("*"))
+        if(this.genre == null || !this.genre.getName().equals(genre) && !genre.equals("*"))
             return false;
         return true;
     }
