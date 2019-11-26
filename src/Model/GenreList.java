@@ -27,8 +27,6 @@ public class GenreList implements Genres, Serializable {
         Collections.sort(genres);
     }
 
-
-
     public OutputDataHolder validateRemoveGenre(InputDataHolder command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();

@@ -1,5 +1,7 @@
 package Model;
 
+import Parse.Parser;
+
 import java.io.Serializable;
 
 public class Track implements Comparable<Track>, Serializable {
@@ -41,25 +43,25 @@ public class Track implements Comparable<Track>, Serializable {
     }
 
     public String toString(){
-        if (genre == null) return name+":"+" "+artist+","+" "+"жанр отсутствует";
+        if (genre.equals("")) return name+":"+" "+artist+","+" "+"жанр отсутствует";
         return name+":"+" "+artist+","+" "+genre;
     }
 
     public boolean searchCompare(String name, String artist, String genre) {
-        if(!this.name.contains(name) && !name.equals("*"))
+        if(!Parser.containsIgnoreCase(this.name, name) && !name.equals("*"))
             return false;
-        if(!this.artist.contains(artist) && !artist.equals("*"))
+        if(!Parser.containsIgnoreCase(this.artist, artist) && !artist.equals("*"))
             return false;
-        if(this.genre == null || !this.genre.contains(genre) && !genre.equals("*"))
+        if(this.genre.equals("") || !Parser.containsIgnoreCase(this.genre, genre) && !genre.equals("*"))
             return false;
         return true;
     }
 
     public int compareTo(Track track){
-        return name.compareTo(track.name) == 0 ?
-                artist.compareTo(track.artist) == 0 ?
-                genre.compareTo(track.genre)
-                : artist.compareTo(track.artist)
-                : name.compareTo(track.name);
+        return name.compareToIgnoreCase(track.name) == 0 ?
+                artist.compareToIgnoreCase(track.artist) == 0 ?
+                genre.compareToIgnoreCase(track.genre)
+                : artist.compareToIgnoreCase(track.artist)
+                : name.compareToIgnoreCase(track.name);
     }
 }

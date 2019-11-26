@@ -108,13 +108,13 @@ public class Model {
                 genres.addGenre(arguments [0]);
                 break;
             case TRACK:
-                String genreName = null;
+                String genreName = "";
                 if(arguments.length == 3) {
                     Genre genre = genres.getGenre(arguments[2]);
                     if(genre != null)
                         genreName = genre.getName();
                 }
-                if(genreName == null)
+                if(genreName.equals(""))
                     command.setTrackWithoutGenreWarning(true);
                 tracks.addTrack(arguments[0], arguments[1], genreName);
                 break;
@@ -142,8 +142,8 @@ public class Model {
                         break;
                     case GENRE:
                         Genre genre = genres.getGenre(arguments[1]);
-                        String newGenre = genre == null ? null : genre.getName();
-                        if(newGenre == null)
+                        String newGenre = genre == null ? "" : genre.getName();
+                        if(newGenre.equals(""))
                             command.setTrackWithoutGenreWarning(true);
                         tracks.editGenre(id, newGenre);
                         break;

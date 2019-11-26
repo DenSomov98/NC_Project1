@@ -19,7 +19,7 @@ public class TrackList implements Tracks, Serializable {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (command.getArguments().length == 3 || arguments[2] == null) {
+        if (arguments.length == 3 && arguments[2] == null) {
             outputDataHolder.setTrackWithoutGenreWarning(true);
         }
         return outputDataHolder;

@@ -11,6 +11,9 @@ public class Parser {
         return Integer.toString(id).equals(num) ? id : -1;
     }
 
+    public static boolean containsIgnoreCase(String string, String subString) {
+        return string.toLowerCase().contains(subString.toLowerCase());
+    }
 
     public static Key tokenCode(String token) {
         switch (token) {

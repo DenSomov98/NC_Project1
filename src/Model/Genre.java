@@ -24,6 +24,6 @@ public class Genre implements Comparable<Genre>, Serializable {
     }
 
     public int compareTo(Genre genre){
-        return name.compareTo(genre.getName());
+        return name.compareToIgnoreCase(genre.getName());
     }
 }
