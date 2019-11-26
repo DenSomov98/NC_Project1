@@ -197,17 +197,18 @@ public class Model {
                 executeRemove(command);
                 break;
             case SAVE:
-                saveIntoFile(arguments[0]);
+                saveIntoFile(command);
                 break;
             case LOAD:
-                loadFromFile(arguments[0]);
+                loadFromFile(command);
                 break;
             default:
                 throw new IllegalArgumentException();
         }
     }
 
-    private void saveIntoFile(String filePath) {
+    private void saveIntoFile(OutputDataHolder command) {
+        String filePath = command.getArguments()[0];
         XMLEncoder encoder= null;
         try {
             encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filePath)));
@@ -219,17 +220,39 @@ public class Model {
         encoder.close();
     }
 
-    private void loadFromFile(String filePath) {
+    private void loadFromFile(OutputDataHolder command) {
+        String filePath = command.getArguments()[0];
         XMLDecoder decoder = null;
         try {
             decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filePath)));
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException();
         }
-        Track[] tracks = (Track[]) decoder.readObject();
-        Genre[] genres = (Genre[]) decoder.readObject();
-        decoder.close();
+        Track[] tracks = null;
+        Genre[] genres = null;
+        try {
+            tracks = (Track[]) decoder.readObject();
+            genres = (Genre[]) decoder.readObject();
+            for (Track track : tracks) {
+                if(track.getName() == null || track.getArtist() == null || track.getGenre() == null) {
+                    command.setFileIsCorruptedError(true);
+                    return;
+                }
+            }
+            for (Genre genre : genres) {
+                if(genre.getName() == null) {
+                    command.setFileIsCorruptedError(true);
+                    return;
+                }
+            }
+            if(tracks.length == 0 && genres.length == 0)
+                command.setFileIsEmptyWarning(true);
+        } catch (Exception e) {
+            command.setFileIsCorruptedError(true);
+            return;
+        }
         this.genres.addReadGenres(genres);
         this.tracks.addReadTracks(tracks);
+        decoder.close();
     }
 }

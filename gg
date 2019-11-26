@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="11.0.4" class="java.beans.XMLDecoder">
+ <array class="Model.Track" length="109">
+  <void index="0">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>Mumford_and_Sons</string>
+    </void>
+    <void property="genre">
+     <string>indie</string>
+    </void>
+    <void property="name">
+     <string>Broken_Crown</string>
+    </void>
+   </object>
+  </void>
+  <void index="1">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>OneRepublic</string>
+    </void>
+    <void property="genre">
+     <string>indie</string>
+    </void>
+    <void property="name">
+     <string>Counting_stars</string>
+    </void>
+   </object>
+  </void>
+  <void index="2">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>Ed_Sheeran</string>
+    </void>
+    <void property="genre">
+     <string>indie</string>
+    </void>
+    <void property="name">
+     <string>Don&apos;t</string>
+    </void>
+   </object>
+  </void>
+  <void index="3">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>Stephane_Blet</string>
+    </void>
+    <void property="genre">
+     <string>classic</string>
+    </void>
+    <void property="name">
+     <string>Gnossiennes</string>
+    </void>
+   </object>
+  </void>
+  <void index="4">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>Ray_Charles</string>
+    </void>
+    <void property="genre">
+     <string>jazz</string>
+    </void>
+    <void property="name">
+     <string>Hit_the_Roadjack</string>
+    </void>
+   </object>
+  </void>
+  <void index="5">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>Delta_Rae</string>
+    </void>
+    <void property="genre">
+     <string>indie</string>
+    </void>
+    <void property="name">
+     <string>I_never_die</string>
+    </void>
+   </object>
+  </void>
+  <void index="6">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>Bastille</string>
+    </void>
+    <void property="genre">
+     <string>indie</string>
+    </void>
+    <void property="name">
+     <string>Laura_Palmer</string>
+    </void>
+   </object>
+  </void>
+  <void index="7">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>Imagine_Dragons</string>
+    </void>
+    <void property="genre">
+     <string>indie</string>
+    </void>
+    <void property="name">
+     <string>Monster</string>
+    </void>
+   </object>
+  </void>
+  <void index="8">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>Nikolai_Bakaleinokov</string>
+    </void>
+    <void property="genre">
+     <string>classic</string>
+    </void>
+    <void property="name">
+     <string>Old_Russian_Waltz_Sorrow</string>
+    </void>
+   </object>
+  </void>
+  <void index="9">
+   <object class="Model.Track">
+    <void property="artist">
+     <string>Florence_and_The_Machine</string>
+    </void>
+    <void property="genre">
+     <string>instrumental_rock</string>
+    </void>
+    <void property="name">
+     <string>Rabbit_Heart</string>
+    </void>
+   </object>
+  </void>
+ </array>
+ <array class="Model.Genre" length="7">
+  <void index="0">
+   <object class="Model.Genre">
+    <void property="name">
+     <string>classic</string>
+    </void>
+   </object>
+  </void>
+  <void index="1">
+   <object class="Model.Genre">
+    <void property="name">
+     <string>country</string>
+    </void>
+   </object>
+  </void>
+  <void index="2">
+   <object class="Model.Genre">
+    <void property="name">
+     <string>ghjk</string>
+    </void>
+   </object>
+  </void>
+  <void index="3">
+   <object class="Model.Genre">
+    <void property="name">
+     <string>indie</string>
+    </void>
+   </object>
+  </void>
+  <void index="4">
+   <object class="Model.Genre">
+    <void property="name">
+     <string>instrumental_rock</string>
+    </void>
+   </object>
+  </void>
+  <void index="5">
+   <object class="Model.Genre">
+    <void property="name">
+     <string>jazz</string>
+    </void>
+   </object>
+  </void>
+  <void index="6">
+   <object class="Model.Genre">
+    <void property="name">
+     <string>metal</string>
+    </void>
+   </object>
+  </void>
+ </array>
+</java>

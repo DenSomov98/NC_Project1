@@ -7,8 +7,10 @@ public class OutputDataHolder {
     private boolean indexError;
     private boolean genreEqualsNameError;
     private boolean objectNotFoundError;
-    private boolean trackWithoutGenreWarning;
     private boolean fileError;
+    private boolean fileIsCorruptedError;
+    private boolean fileIsEmptyWarning;
+    private boolean trackWithoutGenreWarning;
     private Key[] keys;
     private String[] arguments;
 
@@ -53,6 +55,14 @@ public class OutputDataHolder {
 
     void setFileError(boolean fileError) {this.fileError = fileError;}
 
+    public boolean isFileIsCorruptedError() {
+        return fileIsCorruptedError;
+    }
+
+    void setFileIsCorruptedError(boolean fileIsCorruptedError) {
+        this.fileIsCorruptedError = fileIsCorruptedError;
+    }
+
     public boolean isTrackWithoutGenreWarning() {
         return trackWithoutGenreWarning;
     }
@@ -61,6 +71,14 @@ public class OutputDataHolder {
         this.trackWithoutGenreWarning = trackWithoutGenreWarning;
     }
 
-    public boolean hasErrors() {return indexError || genreEqualsNameError || objectNotFoundError;}
-    public boolean hasWarnings() {return trackWithoutGenreWarning;}
+    public boolean isFileIsEmptyWarning() {
+        return fileIsEmptyWarning;
+    }
+
+    void setFileIsEmptyWarning(boolean fileIsEmptyWarning) {
+        this.fileIsEmptyWarning = fileIsEmptyWarning;
+    }
+
+    public boolean hasErrors() {return indexError || genreEqualsNameError || objectNotFoundError || fileError || fileIsCorruptedError;}
+    public boolean hasWarnings() {return trackWithoutGenreWarning || fileIsEmptyWarning;}
 }

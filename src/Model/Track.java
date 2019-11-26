@@ -48,11 +48,11 @@ public class Track implements Comparable<Track>, Serializable {
     }
 
     public boolean searchCompare(String name, String artist, String genre) {
-        if(!Parser.containsIgnoreCase(this.name, name) && !name.equals("*"))
+        if(!Parser.matchesThePattern(this.name, name) && !name.equals("*"))
             return false;
-        if(!Parser.containsIgnoreCase(this.artist, artist) && !artist.equals("*"))
+        if(!Parser.matchesThePattern(this.artist, artist) && !artist.equals("*"))
             return false;
-        if(this.genre.equals("") || !Parser.containsIgnoreCase(this.genre, genre) && !genre.equals("*"))
+        if(this.genre.equals("") || !Parser.matchesThePattern(this.genre, genre) && !genre.equals("*"))
             return false;
         return true;
     }

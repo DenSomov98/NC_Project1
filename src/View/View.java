@@ -106,6 +106,15 @@ public class View {
                 else
                     System.out.println("Жанр у выбранного трека изменен. ");
                 break;
+            case SAVE:
+                System.out.println("Данные сохранены.");
+                break;
+            case LOAD:
+                if(data.isFileIsCorruptedError())
+                    System.out.println("Ошибка при чтении. Возможно, файл повреждён.");
+                 else if(!data.hasWarnings())
+                    System.out.println("Данные загружены");
+                break;
         }
         printWarnings(data);
     }
@@ -113,6 +122,8 @@ public class View {
     private void printWarnings(OutputDataHolder data) {
         if(data.isTrackWithoutGenreWarning())
             System.out.println("Внимание, трек добавлен без жанра!");
+        if (data.isFileIsEmptyWarning())
+            System.out.println("Внимание, файл пуст!");
     }
 
     public void print(InputDataHolder parsed) {
