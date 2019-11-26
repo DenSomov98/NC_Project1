@@ -1,6 +1,6 @@
 package Model;
 
-import DataHolder.InputDataHolder;
+import Controller.InputDataHolder;
 
 public interface Genres {
 
@@ -10,7 +10,7 @@ public interface Genres {
 
     OutputDataHolder validateRemoveGenre(InputDataHolder command);
 
-    void removeGenre(int index);
+    void removeGenre(String index);
 
     void removeAllGenres();
 

@@ -1,6 +1,7 @@
 package Model;
 
-import DataHolder.*;
+import Controller.InputDataHolder;
+import Parse.*;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -8,15 +9,13 @@ import java.util.LinkedList;
 
 public class GenreList implements Genres, Serializable {
 
-    private LinkedList<Genre> genres = new LinkedList<Genre>();
-
-    public GenreList () {}
+    private LinkedList<Genre> genres = new LinkedList<>();
 
     public OutputDataHolder validateAddGenre(InputDataHolder command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (getGenre(arguments[0]) != null) {
+        if (findGenre(arguments[0]) != null) {
             outputDataHolder.setGenreEqualsNameError(true);
         }
         return outputDataHolder;
@@ -41,8 +40,8 @@ public class GenreList implements Genres, Serializable {
     }
 
     @Override
-    public void removeGenre(int index){
-        genres.remove(index);
+    public void removeGenre(String index){
+        genres.remove(getGenre(index));
     }
 
     @Override
@@ -55,7 +54,7 @@ public class GenreList implements Genres, Serializable {
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
         Genre genre = getGenre(arguments[0]);
-        if (genre == null) outputDataHolder.setObjectNotFoundedError(true);
+        if (genre == null) outputDataHolder.setObjectNotFoundError(true);
         if (findGenre(arguments[1]) != null) outputDataHolder.setGenreEqualsNameError(true);
         return outputDataHolder;
     }
@@ -66,11 +65,11 @@ public class GenreList implements Genres, Serializable {
         Collections.sort(genres);
     }
 
-    public Genre getGenre(String genre){
-        for (Genre igenre : genres) {
-            if (igenre.getName().equals(genre))return igenre;
+    public Genre getGenre(String genreID){
+        for (Genre genre : genres) {
+            if (genre.getName().equals(genreID))return genre;
         }
-        int id = Model.parseID(genre);
+        int id = Parser.parseID(genreID);
         if (id >= genres.size()|| id < 0) return null;
         return genres.get(id);
     }

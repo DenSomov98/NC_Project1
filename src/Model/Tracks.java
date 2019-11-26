@@ -1,6 +1,6 @@
 package Model;
 
-import DataHolder.InputDataHolder;
+import Controller.InputDataHolder;
 
 public interface Tracks {
 

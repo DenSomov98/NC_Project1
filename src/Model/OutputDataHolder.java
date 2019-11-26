@@ -1,12 +1,12 @@
 package Model;
 
-import DataHolder.Key;
+import Parse.Key;
 
 public class OutputDataHolder {
 
     private boolean indexError;
     private boolean genreEqualsNameError;
-    private boolean objectNotFoundedError;
+    private boolean objectNotFoundError;
     private boolean trackWithoutGenreWarning;
     private boolean fileError;
     private Key[] keys;
@@ -25,12 +25,12 @@ public class OutputDataHolder {
         return arguments.clone();
     }
 
-    public boolean isObjectNotFoundedError() {
-        return objectNotFoundedError;
+    public boolean isObjectNotFoundError() {
+        return objectNotFoundError;
     }
 
-    public void setObjectNotFoundedError(boolean objectNotFoundedError) {
-        this.objectNotFoundedError = objectNotFoundedError;
+    void setObjectNotFoundError(boolean objectNotFoundError) {
+        this.objectNotFoundError = objectNotFoundError;
     }
 
     public boolean isIndexError() {
@@ -61,6 +61,6 @@ public class OutputDataHolder {
         this.trackWithoutGenreWarning = trackWithoutGenreWarning;
     }
 
-    public boolean hasErrors() {return indexError || genreEqualsNameError || objectNotFoundedError;}
+    public boolean hasErrors() {return indexError || genreEqualsNameError || objectNotFoundError;}
     public boolean hasWarnings() {return trackWithoutGenreWarning;}
 }

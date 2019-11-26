@@ -1,7 +1,7 @@
 package View;
 
-import DataHolder.InputDataHolder;
-import DataHolder.Key;
+import Controller.InputDataHolder;
+import Parse.Key;
 import Model.*;
 
 public class View {
@@ -32,6 +32,7 @@ public class View {
         System.out.println("edit track genre <id new_genre_name> - Изменениие жанра трека(также на существующий) ");
         System.out.println("remove genre <all> - Удаление всех жанров ");
         System.out.println("remove genre <id> - Удаление жанра по id ");
+        System.out.println("remove genre <name> - Удаление жанра по имени ");
         System.out.println("remove track <all> - Удаление всех треков ");
         System.out.println("remove track <id> - Удаление трека по id ");
         System.out.println("find track <name artist genre> - Поиск трека по параметрам(Укажите * вместо ненужных)");
@@ -72,7 +73,7 @@ public class View {
         else if(outputDataHolder.isGenreEqualsNameError()){
             System.out.println("Ошибка! Жанр с таким именем уже содержится в списке. ");
         }
-        else if(outputDataHolder.isObjectNotFoundedError()){
+        else if(outputDataHolder.isObjectNotFoundError()){
             System.out.println("Ошибка! Жанр с таким именем не существует. ");
         }
         else if(outputDataHolder.isFileError()) {
@@ -106,15 +107,15 @@ public class View {
                     System.out.println("Жанр у выбранного трека изменен. ");
                 break;
         }
-        showWarnings(data);
+        printWarnings(data);
     }
 
-    private void showWarnings(OutputDataHolder data) {
+    private void printWarnings(OutputDataHolder data) {
         if(data.isTrackWithoutGenreWarning())
             System.out.println("Внимание, трек добавлен без жанра!");
     }
 
-    public void show(InputDataHolder parsed) {
+    public void print(InputDataHolder parsed) {
         Key[] keys = parsed.getKeys();
         switch (keys[1]){
             case GENRE:

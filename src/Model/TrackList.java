@@ -1,9 +1,11 @@
 package Model;
 
 
-import DataHolder.*;
+import Controller.InputDataHolder;
+import Parse.*;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -17,7 +19,7 @@ public class TrackList implements Tracks, Serializable {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (command.getArguments().length < 3 || arguments[2] == null) {
+        if (command.getArguments().length == 3 || arguments[2] == null) {
             outputDataHolder.setTrackWithoutGenreWarning(true);
         }
         return outputDataHolder;
@@ -34,7 +36,7 @@ public class TrackList implements Tracks, Serializable {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if (!command.getArguments()[0].equals("all") && (Integer.parseInt(command.getArguments()[0]) >= tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0)){
+        if (!arguments[0].equals("all") && (Parser.parseID(arguments[0]) >= tracks.size() || Parser.parseID(arguments[0]) < 0)){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
@@ -48,12 +50,6 @@ public class TrackList implements Tracks, Serializable {
     @Override
     public void removeAllTracks(){
         tracks.clear();
-    }
-
-    @Override
-    public void editName(int index, String newName){
-        tracks.get(index).setName(newName);
-        Collections.sort(tracks);
     }
 
     @Override
@@ -76,6 +72,11 @@ public class TrackList implements Tracks, Serializable {
     }
 
     @Override
+    public void editName(int index, String newName){
+        tracks.get(index).setName(newName);
+        Collections.sort(tracks);
+    }
+    @Override
     public void editArtist(int index, String newArtist){
         tracks.get(index).setArtist(newArtist);
         Collections.sort(tracks);
@@ -88,7 +89,7 @@ public class TrackList implements Tracks, Serializable {
         if(arguments[1] == null){
             outputDataHolder.setTrackWithoutGenreWarning(true);
         }
-        if(Integer.parseInt(command.getArguments()[0]) >= tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0){
+        if(Parser.parseID(arguments[0]) >= tracks.size() || Parser.parseID(arguments[0]) < 0){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
@@ -110,10 +111,8 @@ public class TrackList implements Tracks, Serializable {
     }
 
     public void setGenreToNull(String genre){
-        if (genre != null){
-            for (Track track : tracks) {
-                if (track.getGenre().equals(genre)) track.setGenre(null);
-            }
+        for (Track track : tracks) {
+            if (track.getGenre().equals(genre)) track.setGenre(null);
         }
     }
 
@@ -134,8 +133,7 @@ public class TrackList implements Tracks, Serializable {
 
     @Override
     public void addReadTracks(Track[] tracks) {
-        for(Track track : tracks)
-            this.tracks.add(track);
+        this.tracks.addAll(Arrays.asList(tracks));
         Collections.sort(this.tracks);
     }
 }

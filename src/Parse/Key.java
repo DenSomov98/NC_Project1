@@ -1,4 +1,4 @@
-package DataHolder;
+package Parse;
 
 public enum Key {
         VIEW,

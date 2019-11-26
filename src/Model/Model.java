@@ -1,13 +1,14 @@
 package Model;
 
-import DataHolder.InputDataHolder;
-import DataHolder.Key;
-
+import Controller.InputDataHolder;
+import Parse.Parser;
+import Parse.Key;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
 
 public class Model {
+
     private Tracks tracks;
     private Genres genres;
 
@@ -75,7 +76,7 @@ public class Model {
         int id;
         if (arguments[0].equals("all")) return tracks.getAllTracks();
         else {
-            id = parseID(arguments[0]);
+            id = Parser.parseID(arguments[0]);
             Track track = tracks.getTrack(id);
             return track == null ?
                     new Track[0]
@@ -97,15 +98,6 @@ public class Model {
     public Track[] findTracks(InputDataHolder command) {
         String[] args = command.getArguments();
         return tracks.find(args[0], args[1], args[2]);
-    }
-
-    static int parseID(String s) {
-        int id = -1;
-        try {
-            id = Integer.parseInt(s);
-        }
-        catch (NumberFormatException ignored) {}
-        return Integer.toString(id).equals(s) ? id : -1;
     }
 
     private void executeAdd(OutputDataHolder command) {
@@ -140,7 +132,7 @@ public class Model {
                 tracks.editGenreName(arguments[0], arguments[1]);
                 break;
             case TRACK:
-                int id = parseID(arguments[0]);
+                int id = Parser.parseID(arguments[0]);
                 switch (keys[2]) {
                     case NAME:
                         tracks.editName(id, arguments[1]);
@@ -174,15 +166,15 @@ public class Model {
                     genres.removeAllGenres();
                 }
                 else {
-                    tracks.setGenreToNull(genres.getGenre(arguments[0]).getName());
-                    genres.removeGenre(parseID(arguments[0]));
+                    tracks.setGenreToNull(arguments[0]);
+                    genres.removeGenre(arguments[0]);
                 }
                 break;
             case TRACK:
                 if (arguments[0].equals("all"))
                     tracks.removeAllTracks();
                 else
-                    tracks.removeTrack(parseID(arguments[0]));
+                    tracks.removeTrack(Parser.parseID(arguments[0]));
                 break;
             default:
                 throw new IllegalArgumentException();
