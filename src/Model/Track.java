@@ -45,7 +45,7 @@ public class Track implements Comparable<Track>, Serializable {
         return name+":"+" "+artist+","+" "+genre;
     }
 
-    boolean searchCompare(String name, String artist, String genre) {
+    public boolean searchCompare(String name, String artist, String genre) {
         if(!this.name.contains(name) && !name.equals("*"))
             return false;
         if(!this.artist.contains(artist) && !artist.equals("*"))
