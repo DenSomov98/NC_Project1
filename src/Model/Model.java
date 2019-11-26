@@ -222,7 +222,7 @@ public class Model {
     private void loadFromFile(String filePath) {
         XMLDecoder decoder = null;
         try {
-            decoder = decoder=new XMLDecoder(new BufferedInputStream(new FileInputStream(filePath)));
+            decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filePath)));
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException();
         }

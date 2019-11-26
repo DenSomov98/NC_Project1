@@ -55,7 +55,7 @@ public class TrackList implements Tracks, Serializable {
     @Override
     public void editGenreName(String oldName, String newName){
         for(Track track : tracks) {
-            if(track.getGenre().equals(oldName))
+            if(track.getGenre().equalsIgnoreCase(oldName))
                 track.setGenre(newName);
         }
         Collections.sort(tracks);
@@ -112,7 +112,7 @@ public class TrackList implements Tracks, Serializable {
 
     public void setGenreToNull(String genre){
         for (Track track : tracks) {
-            if (track.getGenre().equals(genre)) track.setGenre(null);
+            if (track.getGenre().equalsIgnoreCase(genre)) track.setGenre(null);
         }
     }
 
@@ -131,9 +131,20 @@ public class TrackList implements Tracks, Serializable {
     @Override
     public Track[] getAllTracks() { return tracks.toArray(new Track[0]); }
 
+    private boolean alreadyExist(Track checked) {
+        for(Track track : tracks) {
+            if(track.compareTo(checked) == 0)
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public void addReadTracks(Track[] tracks) {
-        this.tracks.addAll(Arrays.asList(tracks));
+        for(Track track : tracks) {
+            if(!alreadyExist(track))
+                this.tracks.add(track);
+        }
         Collections.sort(this.tracks);
     }
 }

@@ -65,7 +65,7 @@ public class GenreList implements Genres, Serializable {
 
     public Genre getGenre(String genreID){
         for (Genre genre : genres) {
-            if (genre.getName().equals(genreID))return genre;
+            if (genre.getName().equalsIgnoreCase(genreID))return genre;
         }
         int id = Parser.parseID(genreID);
         if (id >= genres.size()|| id < 0) return null;
@@ -74,7 +74,7 @@ public class GenreList implements Genres, Serializable {
 
     public Genre findGenre(String name) {
         for(Genre genre : genres) {
-            if(genre.getName().equals(name))
+            if(genre.getName().equalsIgnoreCase(name))
                 return genre;
         }
         return null;
