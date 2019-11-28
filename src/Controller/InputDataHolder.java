@@ -11,15 +11,15 @@ public class InputDataHolder {
     private ArrayList<String> arguments;
 
     private InputDataHolder() {isCorrect=false;}
-    static InputDataHolder makeIncorrect() {return new InputDataHolder();}
+    public static InputDataHolder makeIncorrect() {return new InputDataHolder();}
 
-    InputDataHolder(boolean isCorrect, ArrayList<Key> keys) {
+    public InputDataHolder(boolean isCorrect, ArrayList<Key> keys) {
         this.isCorrect = isCorrect;
         this.keys = (ArrayList<Key>) keys.clone();
         this.arguments = null;
     }
 
-    InputDataHolder(boolean isCorrect, ArrayList<Key> keys, ArrayList<String> arguments) {
+    public InputDataHolder(boolean isCorrect, ArrayList<Key> keys, ArrayList<String> arguments) {
         this.isCorrect = isCorrect;
         this.keys = (ArrayList<Key>) keys.clone();
         this.arguments = (ArrayList<String>) arguments.clone();
