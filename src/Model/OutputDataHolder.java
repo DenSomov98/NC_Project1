@@ -11,6 +11,7 @@ public class OutputDataHolder {
     private boolean fileIsCorruptedError;
     private boolean fileIsEmptyWarning;
     private boolean trackWithoutGenreWarning;
+    private boolean fileExistsError;
     private Key[] keys;
     private String[] arguments;
 
@@ -75,10 +76,20 @@ public class OutputDataHolder {
         return fileIsEmptyWarning;
     }
 
+    public boolean isFileExistsError() {
+        return fileExistsError;
+    }
+
+    void setFileExistsError(boolean fileExistsError) {
+        this.fileExistsError = fileExistsError;
+    }
+
     void setFileIsEmptyWarning(boolean fileIsEmptyWarning) {
         this.fileIsEmptyWarning = fileIsEmptyWarning;
     }
 
-    public boolean hasErrors() {return indexError || genreEqualsNameError || objectNotFoundError || fileError || fileIsCorruptedError;}
+    public boolean hasErrors() {return indexError || genreEqualsNameError || objectNotFoundError
+            || fileError || fileIsCorruptedError || fileExistsError;}
+
     public boolean hasWarnings() {return trackWithoutGenreWarning || fileIsEmptyWarning;}
 }

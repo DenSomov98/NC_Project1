@@ -52,6 +52,14 @@ public class Model {
                 }
             case SAVE:
                 OutputDataHolder result = new OutputDataHolder(command.getKeys(), command.getArguments());
+                String filePath = command.getArguments()[0];
+                if(command.getKeys().length == 1) {
+                    File file = new File(filePath);
+                    if (file.exists() && file.isFile()) {
+                        result.setFileExistsError(true);
+                        return result;
+                    }
+                }
                 try {
                     new FileOutputStream(command.getArguments()[0]).close();
                 } catch (IOException e) {
@@ -166,7 +174,9 @@ public class Model {
                     genres.removeAllGenres();
                 }
                 else {
-                    tracks.setGenreToNull(arguments[0]);
+                    Genre genre = genres.getGenre(arguments[0]);
+                    if(genre != null)
+                        tracks.setGenreToNull(genre.getName());
                     genres.removeGenre(arguments[0]);
                 }
                 break;
@@ -181,33 +191,7 @@ public class Model {
         }
     }
 
-    public void execute(OutputDataHolder command) {
-        if(command.hasErrors())
-            throw new IllegalArgumentException();
-        Key[] keys = command.getKeys();
-        String[] arguments = command.getArguments();
-        switch (keys[0]) {
-            case ADD:
-                executeAdd(command);
-                break;
-            case EDIT:
-                executeEdit(command);
-                break;
-            case REMOVE:
-                executeRemove(command);
-                break;
-            case SAVE:
-                saveIntoFile(command);
-                break;
-            case LOAD:
-                loadFromFile(command);
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
-    }
-
-    private void saveIntoFile(OutputDataHolder command) {
+    private void executeSaveIntoFile(OutputDataHolder command) {
         String filePath = command.getArguments()[0];
         XMLEncoder encoder= null;
         try {
@@ -220,7 +204,7 @@ public class Model {
         encoder.close();
     }
 
-    private void loadFromFile(OutputDataHolder command) {
+    private void executeLoadFromFile(OutputDataHolder command) {
         String filePath = command.getArguments()[0];
         XMLDecoder decoder = null;
         try {
@@ -251,8 +235,40 @@ public class Model {
             command.setFileIsCorruptedError(true);
             return;
         }
-        this.genres.addReadGenres(genres);
-        this.tracks.addReadTracks(tracks);
+        if(command.getKeys()[1] == Key.DUPLICATE) {
+            this.genres.addReadGenres(genres, true);
+            this.tracks.addReadTracks(tracks, true);
+        }
+        else {
+            this.genres.addReadGenres(genres, false);
+            this.tracks.addReadTracks(tracks, false);
+        }
         decoder.close();
+    }
+
+    public void execute(OutputDataHolder command) {
+        if(command.hasErrors())
+            throw new IllegalArgumentException();
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        switch (keys[0]) {
+            case ADD:
+                executeAdd(command);
+                break;
+            case EDIT:
+                executeEdit(command);
+                break;
+            case REMOVE:
+                executeRemove(command);
+                break;
+            case SAVE:
+                executeSaveIntoFile(command);
+                break;
+            case LOAD:
+                executeLoadFromFile(command);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 }

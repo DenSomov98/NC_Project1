@@ -8,6 +8,8 @@ public enum Key {
         FIND,
         SAVE,
         LOAD,
+        DUPLICATE,
+        OVERWRITE,
         TRACK,
         GENRE,
         NAME,

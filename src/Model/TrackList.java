@@ -5,7 +5,6 @@ import Controller.InputDataHolder;
 import Parse.*;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -112,7 +111,7 @@ public class TrackList implements Tracks, Serializable {
 
     public void setGenreToNull(String genre){
         for (Track track : tracks) {
-            if (track.getGenre().equalsIgnoreCase(genre)) track.setGenre(null);
+            if (track.getGenre().equalsIgnoreCase(genre)) track.setGenre("");
         }
     }
 
@@ -140,11 +139,20 @@ public class TrackList implements Tracks, Serializable {
     }
 
     @Override
-    public void addReadTracks(Track[] tracks) {
+    public void addReadTracks(Track[] tracks, boolean duplicate) {
         for(Track track : tracks) {
             if(!alreadyExist(track))
                 this.tracks.add(track);
+            else if(duplicate){
+                for (int i = 1; i <= this.tracks.size(); i++) {
+                    track.setName(track.getName() + " (" + i+1 + ")");
+                    if(!alreadyExist(track))
+                        break;
+                }
+                this.tracks.add(track);
+            }
         }
         Collections.sort(this.tracks);
     }
+
 }

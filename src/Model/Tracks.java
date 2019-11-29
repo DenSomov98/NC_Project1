@@ -36,5 +36,5 @@ public interface Tracks {
 
     void editGenreName(String oldName, String newName);
 
-    void addReadTracks(Track[] tracks);
+    void addReadTracks(Track[] tracks, boolean duplicate);
 }

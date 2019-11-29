@@ -36,6 +36,10 @@ public class Parser {
                 return Key.SAVE;
             case "load":
                 return Key.LOAD;
+            case "duplicate":
+                return Key.DUPLICATE;
+            case "overwrite":
+                return Key.OVERWRITE;
             case "track":
                 return Key.TRACK;
             case "genre":

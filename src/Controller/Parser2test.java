@@ -4,7 +4,6 @@ import Parse.Key;
 import Parse.Parser;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 public class Parser2test {
     private static InputDataHolder incorrectCommand() { return InputDataHolder.makeIncorrect();}
@@ -76,11 +75,34 @@ public class Parser2test {
         }
     }
 
+    private static InputDataHolder firstIsSave(ArrayList<Key> keys, ArrayList<String> arguments) {
+        if (keys.size() > 2 || arguments.size() != 1)
+            return incorrectCommand();
+        if(keys.size() == 1 || keys.size() ==2  && keys.get(1) == Key.OVERWRITE)
+            return new InputDataHolder(true, keys, arguments);
+        else
+            return incorrectCommand();
+    }
+
+    private static InputDataHolder firstIsLoad(ArrayList<Key> keys, ArrayList<String> arguments) {
+        if (keys.size() != 2 || arguments.size() != 1)
+            return incorrectCommand();
+        switch (keys.get(1)) {
+            case OVERWRITE:
+            case DUPLICATE:
+                return new InputDataHolder(true, keys, arguments);
+
+            default:
+                return incorrectCommand();
+        }
+    }
+
     private static InputDataHolder parsedCommand(ArrayList<Key> keys, ArrayList<String> arguments) {
         switch (keys.get(0)) {
             case VIEW:
             case REMOVE:
                 return firstIsViewOrRemove(keys, arguments);
+
             case ADD:
                 return firstIsAdd(keys, arguments);
 
@@ -91,10 +113,10 @@ public class Parser2test {
                 return firstIsFind(keys, arguments);
 
             case SAVE:
+                return firstIsSave(keys, arguments);
+
             case LOAD:
-                return arguments.size() != 1 ?
-                        incorrectCommand()
-                        : new InputDataHolder(true, keys, arguments);
+                return firstIsLoad(keys, arguments);
 
             default:
                 return incorrectCommand();

@@ -17,11 +17,11 @@ public class View {
 
     public void printHelpMenu(){
         System.out.println("Список доступных команд: (Скобки - опционально, пробелы не допускаются)");
-        System.out.println("view genre <all> - Вывод всех жанров на экран ");
-        System.out.println("view genre <id> - Вывод жанра по id ");
-        System.out.println("view track <all> - Вывод всех треков на экран ");
-        System.out.println("view track <id> - Вывод трека по id ");
-        System.out.println("add track <name artist genre_name> - Добавление трека с заданными параметрами ");
+        System.out.println("view genre \"all\" - Вывод всех жанров на экран ");
+        System.out.println("view genre \"id\" - Вывод жанра по id ");
+        System.out.println("view track \"all\" - Вывод всех треков на экран ");
+        System.out.println("view track \"id\" - Вывод трека по id ");
+        System.out.println("add track \"name\" \"artist\" \"genre name\" - Добавление трека с заданными параметрами ");
         System.out.println("(Жанр с указанным именем должен быть добавлен заранее, иначе трек будет добавлен без жанра) ");
         System.out.println("add track <name artist> - Добавление трека без жанра (без названия/исполнителя не допускается) ");
         System.out.println("add genre <name> - Добавление жанра (Дубликаты не допускаются) ");
@@ -37,7 +37,9 @@ public class View {
         System.out.println("remove track <id> - Удаление трека по id ");
         System.out.println("find track <name artist genre> - Поиск трека по параметрам(Укажите * вместо ненужных)");
         System.out.println("save <filename> - Сохранение в указанный XML - файл");
-        System.out.println("load <filename> - Загрузка из указанного XML - файла(Жанры не дублируются");
+        System.out.println("save overwrite <filename> - Сохранение в указанный XML - файл(При совпадении имён - перезапись");
+        System.out.println("load duplicate <filename> - Загрузка из указанного XML - файла(C дубликатами)");
+        System.out.println("load overwrite <filename> - Загрузка из указанного XML - файла(Без дубликатов)");
         System.out.println("help - Вывод списка доступных команд ");
         System.out.println("exit - Выход из программы ");
     }
@@ -78,6 +80,9 @@ public class View {
         }
         else if(outputDataHolder.isFileError()) {
             System.out.println("Ошибка при работе с файлом!");
+        }
+        else if(outputDataHolder.isFileExistsError()) {
+            System.out.println("Ошибка! Такой файл уже существует.");
         }
     }
 
