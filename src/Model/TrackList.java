@@ -144,8 +144,9 @@ public class TrackList implements Tracks, Serializable {
             if(!alreadyExist(track))
                 this.tracks.add(track);
             else if(duplicate){
+                String oldName = track.getName();
                 for (int i = 1; i <= this.tracks.size(); i++) {
-                    track.setName(track.getName() + " (" + i+1 + ")");
+                    track.setName(oldName + " (" + i + ")");
                     if(!alreadyExist(track))
                         break;
                 }

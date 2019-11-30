@@ -99,8 +99,8 @@ public class GenreList implements Genres, Serializable {
                     else
                         break;
                 }
-                genre.setName(genre.getName() + " (" + dubInd + ")");
-                this.genres.add(genre);
+                g.setName(g.getName() + " (" + dubInd + ")");
+                this.genres.add(g);
             }
         }
         Collections.sort(this.genres);
