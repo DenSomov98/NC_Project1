@@ -1,7 +1,10 @@
 package Model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
+@XmlType(propOrder = {"name"})
 public class Genre implements Comparable<Genre>, Serializable {
     private String name;
 
@@ -11,6 +14,7 @@ public class Genre implements Comparable<Genre>, Serializable {
         this.name = name;
     }
 
+    @XmlElement(name = "name")
     public String getName() {
         return name;
     }

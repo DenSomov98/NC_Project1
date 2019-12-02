@@ -2,45 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4bb8f98-2d80-4bbe-8cae-3988d8edeec2" name="Default Changelist" comment="поиск и сортировка регистро-независимы, +багфикс">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_stream_stax_api_1_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_impl_2_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_core_2_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_staxex_stax_ex_1_7_8.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_stream_stax_api_1_0_2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Controller/Controller$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Controller/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/DataHolder/InputDataHolder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/DataHolder/Key.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Model/Genre.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Model/GenreList.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Model/Genres.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Model/Model$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Model/Model.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Model/OutputDataHolder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Model/Track.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Model/TrackList.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/Model/Tracks.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/View/View$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/View/View.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/InputDataHolder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Parser2test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Genre.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/GenreList.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Genres.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Model.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/OutputDataHolder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Track.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/TrackList.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Tracks.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parse/Key.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parse/Parser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/View.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Genre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Genre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/OutputDataHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/OutputDataHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Track.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Track.java" afterDir="false" />
     </list>
     <list id="87745d90-099b-4681-a5c5-a4dc797bb58d" name="Revert &quot;+validate в Model&quot;" comment="Revert &quot;+validate в Model&quot;&#10;&#10;This reverts commit 43c17c75" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -171,6 +149,7 @@
       <workItem from="1575280431250" duration="631000" />
       <workItem from="1575283990005" duration="1785000" />
       <workItem from="1575290446996" duration="3538000" />
+      <workItem from="1575308507858" duration="4618000" />
     </task>
     <task id="LOCAL-00001" summary="основа для новой модели">
       <created>1574432592443</created>

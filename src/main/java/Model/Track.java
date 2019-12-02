@@ -2,8 +2,11 @@ package Model;
 
 import Parse.Parser;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
+@XmlType(propOrder = {"name", "artist", "genre"})
 public class Track implements Comparable<Track>, Serializable {
 
     private String name;
@@ -18,6 +21,7 @@ public class Track implements Comparable<Track>, Serializable {
         this.genre = genre;
     }
 
+    @XmlElement(name = "name")
     public String getName() {
         return name;
     }
@@ -26,6 +30,7 @@ public class Track implements Comparable<Track>, Serializable {
         this.name = name;
     }
 
+    @XmlElement(name = "artist")
     public String getArtist() {
         return artist;
     }
@@ -34,6 +39,7 @@ public class Track implements Comparable<Track>, Serializable {
         this.artist = artist;
     }
 
+    @XmlElement(name = "genre")
     public String getGenre() {
         return genre;
     }

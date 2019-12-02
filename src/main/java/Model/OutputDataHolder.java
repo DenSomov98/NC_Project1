@@ -4,6 +4,7 @@ import Parse.Key;
 
 public class OutputDataHolder {
 
+    private boolean unknownError;
     private boolean indexError;
     private boolean genreEqualsNameError;
     private boolean objectNotFoundError;
@@ -26,6 +27,14 @@ public class OutputDataHolder {
 
     public String[] getArguments() {
         return arguments.clone();
+    }
+
+    public boolean isUnknownError() {
+        return unknownError;
+    }
+
+    void setUnknownError(boolean unknownError) {
+        this.unknownError = unknownError;
     }
 
     public boolean isObjectNotFoundError() {
@@ -88,7 +97,7 @@ public class OutputDataHolder {
         this.fileIsEmptyWarning = fileIsEmptyWarning;
     }
 
-    public boolean hasErrors() {return indexError || genreEqualsNameError || objectNotFoundError
+    public boolean hasErrors() {return unknownError || indexError || genreEqualsNameError || objectNotFoundError
             || fileError || fileIsCorruptedError || fileExistsError;}
 
     public boolean hasWarnings() {return trackWithoutGenreWarning || fileIsEmptyWarning;}

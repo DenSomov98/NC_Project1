@@ -3,11 +3,48 @@ package Model;
 import Controller.InputDataHolder;
 import Parse.Parser;
 import Parse.Key;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
 
 public class Model {
+    @XmlRootElement(name = "music-storage")
+    public static class Wrapper {
+        @XmlElementWrapper(nillable = true, name = "track-list")
+        @XmlElement(name = "track")
+        private Track[] tracks;
+        @XmlElementWrapper(nillable = true, name = "genre-list")
+        @XmlElement(name = "genre")
+        private Genre[] genres;
+
+        public Wrapper() {}
+        public Wrapper(Track[] tracks, Genre[] genres) {
+            this.tracks = tracks;
+            this.genres = genres;
+        }
+
+        public Track[] getT() {
+            return tracks;
+        }
+
+        public void setTracks(Track[] tracks) {
+            this.tracks = tracks;
+        }
+
+        public Genre[] getG() {
+            return genres;
+        }
+
+        public void setGenres(Genre[] genres) {
+            this.genres = genres;
+        }
+    }
 
     private Tracks tracks;
     private Genres genres;
@@ -17,7 +54,6 @@ public class Model {
         this.genres = genres;
     }
 
-    //убрать излишнюю вложенность(доделаю позже)
     public OutputDataHolder validate(InputDataHolder command) {
         Key[] keys = command.getKeys();
         switch (keys[0]) {
@@ -26,7 +62,7 @@ public class Model {
                     case GENRE:
                         return genres.validateAddGenre(command);
                     case TRACK:
-                        return tracks.validateAddTrack(command);//ошибка при добавлении без жанра
+                        return tracks.validateAddTrack(command);
                     default:
                         throw new IllegalArgumentException();//?
                 }
@@ -193,30 +229,30 @@ public class Model {
 
     private void executeSaveIntoFile(OutputDataHolder command) {
         String filePath = command.getArguments()[0];
-        XMLEncoder encoder= null;
         try {
-            encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filePath)));
-        } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException();
+            JAXBContext context = JAXBContext.newInstance(Wrapper.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.marshal(new Wrapper(tracks.getAllTracks(), genres.getAllGenres()), new File(filePath));
+        } catch (JAXBException e) {
+            command.setFileIsCorruptedError(true);
         }
-        encoder.writeObject(tracks.getAllTracks());
-        encoder.writeObject(genres.getAllGenres());
-        encoder.close();
     }
 
     private void executeLoadFromFile(OutputDataHolder command) {
-        String filePath = command.getArguments()[0];
-        XMLDecoder decoder = null;
+        Wrapper res = null;
         try {
-            decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filePath)));
-        } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException();
+            JAXBContext jaxbContext = JAXBContext.newInstance(Wrapper.class);
+            Unmarshaller un = jaxbContext.createUnmarshaller();
+            res = (Wrapper) un.unmarshal(new File(command.getArguments()[0]));
+        } catch (JAXBException e) {
+            command.setFileIsCorruptedError(true);
         }
         Track[] tracks = null;
         Genre[] genres = null;
         try {
-            tracks = (Track[]) decoder.readObject();
-            genres = (Genre[]) decoder.readObject();
+            tracks = res.getT();
+            genres = res.getG();
             for (Track track : tracks) {
                 if(track.getName() == null || track.getArtist() == null || track.getGenre() == null) {
                     command.setFileIsCorruptedError(true);
@@ -243,7 +279,6 @@ public class Model {
             this.genres.addReadGenres(genres, false);
             this.tracks.addReadTracks(tracks, false);
         }
-        decoder.close();
     }
 
     public void execute(OutputDataHolder command) {
