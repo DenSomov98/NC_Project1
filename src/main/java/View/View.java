@@ -84,6 +84,9 @@ public class View {
         else if(outputDataHolder.isFileExistsError()) {
             System.out.println("Ошибка! Такой файл уже существует.");
         }
+        else if(outputDataHolder.isUnknownError()){
+            System.out.println("Неизвестная ошибка!!!");
+        }
     }
 
     public void printResult(OutputDataHolder data) {

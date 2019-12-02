@@ -201,4 +201,16 @@ public class Parser {
                 return incorrectCommand();
         }
     }
+
+    public static void RegEx(StringBuilder string, String s){
+        int index = 0;
+        string.insert(index, "^");
+        while(string.indexOf(s, index)>=0){
+                int indexOfElement = string.indexOf(s, index);
+                string.insert(indexOfElement , ".");
+                string.insert(indexOfElement + 2, "?");
+                index = indexOfElement + 4;
+        }
+        string.append("$");
+    }
 }

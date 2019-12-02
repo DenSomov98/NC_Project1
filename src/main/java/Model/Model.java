@@ -64,7 +64,9 @@ public class Model {
                     case TRACK:
                         return tracks.validateAddTrack(command);
                     default:
-                        throw new IllegalArgumentException();//?
+                        OutputDataHolder outputDataHolder = new OutputDataHolder(command.getKeys(), command.getArguments());
+                        outputDataHolder.setUnknownError(true);
+                        return outputDataHolder;
                 }
             case EDIT:
                 switch (keys[1]) {
@@ -75,7 +77,9 @@ public class Model {
                         else
                             return tracks.validateEditByArtistOrNameTrack(command);
                     default:
-                        throw new IllegalArgumentException(); //?
+                        OutputDataHolder outputDataHolder = new OutputDataHolder(command.getKeys(), command.getArguments());
+                        outputDataHolder.setUnknownError(true);
+                        return outputDataHolder;
                 }
             case REMOVE:
                 switch (keys[1]) {
@@ -84,7 +88,9 @@ public class Model {
                     case TRACK:
                         return tracks.validateRemoveTrack(command);
                     default:
-                        throw new IllegalArgumentException(); //?
+                        OutputDataHolder outputDataHolder = new OutputDataHolder(command.getKeys(), command.getArguments());
+                        outputDataHolder.setUnknownError(true);
+                        return outputDataHolder;
                 }
             case SAVE:
                 OutputDataHolder result = new OutputDataHolder(command.getKeys(), command.getArguments());
@@ -111,7 +117,9 @@ public class Model {
                 }
                 return result;
             default:
-                throw new IllegalArgumentException(); //?
+                OutputDataHolder outputDataHolder = new OutputDataHolder(command.getKeys(), command.getArguments());
+                outputDataHolder.setUnknownError(true);
+                return outputDataHolder;
         }
     }
 

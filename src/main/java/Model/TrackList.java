@@ -7,6 +7,8 @@ import Parse.*;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class TrackList implements Tracks, Serializable {
@@ -102,9 +104,27 @@ public class TrackList implements Tracks, Serializable {
     @Override
     public Track[] find(String name, String artist, String genre) {
         LinkedList<Track> result = new LinkedList<>();
-        for(Track track : tracks) {
-            if(track.searchCompare(name, artist, genre))
+        StringBuilder regexName = new StringBuilder(name);
+        StringBuilder regexArtist = new StringBuilder(artist);
+        StringBuilder regexGenre = new StringBuilder(genre);
+        Parser.RegEx(regexName, "*");
+        Parser.RegEx(regexName, "?");
+        Parser.RegEx(regexArtist, "*");
+        Parser.RegEx(regexArtist, "?");
+        Parser.RegEx(regexGenre, "*");
+        Parser.RegEx(regexGenre, "?");
+
+        Pattern patternName = Pattern.compile(regexName.toString(), Pattern.CASE_INSENSITIVE);
+        Pattern patternArtist = Pattern.compile(regexArtist.toString(), Pattern.CASE_INSENSITIVE);
+        Pattern patternGenre = Pattern.compile(regexGenre.toString(),Pattern.CASE_INSENSITIVE);
+
+        for (Track track : tracks) {
+            Matcher matcherName = patternName.matcher(track.getName());
+            Matcher matcherArtist = patternArtist.matcher(track.getArtist());
+            Matcher matcherGenre = patternGenre.matcher(track.getGenre());
+            if (matcherName.find() && matcherArtist.find() && matcherGenre.find()){
                 result.add(track);
+            }
         }
         return result.toArray(new Track[0]);
     }
