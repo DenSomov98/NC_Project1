@@ -46,23 +46,32 @@ public class View {
 
     public void printTrack(InputDataHolder command){
         Track[] arrayTrack = model.viewTrack(command);
-        for(int i = 0; i < arrayTrack.length; i++){
-            System.out.println(i + ". " + arrayTrack[i].toString());
-        }
+        if(arrayTrack.length == 0)
+            System.out.println("Список пуст.\n");
+        else
+            for(int i = 0; i < arrayTrack.length; i++){
+                System.out.println(i + ". " + arrayTrack[i].toString());
+            }
     }
 
     public void printGenre(InputDataHolder command){
         Genre[] arrayGenre = model.viewGenre(command);
-        for(int i = 0; i < arrayGenre.length; i++){
-            System.out.println(i + ". " + arrayGenre[i].toString());
-        }
+        if(arrayGenre.length == 0)
+            System.out.println("Список пуст.\n");
+        else
+            for(int i = 0; i < arrayGenre.length; i++){
+                System.out.println(i + ". " + arrayGenre[i].toString());
+            }
     }
 
     public void printSearchResults(InputDataHolder command) {
         Track[] result = model.findTracks(command);
-        for(Track track : result) {
-            System.out.println(track.toString());
-        }
+        if(result.length == 0)
+            System.out.println("Ничего не найдено.\n");
+        else
+            for(Track track : result) {
+                System.out.println(track.toString());
+            }
     }
 
     public void printError(OutputDataHolder outputDataHolder){
