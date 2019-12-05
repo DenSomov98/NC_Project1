@@ -208,8 +208,7 @@ public class Parser {
         while(string.indexOf(s, index)>=0){
                 int indexOfElement = string.indexOf(s, index);
                 string.insert(indexOfElement , ".");
-                string.insert(indexOfElement + 2, "?");
-                index = indexOfElement + 4;
+                index = indexOfElement + 2;
         }
         string.append("$");
     }
