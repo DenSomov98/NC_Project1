@@ -16,10 +16,6 @@ public class Parser {
         return Integer.toString(id).equals(num) ? id : -1;
     }
 
-    public static boolean matchesThePattern(String string, String subString) {
-        return string.toLowerCase().contains(subString.toLowerCase());
-    }
-
     public static Key tokenCode(String token) {
         switch (token) {
             case "view":
@@ -57,22 +53,41 @@ public class Parser {
         }
     }
 
+    public static void toRegEx(StringBuilder string, String s){
+        int index = 0;
+        string.insert(index, "^");
+        while(string.indexOf(s, index)>=0){
+                int indexOfElement = string.indexOf(s, index);
+                string.insert(indexOfElement , ".");
+                string.insert(indexOfElement + 2, "?");
+                index = indexOfElement + 4;
+        }
+        string.append("$");
+    }
+
+    public static InputDataHolder parsing(String command) {
+        String[] halves = command.split(" \"", 2);
+        if(halves.length == 1)
+            return withoutArgs(halves[0].split(" "));
+        ArrayList<Key> keys = getCorrectRawKeys(halves[0]);
+        ArrayList<String> arguments = getCorrectRawArgs(halves[1]);
+        if(keys == null || arguments == null)
+            return incorrectCommand();
+        else
+            return parsedCommand(keys, arguments);
+    }
+
     private static InputDataHolder incorrectCommand() { return InputDataHolder.makeIncorrect();}
 
-    private static InputDataHolder firstIsViewOrRemove(ArrayList<Key> keys, StringTokenizer stringTokenizer,
-                                                ArrayList<String> arguments) {
-        if(stringTokenizer.countTokens()!=2)
+    private static InputDataHolder firstIsViewOrRemove(ArrayList<Key> keys, ArrayList<String> arguments) {
+        if(keys.size() != 2 || arguments.size() !=1)
             return incorrectCommand();
-        String token = stringTokenizer.nextToken();
-        Key k = Parser.tokenCode(token);
-        keys.add(k);
-        switch (k) {
+        switch (keys.get(1)) {
             case GENRE:
             case TRACK:
-                token = stringTokenizer.nextToken();
-                arguments.add(token);
-                int id = Parser.parseID(token);
-                return token.equals("all") || id >= 0 || k == Key.GENRE ?
+                String arg = arguments.get(0);
+                int id = Parser.parseID(arg);
+                return arg.equals("all") || id >= 0 || keys.get(1) == Key.GENRE ?
                         new InputDataHolder(true, keys, arguments)
                         : incorrectCommand();
             default:
@@ -80,25 +95,15 @@ public class Parser {
         }
     }
 
-    private static InputDataHolder firstIsAdd(ArrayList<Key> keys, StringTokenizer stringTokenizer,
-                                       ArrayList<String> arguments) {
-        if(stringTokenizer.countTokens() < 2)
+    private static InputDataHolder firstIsAdd(ArrayList<Key> keys, ArrayList<String> arguments) {
+        if(keys.size() != 2)
             return incorrectCommand();
-        String token = stringTokenizer.nextToken();
-        Key k = Parser.tokenCode(token);
-        keys.add(k);
-        switch (k) {
+        switch (keys.get(1)) {
             case GENRE:
-                token = stringTokenizer.nextToken();
-                arguments.add(token);
-                return stringTokenizer.hasMoreTokens() ?
+                return arguments.size() != 1 ?
                         incorrectCommand()
                         : new InputDataHolder(true, keys, arguments);
             case TRACK:
-                while (stringTokenizer.hasMoreTokens()) {
-                    token = stringTokenizer.nextToken();
-                    arguments.add(token);
-                }
                 return (arguments.size() < 2 || arguments.size() > 3) ?
                         incorrectCommand()
                         : new InputDataHolder(true, keys, arguments);
@@ -107,34 +112,20 @@ public class Parser {
         }
     }
 
-    private static InputDataHolder firstIsEdit(ArrayList<Key> keys, StringTokenizer stringTokenizer,
-                                        ArrayList<String> arguments) {
-        if(stringTokenizer.countTokens() != 4)
+    private static InputDataHolder firstIsEdit(ArrayList<Key> keys, ArrayList<String> arguments) {
+        if(keys.size() != 3 || arguments.size() != 2)
             return incorrectCommand();
-        String token = stringTokenizer.nextToken();
-        Key k = Parser.tokenCode(token);
-        keys.add(k);
-        switch (k) {
+        switch (keys.get(1)) {
             case GENRE:
-                token = stringTokenizer.nextToken();
-                k = Parser.tokenCode(token);
-                if (k != Key.NAME)
+                if (keys.get(2) != Key.NAME)
                     return incorrectCommand();
-                keys.add(k);
-                arguments.add(stringTokenizer.nextToken());
-                arguments.add(stringTokenizer.nextToken());
                 return new InputDataHolder(true, keys, arguments);
 
             case TRACK:
-                token = stringTokenizer.nextToken();
-                k = Parser.tokenCode(token);
+                Key k = keys.get(2);
                 if (k != Key.NAME && k != Key.ARTIST && k != Key.GENRE)
                     return incorrectCommand();
-                keys.add(k);
-                token = stringTokenizer.nextToken();
-                arguments.add(token);
-                arguments.add(stringTokenizer.nextToken());
-                int id = Parser.parseID(token);
+                int id = Parser.parseID(arguments.get(0));
                 return  id >= 0 ?
                         new InputDataHolder(true, keys, arguments)
                         : incorrectCommand();
@@ -143,58 +134,73 @@ public class Parser {
         }
     }
 
-    private static InputDataHolder firstIsFind(ArrayList<Key> keys, StringTokenizer stringTokenizer,
-                                        ArrayList<String> arguments) {
-        if (stringTokenizer.countTokens() != 4)
+    private static InputDataHolder firstIsFind(ArrayList<Key> keys, ArrayList<String> arguments) {
+        if (keys.size() != 2 || arguments.size() != 3)
             return incorrectCommand();
-        String token = stringTokenizer.nextToken();
-        Key k = Parser.tokenCode(token);
-        keys.add(k);
-        switch (k) {
+        switch (keys.get(1)) {
 
             case TRACK:
-                for (int i = 0; i < 3; i++) {
-                    arguments.add(stringTokenizer.nextToken());
-                }
                 return new InputDataHolder(true, keys, arguments);
             default:
                 return incorrectCommand();
         }
     }
 
-    public static InputDataHolder parsing(String command) {
-        StringTokenizer stringTokenizer = new StringTokenizer(command, " <>");
-        if(!stringTokenizer.hasMoreTokens())
+    private static InputDataHolder firstIsSave(ArrayList<Key> keys, ArrayList<String> arguments) {
+        if (keys.size() > 2 || arguments.size() != 1)
             return incorrectCommand();
-        ArrayList<Key> keys = new ArrayList<>(3);
-        ArrayList<String> arguments = new ArrayList<>(3);
+        if(keys.size() == 1 || keys.size() ==2  && keys.get(1) == Key.OVERWRITE)
+            return new InputDataHolder(true, keys, arguments);
+        else
+            return incorrectCommand();
+    }
 
-        String token = stringTokenizer.nextToken();
-        Key k = Parser.tokenCode(token);
-        keys.add(k);
-        switch (k) {
-            case VIEW: case REMOVE:
-                return firstIsViewOrRemove(keys, stringTokenizer,arguments);
+    private static InputDataHolder firstIsLoad(ArrayList<Key> keys, ArrayList<String> arguments) {
+        if (keys.size() != 2 || arguments.size() != 1)
+            return incorrectCommand();
+        switch (keys.get(1)) {
+            case OVERWRITE:
+            case DUPLICATE:
+                return new InputDataHolder(true, keys, arguments);
+
+            default:
+                return incorrectCommand();
+        }
+    }
+
+    private static InputDataHolder parsedCommand(ArrayList<Key> keys, ArrayList<String> arguments) {
+        switch (keys.get(0)) {
+            case VIEW:
+            case REMOVE:
+                return firstIsViewOrRemove(keys, arguments);
 
             case ADD:
-                return firstIsAdd(keys, stringTokenizer, arguments);
+                return firstIsAdd(keys, arguments);
 
             case EDIT:
-                return firstIsEdit(keys, stringTokenizer, arguments);
+                return firstIsEdit(keys, arguments);
 
             case FIND:
-                return firstIsFind(keys, stringTokenizer, arguments);
+                return firstIsFind(keys, arguments);
 
-            case SAVE: case LOAD:
-                if( stringTokenizer.countTokens() != 1 )
-                    return incorrectCommand();
-                else {
-                    arguments.add(stringTokenizer.nextToken());
-                    return new InputDataHolder(true, keys, arguments);
-                }
+            case SAVE:
+                return firstIsSave(keys, arguments);
 
+            case LOAD:
+                return firstIsLoad(keys, arguments);
+
+            default:
+                return incorrectCommand();
+        }
+    }
+
+    private static InputDataHolder withoutArgs(String[] command) {
+        ArrayList<Key> keys = new ArrayList<>(1);
+        Key k = Parser.tokenCode(command[0].trim());
+        switch (k) {
             case HELP: case EXIT:
-                return stringTokenizer.hasMoreTokens() ?
+                keys.add(k);
+                return command.length != 1 ?
                         incorrectCommand()
                         : new InputDataHolder(true, keys);
             default:
@@ -202,14 +208,36 @@ public class Parser {
         }
     }
 
-    public static void RegEx(StringBuilder string, String s){
-        int index = 0;
-        string.insert(index, "^");
-        while(string.indexOf(s, index)>=0){
-                int indexOfElement = string.indexOf(s, index);
-                string.insert(indexOfElement , ".");
-                index = indexOfElement + 2;
+    private static ArrayList<Key> getCorrectRawKeys(String command) {
+        ArrayList<Key> result = new ArrayList<>();
+        String[] rawKeys = command.split(" ");
+        if(rawKeys.length > 3 || rawKeys.length == 0)
+            return null;
+        for(String s : rawKeys) {
+            Key k = Parser.tokenCode(s);
+            if(k==Key.NOT_A_KEY)
+                return null;
+            else result.add(k);
         }
-        string.append("$");
+        return result;
+    }
+
+    private static ArrayList<String> getCorrectRawArgs(String command){
+        String[] args = command.split("\"");
+        if(args.length > 5 || args.length % 2 == 0)
+            return null;
+
+        ArrayList<String> result = new ArrayList<>(3);
+        for (int i = 1; i < args.length; i+=2) {
+            if(!args[i].trim().isEmpty())
+                return null;
+        }
+        for (int i = 0; i < args.length; i+=2) {
+            String arg = args[i].trim();
+            if(arg.isEmpty())
+                return null;
+            else result.add(arg);
+        }
+        return result;
     }
 }

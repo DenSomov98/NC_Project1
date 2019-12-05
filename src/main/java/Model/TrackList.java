@@ -66,7 +66,7 @@ public class TrackList implements Tracks, Serializable {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         OutputDataHolder outputDataHolder = new OutputDataHolder(keys, arguments);
-        if(Integer.parseInt(command.getArguments()[0]) >= tracks.size() || Integer.parseInt(command.getArguments()[0]) < 0){
+        if(Parser.parseID(arguments[0]) >= tracks.size() || Parser.parseID(arguments[0]) < 0){
             outputDataHolder.setIndexError(true);
         }
         return outputDataHolder;
@@ -107,12 +107,12 @@ public class TrackList implements Tracks, Serializable {
         StringBuilder regexName = new StringBuilder(name);
         StringBuilder regexArtist = new StringBuilder(artist);
         StringBuilder regexGenre = new StringBuilder(genre);
-        Parser.RegEx(regexName, "*");
-        Parser.RegEx(regexName, "?");
-        Parser.RegEx(regexArtist, "*");
-        Parser.RegEx(regexArtist, "?");
-        Parser.RegEx(regexGenre, "*");
-        Parser.RegEx(regexGenre, "?");
+        Parser.toRegEx(regexName, "*");
+        Parser.toRegEx(regexName, "?");
+        Parser.toRegEx(regexArtist, "*");
+        Parser.toRegEx(regexArtist, "?");
+        Parser.toRegEx(regexGenre, "*");
+        Parser.toRegEx(regexGenre, "?");
 
         Pattern patternName = Pattern.compile(regexName.toString(), Pattern.CASE_INSENSITIVE);
         Pattern patternArtist = Pattern.compile(regexArtist.toString(), Pattern.CASE_INSENSITIVE);

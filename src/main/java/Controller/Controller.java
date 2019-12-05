@@ -5,10 +5,7 @@ import Model.*;
 import Parse.Parser;
 import View.View;
 
-import java.io.StringBufferInputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class Controller {
 
@@ -24,12 +21,13 @@ public class Controller {
             view.printResult(result);
         }
     }
+
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         view.printHelpMenu();
         while (true) {
             String command = scanner.nextLine();
-            InputDataHolder parsed = Parser2test.parsing(command);
+            InputDataHolder parsed = Parser.parsing(command);
             if(!parsed.isCorrect())
                 view.showInputError();
             else{
