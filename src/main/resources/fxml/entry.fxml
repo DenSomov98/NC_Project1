@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="186.0" prefWidth="414.0" style="-fx-background-color: #ADD8E6;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.EntryFormController">
+   <children>
+      <Label layoutX="111.0" layoutY="25.0" text="Музыкальная библиотека">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="addressField" alignment="CENTER" layoutX="21.0" layoutY="74.0" promptText="IP-address">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="portField" alignment="CENTER" layoutX="271.0" layoutY="74.0" prefHeight="39.0" prefWidth="107.0" promptText="Port">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Button fx:id="connectButton" layoutX="142.0" layoutY="133.0" mnemonicParsing="false" onMouseClicked="#clickConnect" prefHeight="39.0" prefWidth="152.0" style="-fx-background-color: #6495ED;" text="Подключиться">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

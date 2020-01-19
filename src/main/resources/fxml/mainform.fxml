@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="415.0" prefWidth="600.0" style="-fx-background-color: #ADD8E6;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.MainFormController">
+   <children>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#clickSave" text="Сохранить" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickLoad" text="Загрузить с дубликатами" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickLoad" text="Загрузить без дубликатов" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane fx:id="tabpane" layoutX="81.0" layoutY="119.0" prefHeight="246.0" prefWidth="438.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Треки">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="210.0" prefWidth="286.0">
+                     <children>
+                        <TableView fx:id="tableTrack" prefHeight="212.0" prefWidth="438.0">
+                          <columns>
+                            <TableColumn fx:id="idColumnTrack" prefWidth="52.0" text="№" />
+                            <TableColumn fx:id="nameColumnTrack" prefWidth="130.0" text="Название" />
+                              <TableColumn fx:id="artistColumnTrack" prefWidth="126.0" text="Исполнитель" />
+                              <TableColumn fx:id="genreColumnTrack" prefWidth="129.0" text="Жанр" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Жанры">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableGenres" prefHeight="210.0" prefWidth="438.0">
+                          <columns>
+                            <TableColumn fx:id="idColumnGenre" prefWidth="75.0" text="№" />
+                            <TableColumn fx:id="nameColumnGenre" prefWidth="116.0" text="Название" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <ImageView fx:id="addImage" fitHeight="25.0" fitWidth="29.0" layoutX="381.0" layoutY="94.0" onMouseClicked="#clickAdd" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/plus.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="editImage" fitHeight="25.0" fitWidth="29.0" layoutX="420.0" layoutY="94.0" onMouseClicked="#clickEdit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/pen.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="removeImage" fitHeight="25.0" fitWidth="25.0" layoutX="461.0" layoutY="94.0" onMouseClicked="#clickRemove" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cross1.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="searchImage" fitHeight="25.0" fitWidth="29.0" layoutX="494.0" layoutY="94.0" onMouseClicked="#clickSearch" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/search.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="nameField" alignment="CENTER" layoutX="81.0" layoutY="56.0" prefHeight="26.0" prefWidth="140.0" promptText="Название" />
+      <TextField fx:id="artistField" alignment="CENTER" layoutX="221.0" layoutY="56.0" prefHeight="26.0" prefWidth="134.0" promptText="Исполнитель" />
+      <TextField fx:id="genreField" alignment="CENTER" layoutX="356.0" layoutY="56.0" prefHeight="26.0" prefWidth="121.0" promptText="Жанр" />
+      <Button fx:id="okayButton" layoutX="483.0" layoutY="56.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="37.0" text="Ok" />
+   </children>
+</AnchorPane>

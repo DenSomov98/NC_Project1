@@ -1,0 +1,109 @@
+package server.model;
+
+import worklib.transfer.*;
+import worklib.parse.*;
+import worklib.entities.*;
+
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.LinkedList;
+
+public class GenreList implements Genres, Serializable {
+
+    private LinkedList<Genre> genres = new LinkedList<>();
+
+    public Response validateAddGenre(Request command){
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        Response Response = new Response(keys, arguments);
+        if (findGenre(arguments[0]) != null) {
+            Response.setGenreEqualsNameError(true);
+        }
+        return Response;
+    }
+
+    @Override
+    public void addGenre(String name){
+        genres.addLast(new Genre(name));
+        Collections.sort(genres);
+    }
+
+    public Response validateRemoveGenre(Request command){
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        Response Response = new Response(keys, arguments);
+        if (!arguments[0].equals("all") && getGenre(arguments[0]) == null){
+            Response.setIndexError(true);
+        }
+        return Response;
+    }
+
+    @Override
+    public void removeGenre(String index){
+        genres.remove(getGenre(index));
+    }
+
+    @Override
+    public void removeAllGenres(){
+        genres.clear();
+    }
+
+    public Response validateEditGenre(Request command){
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        Response Response = new Response(keys, arguments);
+        Genre genre = getGenre(arguments[0]);
+        if (genre == null) Response.setObjectNotFoundError(true);
+        if (findGenre(arguments[1]) != null) Response.setGenreEqualsNameError(true);
+        return Response;
+    }
+
+    @Override
+    public void editName(String genre, String newName){
+        getGenre(genre).setName(newName);
+        Collections.sort(genres);
+    }
+
+    public Genre getGenre(String genreID){
+        for (Genre genre : genres) {
+            if (genre.getName().equalsIgnoreCase(genreID))return genre;
+        }
+        int id = Parser.parseID(genreID);
+        if (id >= genres.size()|| id < 0) return null;
+        return genres.get(id);
+    }
+
+    public Genre findGenre(String name) {
+        for(Genre genre : genres) {
+            if(genre.getName().equalsIgnoreCase(name))
+                return genre;
+        }
+        return null;
+    }
+
+    @Override
+    public Genre[] getAllGenres() {
+        return genres.toArray(new Genre[0]);
+    }
+
+    @Override
+    public void addReadGenres(Genre[] genres, boolean duplicate) {
+        for(Genre g : genres) {
+            Genre genre = findGenre(g.getName());
+            if(genre == null)
+                this.genres.add(g);
+            else if(duplicate){
+                int dubInd = 1;
+                for (int i = 0; i < this.genres.size(); i++) {
+                    if(findGenre(genre.getName() + " (" + dubInd + ")") != null)
+                        dubInd++;
+                    else
+                        break;
+                }
+                g.setName(g.getName() + " (" + dubInd + ")");
+                this.genres.add(g);
+            }
+        }
+        Collections.sort(this.genres);
+    }
+}
