@@ -127,4 +127,15 @@ public class Controller {
     }
 
 
+    public void disconnect() {
+        System.out.println("bb");
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.DISCONNECT);
+        Request request = new Request(true, keys);
+        try {
+            out.writeObject(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

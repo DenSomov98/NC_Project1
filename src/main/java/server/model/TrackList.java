@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 
 public class TrackList implements Tracks, Serializable {
-    private LinkedList<Track> tracks = new LinkedList<Track>();
+    private LinkedList<Track> tracks = new LinkedList<>();
 
     public TrackList () {}
 
@@ -30,14 +30,14 @@ public class TrackList implements Tracks, Serializable {
     public void addTrack(String name, String artist, String genre){
         Track newTrack = new Track(name, artist, genre);
         tracks.addLast(newTrack);
-        Collections.sort(tracks);
+        //Collections.sort(tracks);
     }
 
     public Response validateRemoveTrack(Request command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         Response Response = new Response(keys, arguments);
-        if (!arguments[0].equals("all") && (Parser.parseID(arguments[0]) >= tracks.size() || Parser.parseID(arguments[0]) < 0)){
+        if (!arguments[0].equals("all") && (getTrack(Parser.parseID(arguments[0])) == null)){
             Response.setIndexError(true);
         }
         return Response;
@@ -45,7 +45,7 @@ public class TrackList implements Tracks, Serializable {
 
     @Override
     public void removeTrack(int index){
-        tracks.remove(index);
+        tracks.remove(getTrack(index));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class TrackList implements Tracks, Serializable {
             if(track.getGenre().equalsIgnoreCase(oldName))
                 track.setGenre(newName);
         }
-        Collections.sort(tracks);
+        //Collections.sort(tracks);
     }
 
     public Response validateEditByArtistOrNameTrack(Request command){
@@ -75,12 +75,12 @@ public class TrackList implements Tracks, Serializable {
     @Override
     public void editName(int index, String newName){
         tracks.get(index).setName(newName);
-        Collections.sort(tracks);
+        //Collections.sort(tracks);
     }
     @Override
     public void editArtist(int index, String newArtist){
         tracks.get(index).setArtist(newArtist);
-        Collections.sort(tracks);
+        //Collections.sort(tracks);
     }
 
     public Response validateEditByGenreTrack(Request command){
@@ -143,8 +143,11 @@ public class TrackList implements Tracks, Serializable {
 
     @Override
     public Track getTrack(int id) {
-        if (id >= tracks.size() || id < 0) return null;
-        return tracks.get(id);
+        for(Track track : tracks) {
+            if(track.getId() == id)
+                return track;
+        }
+        return null;
     }
 
     @Override
@@ -152,7 +155,7 @@ public class TrackList implements Tracks, Serializable {
 
     private boolean alreadyExist(Track checked) {
         for(Track track : tracks) {
-            if(track.compareTo(checked) == 0)
+            if(track.equals(checked))
                 return true;
         }
         return false;

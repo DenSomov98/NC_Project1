@@ -34,13 +34,16 @@ public class ControllerThread extends Thread{
             clients.add(out);
             while (true) {
                 Request request = (Request) in.readObject();
-                if(request.getKeys()[0] == Key.DISCONNECT)
+                if(request.getKeys()[0] == Key.DISCONNECT) {
                     break;
+                }
                 else {
                     System.out.println(request.getKeys()[0]);
                     processing(request);
                 }
             }
+            clients.remove(out);
+            //System.out.println("eliminated");
             socket.close();
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();

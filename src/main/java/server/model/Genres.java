@@ -21,7 +21,9 @@ public interface Genres {
 
     Genre getGenre(String genre);
 
-    Genre findGenre(String name);
+    Genre getGenreByName(String name);
+
+    Genre getGenreByID(String id);
 
     Genre[] getAllGenres();
 

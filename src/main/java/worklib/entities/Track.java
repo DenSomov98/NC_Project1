@@ -70,11 +70,18 @@ public class Track implements Comparable<Track>, Serializable {
         return name+":"+" "+artist+","+" "+genre;
     }
 
-    public int compareTo(Track track){
-        return name.compareToIgnoreCase(track.name) == 0 ?
+    public boolean equals(Track track){
+        return name.equalsIgnoreCase(track.name) &&
+                artist.equalsIgnoreCase(track.artist) &&
+                        genre.equalsIgnoreCase(track.genre);
+        /*name.compareToIgnoreCase(track.name) == 0 ?
                 artist.compareToIgnoreCase(track.artist) == 0 ?
                 genre.compareToIgnoreCase(track.genre)
                 : artist.compareToIgnoreCase(track.artist)
-                : name.compareToIgnoreCase(track.name);
+                : name.compareToIgnoreCase(track.name);*/
+    }
+
+    public int compareTo(Track track){
+        return Integer.compare(id, track.id);
     }
 }

@@ -48,6 +48,6 @@ public class Genre implements Comparable<Genre>, Serializable {
     }
 
     public int compareTo(Genre genre){
-        return name.compareToIgnoreCase(genre.getName());
+        return Integer.compare(id, genre.id);
     }
 }

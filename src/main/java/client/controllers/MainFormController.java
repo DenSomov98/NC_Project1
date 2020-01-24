@@ -74,6 +74,7 @@ public class MainFormController {
     private Button clearButton; //кнопка очистить
 
     public MainFormController() {
+      //  stage.setOnCloseRequest(event -> {controller.disconnect();});
     }
 
     public TabPane getTabPane() {
@@ -154,7 +155,6 @@ public class MainFormController {
     }
 
     @FXML
-    //нажат пункт меню "Файл - Загрузить"
     private void clickLoad() {
         System.out.println("нажат пункт меню Файл - Загрузить");
     }
@@ -267,7 +267,7 @@ public class MainFormController {
         /*arguments.add(trackToDelete.getName());
         arguments.add(trackToDelete.getArtist());
         arguments.add(trackToDelete.getGenre());*/
-        arguments.add(String.valueOf(trackToDelete.getId()-1));
+        arguments.add(String.valueOf(trackToDelete.getId()));
         controller.requestToRemoveTrack(arguments);
     }
 
@@ -402,6 +402,14 @@ public class MainFormController {
                 }
             });
         }*/
+    }
+
+    public void ClickDisconnect(ActionEvent actionEvent) {
+    }
+
+    public void ClickExit(ActionEvent actionEvent) {
+        controller.disconnect();
+        System.exit(0);
     }
 
     /*@FXML

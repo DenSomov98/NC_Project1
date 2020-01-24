@@ -57,12 +57,8 @@ public class ServerListener extends Thread {
                 if (response.getKeys()[0] == Key.ADD || response.getKeys()[0] == Key.REMOVE ||
                         response.getKeys()[0] == Key.LOAD) {
                     wrapper = (Wrapper)in.readObject();
-                    if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
-                        showTracks();
-                    }
-                    else if(tabPane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
-                        showGenres();
-                    }
+                    showTracks();
+                    showGenres();
                     //Platform.runLater(() -> showTracks(wrapper));
                 }
                 if (response.getKeys()[0] == Key.LOCK) {
@@ -73,6 +69,7 @@ public class ServerListener extends Thread {
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
+                break;
             }
         }
     }

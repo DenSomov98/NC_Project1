@@ -47,6 +47,7 @@ public class EntryFormController {
             Parent mainWindow = FXMLLoader.load(getClass().getResource("/fxml/mainform.fxml"));
             stage.setTitle("Музыкальная библиотека");
             stage.setScene(new Scene(mainWindow, 600, 415));
+            stage.setOnCloseRequest(event -> {controller.disconnect();});
             //controller.getAllData();
             stage.show();
         }

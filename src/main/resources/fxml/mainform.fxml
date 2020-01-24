@@ -15,6 +15,12 @@
                   <MenuItem mnemonicParsing="false" onAction="#clickLoad" text="Загрузить без дубликатов" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Сеть">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#ClickDisconnect" text="Отключиться" />
+                  <MenuItem mnemonicParsing="false" onAction="#ClickExit" text="Выйти из програмы" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <TabPane fx:id="tabpane" layoutX="81.0" layoutY="119.0" prefHeight="246.0" prefWidth="438.0" tabClosingPolicy="UNAVAILABLE">

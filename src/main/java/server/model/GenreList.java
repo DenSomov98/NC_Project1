@@ -16,7 +16,7 @@ public class GenreList implements Genres, Serializable {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         Response Response = new Response(keys, arguments);
-        if (findGenre(arguments[0]) != null) {
+        if (getGenreByName(arguments[0]) != null) {
             Response.setGenreEqualsNameError(true);
         }
         return Response;
@@ -25,7 +25,7 @@ public class GenreList implements Genres, Serializable {
     @Override
     public void addGenre(String name){
         genres.addLast(new Genre(name));
-        Collections.sort(genres);
+        //Collections.sort(genres);
     }
 
     public Response validateRemoveGenre(Request command){
@@ -54,28 +54,33 @@ public class GenreList implements Genres, Serializable {
         Response Response = new Response(keys, arguments);
         Genre genre = getGenre(arguments[0]);
         if (genre == null) Response.setObjectNotFoundError(true);
-        if (findGenre(arguments[1]) != null) Response.setGenreEqualsNameError(true);
+        if (getGenreByName(arguments[1]) != null) Response.setGenreEqualsNameError(true);
         return Response;
     }
 
     @Override
     public void editName(String genre, String newName){
         getGenre(genre).setName(newName);
-        Collections.sort(genres);
+        //Collections.sort(genres);
     }
 
     public Genre getGenre(String genreID){
-        for (Genre genre : genres) {
-            if (genre.getName().equalsIgnoreCase(genreID))return genre;
-        }
-        int id = Parser.parseID(genreID);
-        if (id >= genres.size()|| id < 0) return null;
-        return genres.get(id);
+        Genre result = getGenreByName(genreID);
+        return result == null ? getGenreByID(genreID) : result;
     }
 
-    public Genre findGenre(String name) {
+    public Genre getGenreByName(String name) {
         for(Genre genre : genres) {
             if(genre.getName().equalsIgnoreCase(name))
+                return genre;
+        }
+        return null;
+    }
+
+    public Genre getGenreByID(String genreID) {
+        int id = Parser.parseID(genreID);
+        for(Genre genre : genres) {
+            if(genre.getId() == id)
                 return genre;
         }
         return null;
@@ -89,13 +94,13 @@ public class GenreList implements Genres, Serializable {
     @Override
     public void addReadGenres(Genre[] genres, boolean duplicate) {
         for(Genre g : genres) {
-            Genre genre = findGenre(g.getName());
+            Genre genre = getGenreByName(g.getName());
             if(genre == null)
                 this.genres.add(g);
             else if(duplicate){
                 int dubInd = 1;
                 for (int i = 0; i < this.genres.size(); i++) {
-                    if(findGenre(genre.getName() + " (" + dubInd + ")") != null)
+                    if(getGenreByName(genre.getName() + " (" + dubInd + ")") != null)
                         dubInd++;
                     else
                         break;
