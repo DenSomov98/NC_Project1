@@ -27,6 +27,6 @@ public interface Genres {
 
     Genre[] getAllGenres();
 
-    void addReadGenres(Genre[] genres, boolean duplicate);
+    void addReadGenres(Genre[] genres, Track[] tracks, boolean duplicate);
 
 }

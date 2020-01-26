@@ -119,11 +119,17 @@ public class Controller {
         out.writeObject(request);
     }*/
 
-    public void requestToSave(ArrayList<String> arguments) throws IOException{
+    public void requestToSave(String filename){
         ArrayList<Key> keys = new ArrayList<>();
         keys.add(Key.SAVE);
+        ArrayList<String> arguments = new ArrayList<>();
+        arguments.add(filename);
         Request request = new Request(true, keys, arguments);
-        out.writeObject(request);
+        try {
+            out.writeObject(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -221,7 +221,6 @@ public class Model {
     }
 
     private void executeLoadFromFile(Response command) {
-        System.out.println("trhghghghghghghghghghghghghghghghghghghghghghghghghghghghghg");
         Wrapper res = null;
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Wrapper.class);
@@ -256,11 +255,11 @@ public class Model {
             return;
         }
         if(command.getKeys()[1] == Key.DUPLICATE) {
-            this.genres.addReadGenres(genres, true);
+            this.genres.addReadGenres(genres, tracks, true);
             this.tracks.addReadTracks(tracks, true);
         }
         else {
-            this.genres.addReadGenres(genres, false);
+            this.genres.addReadGenres(genres, tracks, false);
             this.tracks.addReadTracks(tracks, false);
         }
     }

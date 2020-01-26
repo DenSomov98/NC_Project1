@@ -1,6 +1,7 @@
 package worklib.entities;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
@@ -9,6 +10,7 @@ public class Genre implements Comparable<Genre>, Serializable {
 
     private String name;
     private int id;
+    @XmlTransient
     private boolean isLocked = false;
 
     public static class CounterOfGenre {
@@ -35,6 +37,9 @@ public class Genre implements Comparable<Genre>, Serializable {
         return id;
     }
 
+    public void setNewId() { this.id = CounterOfGenre.counter++; }
+
+    @XmlTransient
     public boolean isLocked() {
         return isLocked;
     }

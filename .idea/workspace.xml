@@ -3,16 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="a4bb8f98-2d80-4bbe-8cae-3988d8edeec2" name="Default Changelist" comment="GUI, client server (ADD and REMOVE operations work)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/data.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/controllers/ControllerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/controllers/ControllerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/GenreList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/GenreList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/Genres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/Genres.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/worklib/entities/Genre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/worklib/entities/Genre.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/worklib/entities/Track.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/worklib/entities/Track.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/mainform.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/mainform.fxml" afterDir="false" />
     </list>
     <list id="87745d90-099b-4681-a5c5-a4dc797bb58d" name="Revert &quot;+validate в Model&quot;" comment="Revert &quot;+validate в Model&quot;&#10;&#10;This reverts commit 43c17c75" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,18 +97,6 @@
       <recent name="C:\Users\mitilyas\IdeaProjects\project\src" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false">
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
@@ -147,6 +137,18 @@
         <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -425,6 +427,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="GUI, client server (ADD and REMOVE operations work)" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1580032120698">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1580032120698" />
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579437525002">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -441,22 +447,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1579438800295" />
-    <state width="1493" height="157" key="GridCell.Tab.0.bottom" timestamp="1579438878070">
+    <state width="1493" height="186" key="GridCell.Tab.0.bottom" timestamp="1580041230431">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="157" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1579438878070" />
-    <state width="1493" height="157" key="GridCell.Tab.0.center" timestamp="1579438878070">
+    <state width="1493" height="186" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1580041230431" />
+    <state width="1493" height="186" key="GridCell.Tab.0.center" timestamp="1580041230431">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="157" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1579438878070" />
-    <state width="1493" height="157" key="GridCell.Tab.0.left" timestamp="1579438878070">
+    <state width="1493" height="186" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1580041230431" />
+    <state width="1493" height="186" key="GridCell.Tab.0.left" timestamp="1580041230430">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="157" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1579438878070" />
-    <state width="1493" height="157" key="GridCell.Tab.0.right" timestamp="1579438878070">
+    <state width="1493" height="186" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1580041230430" />
+    <state width="1493" height="186" key="GridCell.Tab.0.right" timestamp="1580041230431">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="157" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1579438878070" />
+    <state width="1493" height="186" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1580041230431" />
     <state width="1493" height="154" key="GridCell.Tab.1.bottom" timestamp="1579353194877">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -489,6 +495,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="209" y="136" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1578220623684" />
+    <state x="475" y="40" key="refactoring.ChangeSignatureDialog" timestamp="1580039700744">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="475" y="40" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1580039700744" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1579437220288">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

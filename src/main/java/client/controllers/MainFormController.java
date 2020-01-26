@@ -157,22 +157,7 @@ public class MainFormController {
     public void requestToSave() throws IOException {
         ArrayList<String> arguments = new ArrayList<>();
         arguments.add(nameField.getText() + ".txt");
-        controller.requestToSave(arguments);
-    }
-
-    @FXML
-    //нажат пункт меню "Файл - Сохранить"
-    private void clickSave() {
-        System.out.println("нажат пункт меню Файл - Сохранить");
-        nameField.setVisible(true);
-        okayButton.setVisible(true);
-        okayButton.setOnAction(args -> {
-            try {
-                requestToSave();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        //controller.requestToSave(arguments);
     }
 
     @FXML
@@ -407,6 +392,21 @@ public class MainFormController {
         System.exit(0);
     }
 
+
+    @FXML
+    //нажат пункт меню "Файл - Сохранить"
+    private void clickSave() {
+        System.out.println("нажат пункт меню Файл - Сохранить");
+        nameField.setVisible(true);
+        okayButton.setVisible(true);
+        okayButton.setOnAction(args -> {
+            controller.requestToSave(nameField.getText());
+            nameField.clear();
+            nameField.setVisible(false);
+            okayButton.setVisible(false);
+        });
+    }
+
     @FXML
     private void clickLoad() {
         nameField.setVisible(true);
@@ -414,8 +414,6 @@ public class MainFormController {
         okayButton.setOnAction(args -> {
             controller.requestToLoad(nameField.getText());
             nameField.clear();
-            artistField.clear();
-            genreField.clear();
             nameField.setVisible(false);
             okayButton.setVisible(false);
         });
@@ -427,8 +425,6 @@ public class MainFormController {
         okayButton.setOnAction(args -> {
             controller.requestToLoadDuplicate(nameField.getText());
             nameField.clear();
-            artistField.clear();
-            genreField.clear();
             nameField.setVisible(false);
             okayButton.setVisible(false);
         });

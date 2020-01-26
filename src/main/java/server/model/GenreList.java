@@ -92,20 +92,28 @@ public class GenreList implements Genres, Serializable {
     }
 
     @Override
-    public void addReadGenres(Genre[] genres, boolean duplicate) {
+    public void addReadGenres(Genre[] genres, Track[] tracks, boolean duplicate) {
         for(Genre g : genres) {
             Genre genre = getGenreByName(g.getName());
-            if(genre == null)
+            if(genre == null) {
+                g.setNewId();
                 this.genres.add(g);
+            }
             else if(duplicate){
-                int dubInd = 1;
+                int dupInd = 1;
                 for (int i = 0; i < this.genres.size(); i++) {
-                    if(getGenreByName(genre.getName() + " (" + dubInd + ")") != null)
-                        dubInd++;
+                    if(getGenreByName(genre.getName() + " (" + dupInd + ")") != null)
+                        dupInd++;
                     else
                         break;
                 }
-                g.setName(g.getName() + " (" + dubInd + ")");
+                g.setNewId();
+                String genreDup = g.getName() + " (" + dupInd + ")";
+                for (Track track : tracks) {
+                    if(track.getGenre().equals(g.getName()))
+                        track.setGenre(genreDup);
+                }
+                g.setName(genreDup);
                 this.genres.add(g);
             }
         }

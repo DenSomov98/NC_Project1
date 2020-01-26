@@ -164,8 +164,10 @@ public class TrackList implements Tracks, Serializable {
     @Override
     public void addReadTracks(Track[] tracks, boolean duplicate) {
         for(Track track : tracks) {
-            if(!alreadyExist(track))
+            if(!alreadyExist(track)) {
+                track.setNewId();
                 this.tracks.add(track);
+            }
             else if(duplicate){
                 String oldName = track.getName();
                 for (int i = 1; i <= this.tracks.size(); i++) {
@@ -173,6 +175,7 @@ public class TrackList implements Tracks, Serializable {
                     if(!alreadyExist(track))
                         break;
                 }
+                track.setNewId();
                 this.tracks.add(track);
             }
         }

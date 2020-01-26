@@ -1,16 +1,19 @@
 package worklib.entities;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
-@XmlType(propOrder = {"name", "artist", "genre", "id"})
+@XmlType(propOrder = {"name", "artist", "genre"})
 public class Track implements Comparable<Track>, Serializable {
 
     private String name;
     private String artist;
     private String genre;
+    @XmlTransient
     private int id;
+    @XmlTransient
     private boolean isLocked = false;
 
     public static class CounterOfTrack {
@@ -53,11 +56,13 @@ public class Track implements Comparable<Track>, Serializable {
         this.genre = genre;
     }
 
-    @XmlElement(name = "id")
     public int getId() {
         return id;
     }
 
+    public void setNewId() { this.id = CounterOfTrack.counter++; }
+
+    @XmlTransient
     public boolean isLocked() {
         return isLocked;
     }

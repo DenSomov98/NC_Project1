@@ -56,16 +56,21 @@ public class ControllerThread extends Thread{
         if (request.getKeys()[0] == Key.GET) {
             out.writeObject(response);
             out.writeObject(model.getAllData());
+            return;
         }
         if (request.getKeys()[0] == Key.SAVE) {
+            model.execute(response);
             out.writeObject(response);
+            return;
         }
         if (request.getKeys()[0] == Key.FIND) {
             out.writeObject(response);
             out.writeObject(model.findTracks(response));
+            return;
         }
         if (request.getKeys()[0] == Key.LOCK) {
             out.writeObject(response);
+            return;
         }
         else {
             model.execute(response);
