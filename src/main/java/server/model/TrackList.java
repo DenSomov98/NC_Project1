@@ -37,7 +37,7 @@ public class TrackList implements Tracks, Serializable {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         Response Response = new Response(keys, arguments);
-        if (!arguments[0].equals("all") && (getTrack(Parser.parseID(arguments[0])) == null)){
+        if (!arguments[0].equals("all") && (getTrackByID(Parser.parseID(arguments[0])) == null)){
             Response.setIndexError(true);
         }
         return Response;
@@ -45,7 +45,7 @@ public class TrackList implements Tracks, Serializable {
 
     @Override
     public void removeTrack(int index){
-        tracks.remove(getTrack(index));
+        tracks.remove(getTrackByID(index));
     }
 
     @Override
@@ -62,7 +62,18 @@ public class TrackList implements Tracks, Serializable {
         //Collections.sort(tracks);
     }
 
-    public Response validateEditByArtistOrNameTrack(Request command){
+    public Response validateEditTrack(Request command){
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        Response Response = new Response(keys, arguments);
+//        Track trackToEdit = getTrackByID(Parser.parseID(arguments[0]));
+//        if (trackToEdit == null) Response.setObjectNotFoundError(true);
+        if (getTrackByName(arguments[1]) != null) Response.setEqualsNameError(true);
+        if(arguments[3] == null) Response.setTrackWithoutGenreWarning(true);
+        return Response;
+    }
+
+    /*public Response validateEditByArtistOrNameTrack(Request command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         Response Response = new Response(keys, arguments);
@@ -70,20 +81,33 @@ public class TrackList implements Tracks, Serializable {
             Response.setIndexError(true);
         }
         return Response;
+    }*/
+
+    public Response validateLockTrack(Request command){
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        Response Response = new Response(keys, arguments);
+        Track trackToLock = getTrackByID(Parser.parseID(arguments[0]));
+        if (trackToLock == null) Response.setObjectNotFoundError(true);
+        return Response;
     }
 
     @Override
     public void editName(int index, String newName){
-        tracks.get(index).setName(newName);
+        Track track = getTrackByID(index);
+        track.setName(newName);
+        //tracks.get(index).setName(newName);
         //Collections.sort(tracks);
     }
     @Override
     public void editArtist(int index, String newArtist){
-        tracks.get(index).setArtist(newArtist);
+        Track track = getTrackByID(index);
+        track.setArtist(newArtist);
+        //tracks.get(index).setArtist(newArtist);
         //Collections.sort(tracks);
     }
 
-    public Response validateEditByGenreTrack(Request command){
+    /*public Response validateEditByGenreTrack(Request command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         Response Response = new Response(keys, arguments);
@@ -94,11 +118,13 @@ public class TrackList implements Tracks, Serializable {
             Response.setIndexError(true);
         }
         return Response;
-    }
+    }*/
 
     @Override
     public void editGenre(int index, String newGenre){
-        tracks.get(index).setGenre(newGenre);
+        Track track = getTrackByID(index);
+        track.setGenre(newGenre);
+        //tracks.get(index).setGenre(newGenre);
     }
 
     @Override
@@ -142,9 +168,17 @@ public class TrackList implements Tracks, Serializable {
     }
 
     @Override
-    public Track getTrack(int id) {
+    public Track getTrackByID(int id) {
         for(Track track : tracks) {
             if(track.getId() == id)
+                return track;
+        }
+        return null;
+    }
+
+    public Track getTrackByName(String name) {
+        for(Track track : tracks) {
+            if(track.getName().equalsIgnoreCase(name))
                 return track;
         }
         return null;

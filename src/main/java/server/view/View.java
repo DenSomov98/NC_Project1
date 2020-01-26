@@ -82,7 +82,7 @@ public class View {
         else if(Response.isTrackWithoutGenreWarning()){
             System.out.println("Внимание! Добавлен трек без жанра. ");
         }
-        else if(Response.isGenreEqualsNameError()){
+        else if(Response.isEqualsNameError()){
             System.out.println("Ошибка! Жанр с таким именем уже содержится в списке. ");
         }
         else if(Response.isObjectNotFoundError()){

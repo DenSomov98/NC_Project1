@@ -17,7 +17,7 @@ public class GenreList implements Genres, Serializable {
         String[] arguments = command.getArguments();
         Response Response = new Response(keys, arguments);
         if (getGenreByName(arguments[0]) != null) {
-            Response.setGenreEqualsNameError(true);
+            Response.setEqualsNameError(true);
         }
         return Response;
     }
@@ -54,7 +54,16 @@ public class GenreList implements Genres, Serializable {
         Response Response = new Response(keys, arguments);
         Genre genre = getGenre(arguments[0]);
         if (genre == null) Response.setObjectNotFoundError(true);
-        if (getGenreByName(arguments[1]) != null) Response.setGenreEqualsNameError(true);
+        if (getGenreByName(arguments[1]) != null) Response.setEqualsNameError(true);
+        return Response;
+    }
+
+    public Response validateLockGenre(Request command){
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        Response Response = new Response(keys, arguments);
+        Genre genreToLock = getGenreByID(arguments[0]);
+        if (genreToLock == null) Response.setObjectNotFoundError(true);
         return Response;
     }
 

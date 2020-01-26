@@ -17,6 +17,8 @@ public interface Genres {
 
     Response validateEditGenre(Request command);
 
+    Response validateLockGenre(Request command);
+
     void editName(String genre, String newName);
 
     Genre getGenre(String genre);

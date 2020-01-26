@@ -9,7 +9,7 @@ public class Response implements Serializable {
 
     private boolean unknownError;
     private boolean indexError;
-    private boolean genreEqualsNameError;
+    private boolean equalsNameError;
     private boolean objectNotFoundError;
     private boolean fileError;
     private boolean fileIsCorruptedError;
@@ -62,12 +62,12 @@ public class Response implements Serializable {
         this.indexError = indexError;
     }
 
-    public boolean isGenreEqualsNameError() {
-        return genreEqualsNameError;
+    public boolean isEqualsNameError() {
+        return equalsNameError;
     }
 
-    public void setGenreEqualsNameError(boolean genreEqualsNameError) {
-        this.genreEqualsNameError = genreEqualsNameError;
+    public void setEqualsNameError(boolean genreEqualsNameError) {
+        this.equalsNameError = genreEqualsNameError;
     }
 
     public boolean isFileError() {return fileError;}
@@ -114,7 +114,7 @@ public class Response implements Serializable {
         this.alreadyLockedError = alreadyLockedError;
     }
 
-    public boolean hasErrors() {return unknownError || indexError || genreEqualsNameError || objectNotFoundError
+    public boolean hasErrors() {return unknownError || indexError || equalsNameError || objectNotFoundError
             || fileError || fileIsCorruptedError || fileExistsError || alreadyLockedError;}
 
     public boolean hasWarnings() {return trackWithoutGenreWarning || fileIsEmptyWarning;}

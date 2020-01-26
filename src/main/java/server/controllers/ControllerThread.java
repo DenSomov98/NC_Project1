@@ -69,6 +69,7 @@ public class ControllerThread extends Thread{
             return;
         }
         if (request.getKeys()[0] == Key.LOCK) {
+            model.execute(response);
             out.writeObject(response);
             return;
         }

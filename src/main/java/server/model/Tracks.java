@@ -15,13 +15,17 @@ public interface Tracks {
 
     void removeAllTracks();
 
-    Response validateEditByArtistOrNameTrack(Request command);
+    //Response validateEditByArtistOrNameTrack(Request command);
+
+    Response validateEditTrack(Request command);
+
+    Response validateLockTrack(Request command);
 
     void editName(int index, String newName);
 
     void editArtist(int index, String newArtist);
 
-    Response validateEditByGenreTrack(Request command);
+    //Response validateEditByGenreTrack(Request command);
 
     void editGenre(int index, String newGenre);
 
@@ -31,7 +35,9 @@ public interface Tracks {
 
     void setAllGenreToNull();
 
-    Track getTrack(int id);
+    Track getTrackByID(int id);
+
+    Track getTrackByName(String name);
 
     Track[] getAllTracks();
 

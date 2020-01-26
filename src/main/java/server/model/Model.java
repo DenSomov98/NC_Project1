@@ -35,14 +35,26 @@ public class Model {
                         Response.setUnknownError(true);
                         return Response;
                 }
+            case LOCK:
+                switch (keys[1]) {
+                    case GENRE:
+                        return genres.validateLockGenre(command);
+                    case TRACK:
+                        return tracks.validateLockTrack(command);
+                    default:
+                        Response Response = new Response(command.getKeys(), command.getArguments());
+                        Response.setUnknownError(true);
+                        return Response;
+                }
             case EDIT:
                 switch (keys[1]) {
                     case GENRE:
                         return genres.validateEditGenre(command);
                     case TRACK:
-                        if (keys[2] == Key.GENRE) return tracks.validateEditByGenreTrack(command);
+                        /*if (keys[2] == Key.GENRE) return tracks.validateEditByGenreTrack(command);
                         else
-                            return tracks.validateEditByArtistOrNameTrack(command);
+                            return tracks.validateEditByArtistOrNameTrack(command);*/
+                        return tracks.validateEditTrack(command);
                     default:
                         Response Response = new Response(command.getKeys(), command.getArguments());
                         Response.setUnknownError(true);
@@ -102,7 +114,7 @@ public class Model {
         if (arguments[0].equals("all")) return tracks.getAllTracks();
         else {
             id = Parser.parseID(arguments[0]);
-            Track track = tracks.getTrack(id);
+            Track track = tracks.getTrackByID(id);
             return track == null ?
                     new Track[0]
                     :new Track[]{track};
@@ -158,28 +170,19 @@ public class Model {
                 break;
             case TRACK:
                 int id = Parser.parseID(arguments[0]);
-                switch (keys[2]) {
-                    case NAME:
-                        tracks.editName(id, arguments[1]);
-                        break;
-                    case ARTIST:
-                        tracks.editArtist(id, arguments[1]);
-                        break;
-                    case GENRE:
-                        Genre genre = genres.getGenre(arguments[1]);
-                        String newGenre = genre == null ? "" : genre.getName();
-                        if(newGenre.equals(""))
-                            command.setTrackWithoutGenreWarning(true);
-                        tracks.editGenre(id, newGenre);
-                        break;
-                    default:
-                        throw new IllegalArgumentException();
-                }
+                tracks.editName(id, arguments[1]);
+                tracks.editArtist(id, arguments[2]);
+                Genre genre = genres.getGenre(arguments[3]);
+                String newGenre = genre == null ? "" : genre.getName();
+                if(newGenre.equals(""))
+                    command.setTrackWithoutGenreWarning(true);
+                tracks.editGenre(id, newGenre);
                 break;
             default:
                 throw new IllegalArgumentException();
         }
     }
+
 
     private void executeRemove(Response command) {
         Key[] keys = command.getKeys();
@@ -322,8 +325,10 @@ public class Model {
                 break;
             case LOCK:
                 executeLock(command);
+                break;
             case FIND:
                 executeFind(command);
+                break;
             default:
                 throw new IllegalArgumentException();
         }

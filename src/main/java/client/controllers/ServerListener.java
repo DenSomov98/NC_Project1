@@ -55,22 +55,34 @@ public class ServerListener extends Thread {
             try {
                 Response response = (Response)in.readObject();
                 if (response.getKeys()[0] == Key.ADD || response.getKeys()[0] == Key.REMOVE || response.getKeys()[0] == Key.LOAD ||
-                        response.getKeys()[0] == Key.LOAD) {
+                        response.getKeys()[0] == Key.EDIT) {
                     wrapper = (Wrapper)in.readObject();
                     showTracks();
                     showGenres();
                     //Platform.runLater(() -> showTracks(wrapper));
                 }
-                if (response.getKeys()[0] == Key.LOCK) {
+                /*if (response.getKeys()[0] == Key.LOCK) {
                     Response responseEdit = (Response)in.readObject();
-                }
+                    wrapper = (Wrapper)in.readObject();
+                    showTracks();
+                    showGenres();
+                }*/
                 if (response.getKeys()[0] == Key.FIND) {
                     Track[] tracks = (Track[])in.readObject();
+                    //для проверки пока что в этой же вкладке
+                    showFindTracks(tracks);
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 break;
             }
+        }
+    }
+
+    public void showFindTracks(Track[] tracks){
+        tableViewTrack.getItems().clear();
+        for(Track track: tracks) {
+            tableViewTrack.getItems().add(track);
         }
     }
 

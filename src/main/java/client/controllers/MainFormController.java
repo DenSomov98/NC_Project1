@@ -278,18 +278,20 @@ public class MainFormController {
 
     public void requestToLockTrack() throws IOException {
         ArrayList<String> arguments = new ArrayList<>();
-        arguments.add("индекс блокируемого?");
+        arguments.add(String.valueOf(tableTrack.getSelectionModel().getSelectedItem().getId()));
         controller.requestToLockTrack(arguments);
     }
 
     public void requestToLockGenre() throws IOException {
         ArrayList<String> arguments = new ArrayList<>();
-        arguments.add("индекс блокируемого?");
+        arguments.add(String.valueOf(tableGenres.getSelectionModel().getSelectedItem().getId()));
         controller.requestToLockGenre(arguments);
     }
 
     public void requestToEditTrack() throws IOException {
+        System.out.println("нажата иконка \"Ок  Редактировать Трек\"");
         ArrayList<String> arguments = new ArrayList<>();
+        arguments.add(String.valueOf(tableTrack.getSelectionModel().getSelectedItem().getId()));
         arguments.add(nameField.getText());
         arguments.add(artistField.getText());
         arguments.add(genreField.getText());
@@ -297,7 +299,9 @@ public class MainFormController {
     }
 
     public void requestToEditGenre() throws IOException {
+        System.out.println("нажата иконка \"Ок  Редактировать Жанр\"");
         ArrayList<String> arguments = new ArrayList<>();
+        arguments.add(String.valueOf(tableGenres.getSelectionModel().getSelectedItem().getId()));
         arguments.add(nameField.getText());
         controller.requestToEditGenre(arguments);
     }
@@ -308,33 +312,33 @@ public class MainFormController {
         System.out.println("нажата иконка \"Редактировать\"");
         if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
             requestToLockTrack();
-            /*if(если блок){
-                nameField.setVisible(true);
-                artistField.setVisible(true);
-                genreField.setVisible(true);
-                okayButton.setVisible(true);
-                okayButton.setOnAction(args-> {
-                    try {
-                        requestToEditTrack();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }*/
+            nameField.setVisible(true);
+            artistField.setVisible(true);
+            genreField.setVisible(true);
+            okayButton.setVisible(true);
+            okayButton.setOnAction(args-> {
+                try {
+                    requestToEditTrack();
+                    nameField.clear();
+                    artistField.clear();
+                    genreField.clear();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
         if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
             requestToLockGenre();
-            /*if(если блок){
-                nameField.setVisible(true);
-                okayButton.setVisible(true);
-                okayButton.setOnAction(args-> {
-                    try {
-                        requestToEditGenre();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }*/
+            nameField.setVisible(true);
+            okayButton.setVisible(true);
+            okayButton.setOnAction(args-> {
+                try {
+                    requestToEditGenre();
+                    nameField.clear();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
     }
 
