@@ -74,7 +74,7 @@ public class MainFormController {
     private Button clearButton; //кнопка очистить
 
     public MainFormController() {
-      //  stage.setOnCloseRequest(event -> {controller.disconnect();});
+        //  stage.setOnCloseRequest(event -> {controller.disconnect();});
     }
 
     public TabPane getTabPane() {
@@ -132,10 +132,10 @@ public class MainFormController {
 
         //смена полей ввода при переключении вкладок
         tabpane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                unHighlightImages();
-                nameField.clear();
-                artistField.clear();
-                genreField.clear();
+            unHighlightImages();
+            nameField.clear();
+            artistField.clear();
+            genreField.clear();
             nameField.setVisible(false);
             artistField.setVisible(false);
             genreField.setVisible(false);
@@ -151,12 +151,7 @@ public class MainFormController {
                     artistField.setVisible(false);
                     genreField.setVisible(false);
                 }*/
-            });
-    }
-
-    @FXML
-    private void clickLoad() {
-        System.out.println("нажат пункт меню Файл - Загрузить");
+        });
     }
 
     public void requestToSave() throws IOException {
@@ -171,7 +166,7 @@ public class MainFormController {
         System.out.println("нажат пункт меню Файл - Сохранить");
         nameField.setVisible(true);
         okayButton.setVisible(true);
-        okayButton.setOnAction(args-> {
+        okayButton.setOnAction(args -> {
             try {
                 requestToSave();
             } catch (IOException e) {
@@ -227,7 +222,7 @@ public class MainFormController {
             artistField.setVisible(true);
             genreField.setVisible(true);
             okayButton.setVisible(true);
-            okayButton.setOnAction(args-> {
+            okayButton.setOnAction(args -> {
                 try {
                     requestToAddTrack();
                     nameField.clear();
@@ -241,7 +236,7 @@ public class MainFormController {
         if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
             nameField.setVisible(true);
             okayButton.setVisible(true);
-            okayButton.setOnAction(args-> {
+            okayButton.setOnAction(args -> {
                 try {
                     requestToAddGenre();
                     nameField.clear();
@@ -253,7 +248,7 @@ public class MainFormController {
         System.out.println("нажата иконка \"Добавить\"");
     }
 
-    private void unHighlightImages(){
+    private void unHighlightImages() {
         addImage.setEffect(new Blend());
         removeImage.setEffect(new Blend());
         editImage.setEffect(new Blend());
@@ -302,7 +297,7 @@ public class MainFormController {
         controller.requestToLockTrack(arguments);
     }
 
-    public void requestToLockGenre() throws IOException{
+    public void requestToLockGenre() throws IOException {
         ArrayList<String> arguments = new ArrayList<>();
         arguments.add("индекс блокируемого?");
         controller.requestToLockGenre(arguments);
@@ -383,7 +378,7 @@ public class MainFormController {
             artistField.setVisible(true);
             genreField.setVisible(true);
             okayButton.setVisible(true);
-            okayButton.setOnAction(args-> {
+            okayButton.setOnAction(args -> {
                 try {
                     requestToFindTrack();
                 } catch (IOException e) {
@@ -411,6 +406,34 @@ public class MainFormController {
         controller.disconnect();
         System.exit(0);
     }
+
+    @FXML
+    private void clickLoad() {
+        nameField.setVisible(true);
+        okayButton.setVisible(true);
+        okayButton.setOnAction(args -> {
+            controller.requestToLoad(nameField.getText());
+            nameField.clear();
+            artistField.clear();
+            genreField.clear();
+            nameField.setVisible(false);
+            okayButton.setVisible(false);
+        });
+    }
+
+    public void clickLoadDuplicate() {
+        nameField.setVisible(true);
+        okayButton.setVisible(true);
+        okayButton.setOnAction(args -> {
+            controller.requestToLoadDuplicate(nameField.getText());
+            nameField.clear();
+            artistField.clear();
+            genreField.clear();
+            nameField.setVisible(false);
+            okayButton.setVisible(false);
+        });
+    }
+
 
     /*@FXML
     private void clickOkay() {

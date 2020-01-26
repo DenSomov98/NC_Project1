@@ -11,7 +11,7 @@
           <Menu mnemonicParsing="false" text="Файл">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#clickSave" text="Сохранить" />
-                  <MenuItem mnemonicParsing="false" onAction="#clickLoad" text="Загрузить с дубликатами" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickLoadDuplicate" text="Загрузить с дубликатами" />
                   <MenuItem mnemonicParsing="false" onAction="#clickLoad" text="Загрузить без дубликатов" />
             </items>
           </Menu>

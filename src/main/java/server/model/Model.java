@@ -221,6 +221,7 @@ public class Model {
     }
 
     private void executeLoadFromFile(Response command) {
+        System.out.println("trhghghghghghghghghghghghghghghghghghghghghghghghghghghghghg");
         Wrapper res = null;
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Wrapper.class);
@@ -228,6 +229,7 @@ public class Model {
             res = (Wrapper) un.unmarshal(new File(command.getArguments()[0]));
         } catch (JAXBException e) {
             command.setFileIsCorruptedError(true);
+            e.printStackTrace();
         }
         Track[] tracks = null;
         Genre[] genres = null;
@@ -250,6 +252,7 @@ public class Model {
                 command.setFileIsEmptyWarning(true);
         } catch (Exception e) {
             command.setFileIsCorruptedError(true);
+            e.printStackTrace();
             return;
         }
         if(command.getKeys()[1] == Key.DUPLICATE) {

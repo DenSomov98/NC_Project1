@@ -4,14 +4,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
-@XmlType(propOrder = {"name", "artist", "genre"})
+@XmlType(propOrder = {"name", "artist", "genre", "id"})
 public class Track implements Comparable<Track>, Serializable {
 
     private String name;
     private String artist;
     private String genre;
     private int id;
-    private boolean isLocked;
+    private boolean isLocked = false;
 
     public static class CounterOfTrack {
         private static int counter = 1;
@@ -53,6 +53,7 @@ public class Track implements Comparable<Track>, Serializable {
         this.genre = genre;
     }
 
+    @XmlElement(name = "id")
     public int getId() {
         return id;
     }

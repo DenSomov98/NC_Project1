@@ -69,6 +69,7 @@ public class ControllerThread extends Thread{
         }
         else {
             model.execute(response);
+            //System.out.println(response.);
             //System.out.println(response.getKeys()[0]);
             synchronized (clients) {
                 for(ObjectOutputStream out : clients)

@@ -2,26 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4bb8f98-2d80-4bbe-8cae-3988d8edeec2" name="Default Changelist" comment="GUI, client server (ADD and REMOVE operations work)">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_15.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_4_0_b180830_0359.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_4_0_b180830_0438.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_4_0_b180830_0438.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_staxex_stax_ex_1_8.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/EntryFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/EntryFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/controllers/ControllerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/controllers/ControllerThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/GenreList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/GenreList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/Genres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/Genres.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/worklib/entities/Genre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/worklib/entities/Genre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/worklib/entities/Track.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/worklib/entities/Track.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/mainform.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/mainform.fxml" afterDir="false" />
     </list>
     <list id="87745d90-099b-4681-a5c5-a4dc797bb58d" name="Revert &quot;+validate в Model&quot;" comment="Revert &quot;+validate в Model&quot;&#10;&#10;This reverts commit 43c17c75" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,7 +46,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
-    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -105,6 +95,18 @@
       <recent name="C:\Users\mitilyas\IdeaProjects\project\src" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false">
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
@@ -145,18 +147,6 @@
         <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -207,12 +197,10 @@
       <workItem from="1579434311305" duration="22000" />
       <workItem from="1579434386192" duration="1074000" />
       <workItem from="1579435770464" duration="2185000" />
-      <workItem from="1579438557853" duration="4924000" />
-      <workItem from="1579512980005" duration="5312000" />
-      <workItem from="1579691482249" duration="2193000" />
-      <workItem from="1579796393072" duration="659000" />
-      <workItem from="1579860872660" duration="32000" />
-      <workItem from="1579860925363" duration="11781000" />
+      <workItem from="1579438557853" duration="274000" />
+      <workItem from="1579877934653" duration="359000" />
+      <workItem from="1579878295071" duration="4245000" />
+      <workItem from="1580031170438" duration="266000" />
     </task>
     <task id="LOCAL-00001" summary="основа для новой модели">
       <created>1574432592443</created>
@@ -368,14 +356,7 @@
       <option name="project" value="LOCAL" />
       <updated>1575370273322</updated>
     </task>
-    <task id="LOCAL-00023" summary="GUI, client server (ADD and REMOVE operations work)">
-      <created>1579438922068</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1579438922068</updated>
-    </task>
-    <option name="localTasksCounter" value="24" />
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -452,30 +433,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1579435888577" />
-    <state x="211" y="6" key="CommitChangelistDialog2" timestamp="1579513274707">
+    <state x="211" y="6" key="CommitChangelistDialog2" timestamp="1579434544368">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="211" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1579513274707" />
+    <state x="211" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1579434544368" />
     <state x="548" y="153" key="FileChooserDialogImpl" timestamp="1579438800295">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1579438800295" />
-    <state width="1493" height="186" key="GridCell.Tab.0.bottom" timestamp="1579874800028">
+    <state width="1493" height="157" key="GridCell.Tab.0.bottom" timestamp="1579438878070">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="186" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1579874800028" />
-    <state width="1493" height="186" key="GridCell.Tab.0.center" timestamp="1579874800028">
+    <state width="1493" height="157" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1579438878070" />
+    <state width="1493" height="157" key="GridCell.Tab.0.center" timestamp="1579438878070">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="186" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1579874800028" />
-    <state width="1493" height="186" key="GridCell.Tab.0.left" timestamp="1579874800028">
+    <state width="1493" height="157" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1579438878070" />
+    <state width="1493" height="157" key="GridCell.Tab.0.left" timestamp="1579438878070">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="186" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1579874800028" />
-    <state width="1493" height="186" key="GridCell.Tab.0.right" timestamp="1579874800028">
+    <state width="1493" height="157" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1579438878070" />
+    <state width="1493" height="157" key="GridCell.Tab.0.right" timestamp="1579438878070">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="186" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1579874800028" />
+    <state width="1493" height="157" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1579438878070" />
     <state width="1493" height="154" key="GridCell.Tab.1.bottom" timestamp="1579353194877">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -500,10 +481,6 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1579438834231" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1579513365014">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1579513365014" />
     <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579335410930">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

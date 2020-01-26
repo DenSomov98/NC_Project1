@@ -138,4 +138,32 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
+    public void requestToLoadDuplicate(String filename) {
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.LOAD);
+        keys.add(Key.DUPLICATE);
+        ArrayList<String> arguments = new ArrayList<>();
+        arguments.add(filename);
+        Request request = new Request(true, keys, arguments);
+        try {
+            out.writeObject(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void requestToLoad(String filename) {
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.LOAD);
+        keys.add(Key.OVERWRITE);
+        ArrayList<String> arguments = new ArrayList<>();
+        arguments.add(filename);
+        Request request = new Request(true, keys, arguments);
+        try {
+            out.writeObject(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -54,7 +54,7 @@ public class ServerListener extends Thread {
         while(true) {
             try {
                 Response response = (Response)in.readObject();
-                if (response.getKeys()[0] == Key.ADD || response.getKeys()[0] == Key.REMOVE ||
+                if (response.getKeys()[0] == Key.ADD || response.getKeys()[0] == Key.REMOVE || response.getKeys()[0] == Key.LOAD ||
                         response.getKeys()[0] == Key.LOAD) {
                     wrapper = (Wrapper)in.readObject();
                     showTracks();
