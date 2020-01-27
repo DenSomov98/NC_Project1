@@ -2,19 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4bb8f98-2d80-4bbe-8cae-3988d8edeec2" name="Default Changelist" comment="GUI, client server (ADD and REMOVE operations work)">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/GenreList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/GenreList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/Genres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/Genres.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/Tracks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/Tracks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/worklib/entities/Track.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/worklib/entities/Track.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/mainform.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/mainform.fxml" afterDir="false" />
     </list>
     <list id="87745d90-099b-4681-a5c5-a4dc797bb58d" name="Revert &quot;+validate в Model&quot;" comment="Revert &quot;+validate в Model&quot;&#10;&#10;This reverts commit 43c17c75" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,9 +74,9 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/project.iml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
@@ -98,9 +94,21 @@
       <recent name="C:\Users\alex1\IdeaProjects\NC_Project1\src\main\java" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="NC_Project1" />
@@ -109,7 +117,7 @@
       </method>
     </configuration>
     <configuration name="Server" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="server.Main" />
       <module name="NC_Project1" />
@@ -120,7 +128,7 @@
       </method>
     </configuration>
     <configuration name="Test" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="client.Test" />
       <module name="NC_Project1" />
@@ -133,18 +141,6 @@
       <item itemvalue="Application.Test" />
       <item itemvalue="Application.Server" />
     </list>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -528,11 +524,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/server/controllers/ControllerThread.java</url>
           <line>53</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java</url>
-          <line>379</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

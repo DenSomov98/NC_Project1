@@ -75,6 +75,8 @@ public class MainFormController {
     private ImageView removeImage;//значок удаления
     @FXML
     private ImageView searchImage;//значок поиска
+    @FXML
+    private Label operationName;//название операции
 
     @FXML
     private Button clearButton; //кнопка очистить
@@ -137,6 +139,7 @@ public class MainFormController {
         serverListener.setTabPane(tabpane);
         serverListener.setExchanger(exchanger);
         controller.getAllData();
+        operationName.setText("");
 
         //смена полей ввода при переключении вкладок
         tabpane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -148,6 +151,15 @@ public class MainFormController {
             artistField.setVisible(false);
             genreField.setVisible(false);
             okayButton.setVisible(false);
+            operationName.setText("");
+            if(newValue.getText().equals("Жанры")){
+                searchImage.setVisible(false);
+                searchImage.setDisable(true);
+            }
+            else {
+                searchImage.setVisible(true);
+                searchImage.setDisable(false);
+            }
                 /*if (newValue.getText().equals("Треки")) {
                     tabpane.getSelectionModel().select(0);
                     nameField.setVisible(true);
@@ -187,6 +199,7 @@ public class MainFormController {
         shadowEffect.setChoke(1);
         addImage.setEffect(shadowEffect);
         if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
+            operationName.setText("Операция: Добавление трека");
             nameField.setVisible(true);
             artistField.setVisible(true);
             genreField.setVisible(true);
@@ -197,24 +210,36 @@ public class MainFormController {
                     nameField.clear();
                     artistField.clear();
                     genreField.clear();
+                    unHighlightImages();
+                    nameField.setVisible(false);
+                    artistField.setVisible(false);
+                    genreField.setVisible(false);
+                    okayButton.setVisible(false);
+                    operationName.setText("");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
         }
         if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
+            operationName.setText("Операция: Добавление жанра");
             nameField.setVisible(true);
             okayButton.setVisible(true);
             okayButton.setOnAction(args -> {
                 try {
                     requestToAddGenre();
                     nameField.clear();
+                    unHighlightImages();
+                    nameField.setVisible(false);
+                    okayButton.setVisible(false);
+                    operationName.setText("");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
         }
         System.out.println("нажата иконка \"Добавить\"");
+
     }
 
     private void unHighlightImages() {
@@ -226,6 +251,15 @@ public class MainFormController {
 
     public void requestToRemoveTrack() throws IOException {
         Track trackToDelete = tableTrack.getSelectionModel().getSelectedItem();
+        if(trackToDelete == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не выбран трек для удаления!");
+            alert.showAndWait();
+            removeImage.setEffect(new Blend());
+            return;
+        }
         ArrayList<String> arguments = new ArrayList<>();
         //парметры удаляемого объекта
         /*arguments.add(trackToDelete.getName());
@@ -237,6 +271,15 @@ public class MainFormController {
 
     public void requestToRemoveGenre() throws IOException {
         Genre genreToDelete = tableGenres.getSelectionModel().getSelectedItem();
+        if(genreToDelete == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не выбран жанр для удаления!");
+            alert.showAndWait();
+            removeImage.setEffect(new Blend());
+            return;
+        }
         ArrayList<String> arguments = new ArrayList<>();
         //парметры удаляемого объекта
         arguments.add(genreToDelete.getName());
@@ -275,6 +318,15 @@ public class MainFormController {
     public void requestToEditTrack() throws IOException {
         System.out.println("нажата иконка \"Ок  Редактировать Трек\"");
         ArrayList<String> arguments = new ArrayList<>();
+        if(tableTrack.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не выбран трек для редактирования!");
+            alert.showAndWait();
+            removeImage.setEffect(new Blend());
+            return;
+        }
         arguments.add(String.valueOf(tableTrack.getSelectionModel().getSelectedItem().getId()));
         arguments.add(nameField.getText());
         arguments.add(artistField.getText());
@@ -285,6 +337,15 @@ public class MainFormController {
     public void requestToEditGenre() throws IOException {
         System.out.println("нажата иконка \"Ок  Редактировать Жанр\"");
         ArrayList<String> arguments = new ArrayList<>();
+        if(tableGenres.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не выбран жанр для редактирования!");
+            alert.showAndWait();
+            removeImage.setEffect(new Blend());
+            return;
+        }
         arguments.add(String.valueOf(tableGenres.getSelectionModel().getSelectedItem().getId()));
         arguments.add(nameField.getText());
         controller.requestToEditGenre(arguments);
@@ -293,15 +354,25 @@ public class MainFormController {
     @FXML
     //нажата иконка "Редактировать"
     private void clickEdit() throws IOException {
+        InnerShadow shadowEffect = new InnerShadow();
+        shadowEffect.setColor(Color.BLUE);
+        shadowEffect.setChoke(1);
+        editImage.setEffect(shadowEffect);
         System.out.println("нажата иконка \"Редактировать\"");
         if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
+            operationName.setText("Операция: Редактирование трека");
             requestToLockTrack();
             try {
                 Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
                 System.out.println(response);
-                if(response.hasErrors()) {
+                if(response.isAlreadyLockedError()) {
                     new View(null).printError(response);
                     System.out.println("Занято");
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Выбранный трек в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
+                    alert.showAndWait();
                     return;
                 }
                 nameField.setVisible(true);
@@ -311,10 +382,12 @@ public class MainFormController {
                 okayButton.setOnAction(args-> {
                     try {
                         requestToEditTrack();
+                        unHighlightImages();
                         nameField.setVisible(false);
                         artistField.setVisible(false);
                         genreField.setVisible(false);
                         okayButton.setVisible(false);
+                        operationName.setText("");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -326,6 +399,7 @@ public class MainFormController {
             }
         }
         else if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
+            operationName.setText("Операция: Редактирование жанра");
             requestToLockGenre();
             try {
                 Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
@@ -342,10 +416,12 @@ public class MainFormController {
                 okayButton.setOnAction(args-> {
                     try {
                         requestToEditGenre();
+                        unHighlightImages();
                         nameField.setVisible(false);
                         artistField.setVisible(false);
                         genreField.setVisible(false);
                         okayButton.setVisible(false);
+                        operationName.setText("");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -356,6 +432,11 @@ public class MainFormController {
             } catch (TimeoutException ignored) {
             }
         }
+        /*unHighlightImages();
+        artistField.setVisible(false);
+        genreField.setVisible(false);
+        okayButton.setVisible(false);
+        operationName.setText("");*/
     }
 
     public void requestToFindTrack() throws IOException {
@@ -378,7 +459,12 @@ public class MainFormController {
     //нажата иконка "Поиск"
     private void clickSearch() {
         System.out.println("нажата иконка \"Поиск\"");
+        InnerShadow shadowEffect = new InnerShadow();
+        shadowEffect.setColor(Color.BLUE);
+        shadowEffect.setChoke(1);
+        searchImage.setEffect(shadowEffect);
         if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
+            operationName.setText("Операция: Поиск трека");
             nameField.setVisible(true);
             artistField.setVisible(true);
             genreField.setVisible(true);
@@ -386,6 +472,12 @@ public class MainFormController {
             okayButton.setOnAction(args -> {
                 try {
                     requestToFindTrack();
+                    unHighlightImages();
+                    nameField.setVisible(false);
+                    artistField.setVisible(false);
+                    genreField.setVisible(false);
+                    okayButton.setVisible(false);
+                    operationName.setText("");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -416,6 +508,9 @@ public class MainFormController {
     @FXML
     //нажат пункт меню "Файл - Сохранить"
     private void clickSave() {
+        unHighlightImages();
+        artistField.setVisible(false);
+        genreField.setVisible(false);
         System.out.println("нажат пункт меню Файл - Сохранить");
         nameField.setVisible(true);
         okayButton.setVisible(true);
@@ -429,6 +524,9 @@ public class MainFormController {
 
     @FXML
     private void clickLoad() {
+        unHighlightImages();
+        artistField.setVisible(false);
+        genreField.setVisible(false);
         nameField.setVisible(true);
         okayButton.setVisible(true);
         okayButton.setOnAction(args -> {
@@ -440,6 +538,9 @@ public class MainFormController {
     }
 
     public void clickLoadDuplicate() {
+        unHighlightImages();
+        artistField.setVisible(false);
+        genreField.setVisible(false);
         nameField.setVisible(true);
         okayButton.setVisible(true);
         okayButton.setOnAction(args -> {
