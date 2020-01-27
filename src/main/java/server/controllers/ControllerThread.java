@@ -89,7 +89,7 @@ public class ControllerThread extends Thread{
         synchronized (clients) {
             Wrapper data = model.getAllData();
             for(ObjectOutputStream out : clients)
-                out.writeObject(data);
+                out.writeObject(model.getAllData());
         }
     }
 

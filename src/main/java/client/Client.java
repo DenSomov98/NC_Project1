@@ -24,6 +24,7 @@ public class Client extends Application {
         stage.setScene(new Scene(root));
         stage.show();
         EntryFormController.setStage(stage);
+        MainFormController.setStage(stage);
         Controller controller = new Controller();
         EntryFormController.setController(controller);
         MainFormController.setController(controller);

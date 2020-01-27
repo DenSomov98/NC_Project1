@@ -19,11 +19,11 @@ public class EntryFormController {
 
 
     @FXML
-    private TextField addressField; //поле IP
+    private TextField addressField;
     @FXML
-    private TextField portField;//после порта
+    private TextField portField;
     @FXML
-    private Button connectButton;//кнопка подключения
+    private Button connectButton;
 
     public static void setStage(Stage stage) {
         EntryFormController.stage = stage;
@@ -32,7 +32,8 @@ public class EntryFormController {
     public static void setController(Controller controller) {
         EntryFormController.controller = controller;
     }
-    @FXML //вызывается при запуске формы
+
+    @FXML
     private void initialize(){
         addressField.setText("127.0.0.1");
         portField.setText("1667");
@@ -41,23 +42,23 @@ public class EntryFormController {
     @FXML
     private void clickConnect() throws IOException {
         int port = Parser.parseID(portField.getText());
-        if(port<0 || !controller.tryToConnect(addressField.getText(), port))
-            showPortError();
+        if(port<0)
+            showError("Некорректный ввод!");
+        else if(!controller.tryToConnect(addressField.getText(), port))
+            showError("Ошибка соединения с сервером.");
         else {
             Parent mainWindow = FXMLLoader.load(getClass().getResource("/fxml/mainform.fxml"));
-            stage.setTitle("Музыкальная библиотека");
             stage.setScene(new Scene(mainWindow, 600, 415));
             stage.setOnCloseRequest(event -> {controller.disconnect();});
-            //controller.getAllData();
             stage.show();
         }
     }
 
-    private void showPortError() {
+    private void showError(String info) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Input error");
+        alert.setTitle("Ошибка");
         alert.setHeaderText(null);
-        alert.setContentText("Incorrect input!");
+        alert.setContentText(info);
         alert.showAndWait();
     }
 }

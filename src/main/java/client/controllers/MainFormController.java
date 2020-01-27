@@ -8,6 +8,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.Blend;
@@ -78,12 +81,7 @@ public class MainFormController {
     @FXML
     private Label operationName;//название операции
 
-    @FXML
-    private Button clearButton; //кнопка очистить
-
-    public MainFormController() {
-        //  stage.setOnCloseRequest(event -> {controller.disconnect();});
-    }
+    public MainFormController() {}
 
     public TabPane getTabPane() {
         return tabpane;
@@ -109,6 +107,8 @@ public class MainFormController {
         return genreField;
     }
 
+    public static void setStage(Stage stage) { MainFormController.stage = stage; }
+
     public static void setController(Controller controller) {
         MainFormController.controller = controller;
     }
@@ -120,7 +120,6 @@ public class MainFormController {
     public static void setServerListener(ServerListener serverListener) {
         MainFormController.serverListener = serverListener;
     }
-
 
     @FXML
     private void initialize() {
@@ -192,7 +191,7 @@ public class MainFormController {
 
     @FXML
     //нажата иконка "Добавить"
-    private void clickAdd() throws IOException {
+    private void clickAdd() {
         unHighlightImages();
         InnerShadow shadowEffect = new InnerShadow();
         shadowEffect.setColor(Color.GREEN);
@@ -239,7 +238,6 @@ public class MainFormController {
             });
         }
         System.out.println("нажата иконка \"Добавить\"");
-
     }
 
     private void unHighlightImages() {
@@ -261,10 +259,6 @@ public class MainFormController {
             return;
         }
         ArrayList<String> arguments = new ArrayList<>();
-        //парметры удаляемого объекта
-        /*arguments.add(trackToDelete.getName());
-        arguments.add(trackToDelete.getArtist());
-        arguments.add(trackToDelete.getGenre());*/
         arguments.add(String.valueOf(trackToDelete.getId()));
         controller.requestToRemoveTrack(arguments);
     }
@@ -281,13 +275,11 @@ public class MainFormController {
             return;
         }
         ArrayList<String> arguments = new ArrayList<>();
-        //парметры удаляемого объекта
         arguments.add(genreToDelete.getName());
         controller.requestToRemoveGenre(arguments);
     }
 
     @FXML
-    //нажата иконка "Удалить"
     private void clickRemove() throws IOException {
         unHighlightImages();
         InnerShadow shadowEffect = new InnerShadow();
@@ -305,12 +297,34 @@ public class MainFormController {
 
     public void requestToLockTrack() throws IOException {
         ArrayList<String> arguments = new ArrayList<>();
+        Track trackToLock = tableTrack.getSelectionModel().getSelectedItem();
+        if(trackToLock == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не выбран трек для редактирования!");
+            alert.showAndWait();
+            editImage.setEffect(new Blend());
+            operationName.setText("");
+            return;
+        }
         arguments.add(String.valueOf(tableTrack.getSelectionModel().getSelectedItem().getId()));
         controller.requestToLockTrack(arguments);
     }
 
     public void requestToLockGenre() throws IOException {
         ArrayList<String> arguments = new ArrayList<>();
+        Genre genreToEdit = tableGenres.getSelectionModel().getSelectedItem();
+        if(genreToEdit == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не выбран жанр для редактирования!");
+            alert.showAndWait();
+            editImage.setEffect(new Blend());
+            operationName.setText("");
+            return;
+        }
         arguments.add(String.valueOf(tableGenres.getSelectionModel().getSelectedItem().getId()));
         controller.requestToLockGenre(arguments);
     }
@@ -427,9 +441,9 @@ public class MainFormController {
                     }
                 });
 
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | TimeoutException e) {
                 e.printStackTrace();
-            } catch (TimeoutException ignored) {
+                return;
             }
         }
         /*unHighlightImages();
@@ -447,13 +461,6 @@ public class MainFormController {
         arguments.add(genreField.getText());
         controller.requestToFindTrack(arguments);
     }
-
-    /*public void requestToFindGenre() throws IOException {
-        System.out.println("нажата иконка \"Ок Найти Жанр\"");
-        ArrayList<String> arguments = new ArrayList<>();
-        arguments.add(nameField.getText());
-        controller.requestToFindGenre(arguments);
-    }*/
 
     @FXML
     //нажата иконка "Поиск"
@@ -483,27 +490,22 @@ public class MainFormController {
                 }
             });
         }
-        /*if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
-            nameField.setVisible(true);
-            okayButton.setVisible(true);
-            okayButton.setOnAction(args-> {
-                try {
-                    requestToFindGenre();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }*/
     }
 
-    public void ClickDisconnect(ActionEvent actionEvent) {
+    public void ClickDisconnect(ActionEvent actionEvent) throws IOException {
+        String fxmlFile = "/fxml/entry.fxml";
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
+        controller.disconnect();
+        stage.setOnCloseRequest(event -> {System.exit(0);});
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void ClickExit(ActionEvent actionEvent) {
         controller.disconnect();
         System.exit(0);
     }
-
 
     @FXML
     //нажат пункт меню "Файл - Сохранить"
@@ -514,11 +516,13 @@ public class MainFormController {
         System.out.println("нажат пункт меню Файл - Сохранить");
         nameField.setVisible(true);
         okayButton.setVisible(true);
+        operationName.setText("Операция: Сохранение в файл на сервере.");
         okayButton.setOnAction(args -> {
             controller.requestToSave(nameField.getText());
             nameField.clear();
             nameField.setVisible(false);
             okayButton.setVisible(false);
+            operationName.setText("");
         });
     }
 
@@ -529,11 +533,13 @@ public class MainFormController {
         genreField.setVisible(false);
         nameField.setVisible(true);
         okayButton.setVisible(true);
+        operationName.setText("Операция: Загрузка данных из файла.");
         okayButton.setOnAction(args -> {
             controller.requestToLoad(nameField.getText());
             nameField.clear();
             nameField.setVisible(false);
             okayButton.setVisible(false);
+            operationName.setText("");
         });
     }
 
@@ -543,18 +549,14 @@ public class MainFormController {
         genreField.setVisible(false);
         nameField.setVisible(true);
         okayButton.setVisible(true);
+        operationName.setText("Операция: Загрузка данных из файла (с дубликатами).");
         okayButton.setOnAction(args -> {
             controller.requestToLoadDuplicate(nameField.getText());
             nameField.clear();
             nameField.setVisible(false);
             okayButton.setVisible(false);
+            operationName.setText("");
         });
     }
-
-
-    /*@FXML
-    private void clickOkay() {
-        System.out.println("нажата иконка \"Ок\"");
-    }*/
 }
 
