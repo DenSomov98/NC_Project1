@@ -29,6 +29,12 @@ public class Track implements Comparable<Track>, Serializable {
         this.id = CounterOfTrack.counter++;
     }
 
+    public Track(String name, String artist, String genre, boolean noID) {
+        this.name = name;
+        this.artist = artist;
+        this.genre = genre;
+    }
+
     @XmlElement(name = "name")
     public String getName() {
         return name;

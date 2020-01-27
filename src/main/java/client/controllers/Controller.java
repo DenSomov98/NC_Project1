@@ -30,13 +30,17 @@ public class Controller {
         return true;
     }
 
-    public void getAllData() throws IOException {
+    public void getAllData() {
         ArrayList<Key> keys = new ArrayList<>();
         keys.add(Key.GET);
         ArrayList<String> arguments = new ArrayList<>();
         arguments.add("all");
         Request request = new Request(true, keys, arguments);
-        out.writeObject(request);
+        try {
+            out.writeObject(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void requestToAddTrack(ArrayList<String> arguments) throws IOException {

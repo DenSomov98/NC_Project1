@@ -31,4 +31,7 @@ public interface Genres {
 
     void addReadGenres(Genre[] genres, Track[] tracks, boolean duplicate);
 
+    void lockGenre(Response command);
+
+    void unLockGenre(Response command);
 }

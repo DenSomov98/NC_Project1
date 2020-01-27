@@ -128,4 +128,14 @@ public class GenreList implements Genres, Serializable {
         }
         Collections.sort(this.genres);
     }
+
+    @Override
+    public void unLockGenre(Response command) {
+        getGenre(command.getArguments()[0]).setLocked(false);
+    }
+
+    @Override
+    public void lockGenre(Response command) {
+        getGenre(command.getArguments()[0]).setLocked(false);
+    }
 }

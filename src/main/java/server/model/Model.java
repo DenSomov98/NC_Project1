@@ -50,11 +50,15 @@ public class Model {
                 switch (keys[1]) {
                     case GENRE:
                         return genres.validateEditGenre(command);
-                    case TRACK:
+                    case TRACK:;
+                        boolean isGenreCorrect = true;
+                        Genre genre = genres.getGenre(command.getArguments()[3]);
+                        if(genre == null)
+                            isGenreCorrect = false;
                         /*if (keys[2] == Key.GENRE) return tracks.validateEditByGenreTrack(command);
                         else
                             return tracks.validateEditByArtistOrNameTrack(command);*/
-                        return tracks.validateEditTrack(command);
+                        return tracks.validateEditTrack(command, isGenreCorrect);
                     default:
                         Response Response = new Response(command.getKeys(), command.getArguments());
                         Response.setUnknownError(true);
@@ -167,6 +171,7 @@ public class Model {
             case GENRE:
                 genres.editName(arguments[0], arguments[1]);
                 tracks.editGenreName(arguments[0], arguments[1]);
+                genres.unLockGenre(command);
                 break;
             case TRACK:
                 int id = Parser.parseID(arguments[0]);
@@ -177,6 +182,7 @@ public class Model {
                 if(newGenre.equals(""))
                     command.setTrackWithoutGenreWarning(true);
                 tracks.editGenre(id, newGenre);
+                tracks.unLockTrack(command);
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -272,26 +278,10 @@ public class Model {
         String[] arguments = command.getArguments();
         switch (keys[1]) {
             case GENRE:
-                for (Genre genre : genres.getAllGenres()) {
-                    if(genre.getId() == Parser.parseID(arguments[0])){
-                        if(!genre.isLocked()) genre.setLocked(true);
-                        else command.setAlreadyLockedError(true);
-                    }
-                    else {
-                        command.setIndexError(true);
-                    }
-                }
+                genres.lockGenre(command);
                 break;
             case TRACK:
-                for (Track track : tracks.getAllTracks()) {
-                    if(track.getId() == Parser.parseID(arguments[0])){
-                        if(!track.isLocked()) track.setLocked(true);
-                        else command.setAlreadyLockedError(true);
-                    }
-                    else {
-                        command.setIndexError(true);
-                    }
-                }
+                tracks.lockTrack(command);
                 break;
             default:
                 throw new IllegalArgumentException();

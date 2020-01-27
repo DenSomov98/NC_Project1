@@ -17,20 +17,26 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import server.view.View;
 import worklib.entities.Genre;
 import worklib.entities.Track;
 import worklib.entities.Wrapper;
 import worklib.parse.Key;
 import worklib.transfer.Request;
+import worklib.transfer.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Exchanger;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class MainFormController {
 
     private static Stage stage;
     private static Controller controller;
     private static ServerListener serverListener;
+    private static Exchanger<Response> exchanger = new Exchanger<>();
 
     @FXML
     private TabPane tabpane; //панель, разделяющая таблицы
@@ -129,6 +135,8 @@ public class MainFormController {
         serverListener.setTableViewTrack(tableTrack);
         serverListener.setTableViewGenre(tableGenres);
         serverListener.setTabPane(tabpane);
+        serverListener.setExchanger(exchanger);
+        controller.getAllData();
 
         //смена полей ввода при переключении вкладок
         tabpane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -152,30 +160,6 @@ public class MainFormController {
                     genreField.setVisible(false);
                 }*/
         });
-    }
-
-    public void requestToSave() throws IOException {
-        ArrayList<String> arguments = new ArrayList<>();
-        arguments.add(nameField.getText() + ".txt");
-        //controller.requestToSave(arguments);
-    }
-
-    @FXML
-    //нажат пункт меню "Сервер - Отлючиться"
-    private void clickQuit() {
-        System.out.println("нажат пункт меню Сервер - Отлючиться");
-    }
-
-    @FXML
-    //нажат пункт меню "Сервер - Обновить соединение"
-    private void clickRefreshConnection() {
-        System.out.println("нажат пункт меню \"Сервер - Обновить соединение\"");
-    }
-
-    @FXML
-    //нажата кнопка "Очистить"
-    private void clickClear() {
-        System.out.println("нажата кнопка \"Очистить\"");
     }
 
     public void requestToAddTrack() throws IOException {
@@ -312,33 +296,65 @@ public class MainFormController {
         System.out.println("нажата иконка \"Редактировать\"");
         if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
             requestToLockTrack();
-            nameField.setVisible(true);
-            artistField.setVisible(true);
-            genreField.setVisible(true);
-            okayButton.setVisible(true);
-            okayButton.setOnAction(args-> {
-                try {
-                    requestToEditTrack();
-                    nameField.clear();
-                    artistField.clear();
-                    genreField.clear();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
+                System.out.println(response);
+                if(response.hasErrors()) {
+                    new View(null).printError(response);
+                    System.out.println("Занято");
+                    return;
                 }
-            });
+                nameField.setVisible(true);
+                artistField.setVisible(true);
+                genreField.setVisible(true);
+                okayButton.setVisible(true);
+                okayButton.setOnAction(args-> {
+                    try {
+                        requestToEditTrack();
+                        nameField.setVisible(false);
+                        artistField.setVisible(false);
+                        genreField.setVisible(false);
+                        okayButton.setVisible(false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (TimeoutException ignored) {
+            }
         }
-        if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
+        else if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
             requestToLockGenre();
-            nameField.setVisible(true);
-            okayButton.setVisible(true);
-            okayButton.setOnAction(args-> {
-                try {
-                    requestToEditGenre();
-                    nameField.clear();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
+                System.out.println(response);
+                if(response.hasErrors()) {
+                    new View(null).printError(response);
+                    System.out.println("Занято");
+                    return;
                 }
-            });
+                nameField.setVisible(true);
+                okayButton.setVisible(true);
+                artistField.setVisible(false);
+                genreField.setVisible(false);
+                okayButton.setOnAction(args-> {
+                    try {
+                        requestToEditGenre();
+                        nameField.setVisible(false);
+                        artistField.setVisible(false);
+                        genreField.setVisible(false);
+                        okayButton.setVisible(false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (TimeoutException ignored) {
+            }
         }
     }
 

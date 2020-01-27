@@ -62,14 +62,15 @@ public class TrackList implements Tracks, Serializable {
         //Collections.sort(tracks);
     }
 
-    public Response validateEditTrack(Request command){
+    public Response validateEditTrack(Request command, boolean isGenreCorrect){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         Response Response = new Response(keys, arguments);
-//        Track trackToEdit = getTrackByID(Parser.parseID(arguments[0]));
-//        if (trackToEdit == null) Response.setObjectNotFoundError(true);
-        if (getTrackByName(arguments[1]) != null) Response.setEqualsNameError(true);
-        if(arguments[3] == null) Response.setTrackWithoutGenreWarning(true);
+        if(!isGenreCorrect)
+            arguments[3] = "";
+        Track test = new Track(arguments[1], arguments[2], arguments[3]);
+        if (alreadyExist(test)) Response.setEqualsNameError(true);
+        else if(arguments[3].equals("")) Response.setTrackWithoutGenreWarning(true);
         return Response;
     }
 
@@ -90,6 +91,20 @@ public class TrackList implements Tracks, Serializable {
         Track trackToLock = getTrackByID(Parser.parseID(arguments[0]));
         if (trackToLock == null) Response.setObjectNotFoundError(true);
         return Response;
+    }
+
+    @Override
+    public void lockTrack(Response command) {
+        String[] arguments = command.getArguments();
+        Track trackToLock = getTrackByID(Parser.parseID(arguments[0]));
+        trackToLock.setLocked(true);
+    }
+
+    @Override
+    public void unLockTrack(Response command) {
+        String[] arguments = command.getArguments();
+        Track trackToLock = getTrackByID(Parser.parseID(arguments[0]));
+        trackToLock.setLocked(false);
     }
 
     @Override
