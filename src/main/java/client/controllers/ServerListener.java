@@ -62,6 +62,7 @@ public class ServerListener extends Thread {
         while(true) {
             try {
                 Response response = (Response)in.readObject();
+                System.out.println(response.isObjMatchesNoLongerWarning());
                 if (response.getKeys()[0] == Key.ADD || response.getKeys()[0] == Key.GET || response.getKeys()[0] == Key.REMOVE || response.getKeys()[0] == Key.LOAD ||
                         response.getKeys()[0] == Key.EDIT) {
                     wrapper = (Wrapper)in.readObject();
@@ -70,7 +71,7 @@ public class ServerListener extends Thread {
                     //Platform.runLater(() -> showTracks(wrapper));
                 }
                 if (response.getKeys()[0] == Key.LOCK) {
-                    try {exchanger.exchange(response, 1500, TimeUnit.MILLISECONDS);
+                    try {exchanger.exchange(response, 15000, TimeUnit.MILLISECONDS);
                         } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (TimeoutException ignored) {

@@ -170,6 +170,60 @@ public class TrackList implements Tracks, Serializable {
         return result.toArray(new Track[0]);
     }
 
+    public static Track[] find(Track[] tracks, String[] searchCriteria) {
+        String name = searchCriteria[0];
+        String artist = searchCriteria[1];
+        String genre = searchCriteria[2];
+        LinkedList<Track> result = new LinkedList<>();
+        StringBuilder regexName = new StringBuilder(name);
+        StringBuilder regexArtist = new StringBuilder(artist);
+        StringBuilder regexGenre = new StringBuilder(genre);
+        Parser.toRegEx(regexName, "*");
+        Parser.toRegEx(regexName, "?");
+        Parser.toRegEx(regexArtist, "*");
+        Parser.toRegEx(regexArtist, "?");
+        Parser.toRegEx(regexGenre, "*");
+        Parser.toRegEx(regexGenre, "?");
+
+        Pattern patternName = Pattern.compile(regexName.toString(), Pattern.CASE_INSENSITIVE);
+        Pattern patternArtist = Pattern.compile(regexArtist.toString(), Pattern.CASE_INSENSITIVE);
+        Pattern patternGenre = Pattern.compile(regexGenre.toString(),Pattern.CASE_INSENSITIVE);
+
+        for (Track track : tracks) {
+            Matcher matcherName = patternName.matcher(track.getName());
+            Matcher matcherArtist = patternArtist.matcher(track.getArtist());
+            Matcher matcherGenre = patternGenre.matcher(track.getGenre());
+            if (matcherName.find() && matcherArtist.find() && matcherGenre.find()){
+                result.add(track);
+            }
+        }
+        return result.toArray(new Track[0]);
+    }
+
+    public static boolean isMatches(String[] data, String[] searchCriteria) {
+        String name = searchCriteria[0];
+        String artist = searchCriteria[1];
+        String genre = searchCriteria[2];
+        StringBuilder regexName = new StringBuilder(name);
+        StringBuilder regexArtist = new StringBuilder(artist);
+        StringBuilder regexGenre = new StringBuilder(genre);
+        Parser.toRegEx(regexName, "*");
+        Parser.toRegEx(regexName, "?");
+        Parser.toRegEx(regexArtist, "*");
+        Parser.toRegEx(regexArtist, "?");
+        Parser.toRegEx(regexGenre, "*");
+        Parser.toRegEx(regexGenre, "?");
+
+        Pattern patternName = Pattern.compile(regexName.toString(), Pattern.CASE_INSENSITIVE);
+        Pattern patternArtist = Pattern.compile(regexArtist.toString(), Pattern.CASE_INSENSITIVE);
+        Pattern patternGenre = Pattern.compile(regexGenre.toString(),Pattern.CASE_INSENSITIVE);
+
+        Matcher matcherName = patternName.matcher(data[0]);
+        Matcher matcherArtist = patternArtist.matcher(data[1]);
+        Matcher matcherGenre = patternGenre.matcher(data[2]);
+        return  (matcherName.find() && matcherArtist.find() && matcherGenre.find());
+    }
+
     public void setGenreToNull(String genre){
         for (Track track : tracks) {
             if (track.getGenre().equalsIgnoreCase(genre)) track.setGenre("");
@@ -200,7 +254,13 @@ public class TrackList implements Tracks, Serializable {
     }
 
     @Override
-    public Track[] getAllTracks() { return tracks.toArray(new Track[0]); }
+    public Track[] getAllTracks() {
+        Track[] result = new Track[tracks.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = tracks.get(i).clone();
+        }
+        return result;
+    }
 
     private boolean alreadyExist(Track checked) {
         for(Track track : tracks) {

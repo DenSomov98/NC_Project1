@@ -21,7 +21,7 @@ public class Model {
         this.genres = genres;
     }
 
-    public Response validate(Request command) {
+    public synchronized Response validate(Request command) {
         Key[] keys = command.getKeys();
         switch (keys[0]) {
             case ADD:
@@ -55,9 +55,6 @@ public class Model {
                         Genre genre = genres.getGenre(command.getArguments()[3]);
                         if(genre == null)
                             isGenreCorrect = false;
-                        /*if (keys[2] == Key.GENRE) return tracks.validateEditByGenreTrack(command);
-                        else
-                            return tracks.validateEditByArtistOrNameTrack(command);*/
                         return tracks.validateEditTrack(command, isGenreCorrect);
                     default:
                         Response Response = new Response(command.getKeys(), command.getArguments());
@@ -112,36 +109,12 @@ public class Model {
         }
     }
 
-    public Track[] viewTrack(Request command) {
-        String[] arguments = command.getArguments();
-        int id;
-        if (arguments[0].equals("all")) return tracks.getAllTracks();
-        else {
-            id = Parser.parseID(arguments[0]);
-            Track track = tracks.getTrackByID(id);
-            return track == null ?
-                    new Track[0]
-                    :new Track[]{track};
-        }
-    }
-
-    public Genre[] viewGenre(Request command) {
-        String[] arguments = command.getArguments();
-        if (arguments[0].equals("all")) return genres.getAllGenres();
-        else {
-            Genre genre = genres.getGenre(arguments[0]);
-            return genre == null ?
-                    new Genre[0]
-                    :new Genre[]{genre};
-        }
-    }
-
     public Track[] findTracks(Response command) {
         String[] args = command.getArguments();
         return tracks.find(args[0], args[1], args[2]);
     }
 
-    private void executeAdd(Response command) {
+    private synchronized void executeAdd(Response command) {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         switch (keys[1]) {
@@ -164,13 +137,13 @@ public class Model {
         }
     }
 
-    private void executeEdit(Response command) {
+    private synchronized void executeEdit(Response command) {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         switch (keys[1]) {
             case GENRE:
+                tracks.editGenreName(genres.getGenre(arguments[0]).getName(), arguments[1]);
                 genres.editName(arguments[0], arguments[1]);
-                tracks.editGenreName(arguments[0], arguments[1]);
                 genres.unLockGenre(command);
                 break;
             case TRACK:
@@ -190,7 +163,7 @@ public class Model {
     }
 
 
-    private void executeRemove(Response command) {
+    private synchronized void executeRemove(Response command) {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         switch (keys[1]) {
@@ -217,7 +190,7 @@ public class Model {
         }
     }
 
-    private void executeSaveIntoFile(Response command) {
+    private synchronized void executeSaveIntoFile(Response command) {
         String filePath = command.getArguments()[0];
         try {
             JAXBContext context = JAXBContext.newInstance(Wrapper.class);
@@ -229,7 +202,7 @@ public class Model {
         }
     }
 
-    private void executeLoadFromFile(Response command) {
+    private synchronized void executeLoadFromFile(Response command) {
         Wrapper res = null;
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Wrapper.class);
@@ -273,7 +246,7 @@ public class Model {
         }
     }
 
-    public void executeLock(Response command){
+    public synchronized void executeLock(Response command){
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         switch (keys[1]) {
@@ -288,7 +261,7 @@ public class Model {
         }
     }
 
-    public void executeFind(Response command){
+    public synchronized void executeFind(Response command){
         findTracks(command);
     }
 

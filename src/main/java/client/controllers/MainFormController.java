@@ -20,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import server.view.View;
 import worklib.entities.Genre;
 import worklib.entities.Track;
 import worklib.entities.Wrapper;
@@ -336,7 +335,7 @@ public class MainFormController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Не выбран трек для редактирования!");
+            alert.setContentText("Похоже, выбранный трек уже удалён.");
             alert.showAndWait();
             removeImage.setEffect(new Blend());
             return;
@@ -355,7 +354,7 @@ public class MainFormController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Не выбран жанр для редактирования!");
+            alert.setContentText("Похоже, выбранный жанр уже удалён.");
             alert.showAndWait();
             removeImage.setEffect(new Blend());
             return;
@@ -377,10 +376,8 @@ public class MainFormController {
             operationName.setText("Операция: Редактирование трека");
             requestToLockTrack();
             try {
-                Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
-                System.out.println(response);
+                Response response = exchanger.exchange(null, 15000, TimeUnit.MILLISECONDS);
                 if(response.isAlreadyLockedError()) {
-                    new View(null).printError(response);
                     System.out.println("Занято");
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -418,9 +415,13 @@ public class MainFormController {
             try {
                 Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
                 System.out.println(response);
-                if(response.hasErrors()) {
-                    new View(null).printError(response);
+                if(response.isAlreadyLockedError()) {
                     System.out.println("Занято");
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Выбранный жанр в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
+                    alert.showAndWait();
                     return;
                 }
                 nameField.setVisible(true);

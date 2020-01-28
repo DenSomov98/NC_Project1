@@ -24,6 +24,10 @@ public class Genre implements Comparable<Genre>, Serializable {
         this.id = CounterOfGenre.counter++;
     }
 
+    public Genre(String name, boolean noID) {
+        this.name = name;
+    }
+
     @XmlElement(name = "name")
     public String getName() {
         return name;
@@ -54,5 +58,12 @@ public class Genre implements Comparable<Genre>, Serializable {
 
     public int compareTo(Genre genre){
         return Integer.compare(id, genre.id);
+    }
+
+    @Override
+    public Genre clone() {
+        Genre clone = new Genre(name, true);
+        clone.id = id;
+        return clone;
     }
 }

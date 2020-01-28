@@ -96,4 +96,11 @@ public class Track implements Comparable<Track>, Serializable {
     public int compareTo(Track track){
         return Integer.compare(id, track.id);
     }
+
+    @Override
+    public Track clone() {
+        Track clone = new Track(name, artist, genre, true);
+        clone.id = id;
+        return clone;
+    }
 }

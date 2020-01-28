@@ -14,6 +14,7 @@ public class Response implements Serializable {
     private boolean fileError;
     private boolean fileIsCorruptedError;
     private boolean fileIsEmptyWarning;
+    private boolean objMatchesNoLongerWarning;
     private boolean trackWithoutGenreWarning;
     private boolean fileExistsError;
     private boolean alreadyLockedError;
@@ -112,6 +113,12 @@ public class Response implements Serializable {
 
     public void setAlreadyLockedError(boolean alreadyLockedError) {
         this.alreadyLockedError = alreadyLockedError;
+    }
+
+    public boolean isObjMatchesNoLongerWarning() {return objMatchesNoLongerWarning; }
+
+    public void setObjMatchesNoLongerWarning(boolean objMatchesNoLongerWarning) {
+        this.objMatchesNoLongerWarning = objMatchesNoLongerWarning;
     }
 
     public boolean hasErrors() {return unknownError || indexError || equalsNameError || objectNotFoundError

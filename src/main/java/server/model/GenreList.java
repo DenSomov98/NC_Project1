@@ -97,7 +97,11 @@ public class GenreList implements Genres, Serializable {
 
     @Override
     public Genre[] getAllGenres() {
-        return genres.toArray(new Genre[0]);
+        Genre[] result = new Genre[genres.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = genres.get(i).clone();
+        }
+        return result;
     }
 
     @Override
