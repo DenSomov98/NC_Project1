@@ -5,19 +5,21 @@ import worklib.entities.*;
 
 public interface Genres {
 
-    Response validateAddGenre(Request command);
+    void validateAddGenre(Response command);
 
     void addGenre(String name);
 
-    Response validateRemoveGenre(Request command);
+    void validateRemoveGenre(Response command);
 
     void removeGenre(String index);
 
     void removeAllGenres();
 
-    Response validateEditGenre(Request command);
+    void validateEditGenre(Response command);
 
-    Response validateLockGenre(Request command);
+    void validateLockGenre(Response command);
+
+    void validateUnlockGenre(Response command);
 
     void editName(String genre, String newName);
 
@@ -31,7 +33,9 @@ public interface Genres {
 
     void addReadGenres(Genre[] genres, Track[] tracks, boolean duplicate);
 
-    void lockGenre(Response command);
+    void lockGenre(String genreID, int lockID);
 
-    void unLockGenre(Response command);
+    void unlockGenre(String genreID);
+
+    void unlockAll(int clientID);
 }

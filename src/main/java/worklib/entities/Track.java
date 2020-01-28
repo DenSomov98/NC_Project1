@@ -14,7 +14,7 @@ public class Track implements Comparable<Track>, Serializable {
     @XmlTransient
     private int id;
     @XmlTransient
-    private boolean isLocked = false;
+    private int lockID = -1;
 
     public static class CounterOfTrack {
         private static int counter = 1;
@@ -69,12 +69,16 @@ public class Track implements Comparable<Track>, Serializable {
     public void setNewId() { this.id = CounterOfTrack.counter++; }
 
     @XmlTransient
-    public boolean isLocked() {
-        return isLocked;
+    public int getLockID() {
+        return lockID;
     }
 
-    public void setLocked(boolean locked) {
-        isLocked = locked;
+    public void setLockID(int id) {
+        this.lockID = id;
+    }
+
+    public void unLock() {
+        this.lockID = -1;
     }
 
     public String toString(){

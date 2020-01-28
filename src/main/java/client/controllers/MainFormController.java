@@ -376,7 +376,7 @@ public class MainFormController {
             operationName.setText("Операция: Редактирование трека");
             requestToLockTrack();
             try {
-                Response response = exchanger.exchange(null, 15000, TimeUnit.MILLISECONDS);
+                Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
                 if(response.isAlreadyLockedError()) {
                     System.out.println("Занято");
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -413,7 +413,7 @@ public class MainFormController {
             operationName.setText("Операция: Редактирование жанра");
             requestToLockGenre();
             try {
-                Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
+                Response response = exchanger.exchange(null, 150000, TimeUnit.MILLISECONDS);
                 System.out.println(response);
                 if(response.isAlreadyLockedError()) {
                     System.out.println("Занято");

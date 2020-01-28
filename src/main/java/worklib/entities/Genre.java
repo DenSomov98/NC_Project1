@@ -11,7 +11,7 @@ public class Genre implements Comparable<Genre>, Serializable {
     private String name;
     private int id;
     @XmlTransient
-    private boolean isLocked = false;
+    private int lockID = -1;
 
     public static class CounterOfGenre {
         private static int counter = 1;
@@ -44,12 +44,16 @@ public class Genre implements Comparable<Genre>, Serializable {
     public void setNewId() { this.id = CounterOfGenre.counter++; }
 
     @XmlTransient
-    public boolean isLocked() {
-        return isLocked;
+    public int getLockID() {
+        return lockID;
     }
 
-    public void setLocked(boolean locked) {
-        isLocked = locked;
+    public void setLockID(int id) {
+        this.lockID = id;
+    }
+
+    public void unLock() {
+        this.lockID = -1;
     }
 
     public String toString(){

@@ -3,6 +3,7 @@ package worklib.parse;
 public enum Key {
         GET,
         DISCONNECT,
+        UNLOCK,
         LOCK,
         ADD,
         EDIT,

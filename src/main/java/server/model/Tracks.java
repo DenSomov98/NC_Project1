@@ -5,27 +5,29 @@ import worklib.entities.*;
 
 public interface Tracks {
 
-    Response validateAddTrack(Request command);
+    void validateAddTrack(Response command);
 
     void addTrack(String name, String artist, String genre);
 
-    Response validateRemoveTrack(Request command);
+    void validateRemoveTrack(Response command);
 
     void removeTrack(int index);
 
     void removeAllTracks();
 
-    //Response validateEditByArtistOrNameTrack(Request command);
+    //void validateEditByArtistOrNameTrack(Response command);
 
-    Response validateEditTrack(Request command, boolean isGenreCorrect);
+    void validateEditTrack(Response command, boolean isGenreCorrect);
 
-    Response validateLockTrack(Request command);
+    void validateLockTrack(Response command);
+
+    void validateUnlockTrack(Response command);
 
     void editName(int index, String newName);
 
     void editArtist(int index, String newArtist);
 
-    //Response validateEditByGenreTrack(Request command);
+    //void validateEditByGenreTrack(Response command);
 
     void editGenre(int index, String newGenre);
 
@@ -37,15 +39,15 @@ public interface Tracks {
 
     Track getTrackByID(int id);
 
-    Track getTrackByName(String name);
-
     Track[] getAllTracks();
 
     void editGenreName(String oldName, String newName);
 
     void addReadTracks(Track[] tracks, boolean duplicate);
 
-    void lockTrack(Response command);
+    void lockTrack(String trackId, int lockId);
 
-    void unLockTrack(Response command);
+    void unlockTrack(String trackId);
+
+    void unlockAll(int clientID);
 }

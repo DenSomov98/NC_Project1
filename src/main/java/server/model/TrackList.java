@@ -16,14 +16,11 @@ public class TrackList implements Tracks, Serializable {
 
     public TrackList () {}
 
-    public Response validateAddTrack(Request command){
-        Key[] keys = command.getKeys();
+    @Override
+    public void validateAddTrack(Response command){
         String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
-        if (arguments.length == 3 && arguments[2] == null) {
-            Response.setTrackWithoutGenreWarning(true);
-        }
-        return Response;
+        if (arguments.length == 3 && arguments[2] == null)
+            command.setTrackWithoutGenreWarning(true);
     }
 
     @Override
@@ -33,14 +30,11 @@ public class TrackList implements Tracks, Serializable {
         //Collections.sort(tracks);
     }
 
-    public Response validateRemoveTrack(Request command){
-        Key[] keys = command.getKeys();
+    @Override
+    public void validateRemoveTrack(Response command){
         String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
-        if (!arguments[0].equals("all") && (getTrackByID(Parser.parseID(arguments[0])) == null)){
-            Response.setIndexError(true);
-        }
-        return Response;
+        if (!arguments[0].equals("all") && (getTrackByID(Parser.parseID(arguments[0])) == null))
+            command.setIndexError(true);
     }
 
     @Override
@@ -62,49 +56,51 @@ public class TrackList implements Tracks, Serializable {
         //Collections.sort(tracks);
     }
 
-    public Response validateEditTrack(Request command, boolean isGenreCorrect){
-        Key[] keys = command.getKeys();
+    public void validateEditTrack(Response command, boolean isGenreCorrect){
         String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
+        int id = Parser.parseID(arguments[0]);
         if(!isGenreCorrect)
             arguments[3] = "";
         Track test = new Track(arguments[1], arguments[2], arguments[3]);
-        if (alreadyExist(test)) Response.setEqualsNameError(true);
-        else if(arguments[3].equals("")) Response.setTrackWithoutGenreWarning(true);
-        return Response;
+        if (getTrackByID(id).getLockID() != command.getClientID()) command.setAccessError(true);
+        else if (alreadyExist(test)) command.setEqualsNameError(true);
+        else if(arguments[3].equals("")) command.setTrackWithoutGenreWarning(true);
     }
 
-    /*public Response validateEditByArtistOrNameTrack(Request command){
-        Key[] keys = command.getKeys();
+    public void validateLockTrack(Response command) {
         String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
-        if(Parser.parseID(arguments[0]) >= tracks.size() || Parser.parseID(arguments[0]) < 0){
-            Response.setIndexError(true);
+        Track trackToLock = getTrackByID(Parser.parseID(arguments[0]));
+        if (trackToLock == null) command.setObjectNotFoundError(true);
+        else if (trackToLock.getLockID() > -1) command.setAlreadyLockedError(true);
+    }
+
+    public void validateUnlockTrack(Response command) {
+        String[] arguments = command.getArguments();
+        Track trackToLock = getTrackByID(Parser.parseID(arguments[0]));
+        if (trackToLock == null) command.setObjectNotFoundError(true);
+        else if (trackToLock.getLockID() != command.getClientID()) command.setAccessError(true);
+    }
+
+    @Override
+    public void lockTrack(String trackID, int clientID) {
+        int id = Parser.parseID(trackID);
+        Track trackToLock = getTrackByID(id);
+        trackToLock.setLockID(clientID);
+    }
+
+    @Override
+    public void unlockTrack(String trackID) {
+        int id = Parser.parseID(trackID);
+        Track trackToLock = getTrackByID(id);
+        trackToLock.unLock();
+    }
+
+    @Override
+    public void unlockAll(int clientID) {
+        for(Track track : tracks) {
+            if(track.getLockID() == clientID)
+                track.unLock();
         }
-        return Response;
-    }*/
-
-    public Response validateLockTrack(Request command){
-        Key[] keys = command.getKeys();
-        String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
-        Track trackToLock = getTrackByID(Parser.parseID(arguments[0]));
-        if (trackToLock == null) Response.setObjectNotFoundError(true);
-        return Response;
-    }
-
-    @Override
-    public void lockTrack(Response command) {
-        String[] arguments = command.getArguments();
-        Track trackToLock = getTrackByID(Parser.parseID(arguments[0]));
-        trackToLock.setLocked(true);
-    }
-
-    @Override
-    public void unLockTrack(Response command) {
-        String[] arguments = command.getArguments();
-        Track trackToLock = getTrackByID(Parser.parseID(arguments[0]));
-        trackToLock.setLocked(false);
     }
 
     @Override
@@ -121,19 +117,6 @@ public class TrackList implements Tracks, Serializable {
         //tracks.get(index).setArtist(newArtist);
         //Collections.sort(tracks);
     }
-
-    /*public Response validateEditByGenreTrack(Request command){
-        Key[] keys = command.getKeys();
-        String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
-        if(arguments[1] == null){
-            Response.setTrackWithoutGenreWarning(true);
-        }
-        if(Parser.parseID(arguments[0]) >= tracks.size() || Parser.parseID(arguments[0]) < 0){
-            Response.setIndexError(true);
-        }
-        return Response;
-    }*/
 
     @Override
     public void editGenre(int index, String newGenre){
@@ -240,14 +223,6 @@ public class TrackList implements Tracks, Serializable {
     public Track getTrackByID(int id) {
         for(Track track : tracks) {
             if(track.getId() == id)
-                return track;
-        }
-        return null;
-    }
-
-    public Track getTrackByName(String name) {
-        for(Track track : tracks) {
-            if(track.getName().equalsIgnoreCase(name))
                 return track;
         }
         return null;

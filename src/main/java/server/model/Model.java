@@ -21,91 +21,105 @@ public class Model {
         this.genres = genres;
     }
 
-    public synchronized Response validate(Request command) {
-        Key[] keys = command.getKeys();
+    public synchronized Response validate(Request request, int id) {
+        Key[] keys = request.getKeys();
+        String[] arguments = request.getArguments();
+        Response response = new Response(id, keys, arguments);
         switch (keys[0]) {
             case ADD:
                 switch (keys[1]) {
                     case GENRE:
-                        return genres.validateAddGenre(command);
+                        genres.validateAddGenre(response);
+                        return response;
                     case TRACK:
-                        return tracks.validateAddTrack(command);
+                        tracks.validateAddTrack(response);
+                        return response;
                     default:
-                        Response Response = new Response(command.getKeys(), command.getArguments());
-                        Response.setUnknownError(true);
-                        return Response;
+                        response.setUnknownError(true);
+                        return response;
                 }
             case LOCK:
                 switch (keys[1]) {
                     case GENRE:
-                        return genres.validateLockGenre(command);
+                        genres.validateLockGenre(response);
+                        return response;
                     case TRACK:
-                        return tracks.validateLockTrack(command);
+                        tracks.validateLockTrack(response);
+                        return response;
                     default:
-                        Response Response = new Response(command.getKeys(), command.getArguments());
-                        Response.setUnknownError(true);
-                        return Response;
+                        response.setUnknownError(true);
+                        return response;
+                }
+            case UNLOCK:
+                switch (keys[1]) {
+                    case GENRE:
+                        genres.validateUnlockGenre(response);
+                        return response;
+                    case TRACK:
+                        tracks.validateUnlockTrack(response);
+                        return response;
+                    default:
+                        response.setUnknownError(true);
+                        return response;
                 }
             case EDIT:
                 switch (keys[1]) {
                     case GENRE:
-                        return genres.validateEditGenre(command);
+                        genres.validateEditGenre(response);
+                        return response;
                     case TRACK:;
                         boolean isGenreCorrect = true;
-                        Genre genre = genres.getGenre(command.getArguments()[3]);
+                        Genre genre = genres.getGenre(response.getArguments()[3]);
                         if(genre == null)
                             isGenreCorrect = false;
-                        return tracks.validateEditTrack(command, isGenreCorrect);
+                        tracks.validateEditTrack(response, isGenreCorrect);
+                        return response;
                     default:
-                        Response Response = new Response(command.getKeys(), command.getArguments());
-                        Response.setUnknownError(true);
-                        return Response;
+                        response.setUnknownError(true);
+                        return response;
                 }
             case REMOVE:
                 switch (keys[1]) {
                     case GENRE:
-                        return genres.validateRemoveGenre(command);
+                        genres.validateRemoveGenre(response);
+                        return response;
                     case TRACK:
-                        return tracks.validateRemoveTrack(command);
+                        tracks.validateRemoveTrack(response);
+                        return response;
                     default:
-                        Response Response = new Response(command.getKeys(), command.getArguments());
-                        Response.setUnknownError(true);
-                        return Response;
+                        response.setUnknownError(true);
+                        return response;
                 }
             case SAVE:
-                Response result = new Response(command.getKeys(), command.getArguments());
-                String filePath = command.getArguments()[0];
-                if(command.getKeys().length == 1) {
+                String filePath = response.getArguments()[0];
+                if(response.getKeys().length == 1) {
                     File file = new File(filePath);
                     if (file.exists() && file.isFile()) {
-                        result.setFileExistsError(true);
-                        return result;
+                        response.setFileExistsError(true);
+                        return response;
                     }
                 }
                 try {
-                    new FileOutputStream(command.getArguments()[0]).close();
+                    new FileOutputStream(response.getArguments()[0]).close();
                 } catch (IOException e) {
-                    result.setFileError(true);
+                    response.setFileError(true);
                 }
-                return result;
+                return response;
             case LOAD:
-                result = new Response(command.getKeys(), command.getArguments());
                 try {
-                    new FileInputStream(command.getArguments()[0]).close();
+                    new FileInputStream(response.getArguments()[0]).close();
                 } catch (IOException e) {
-                    result.setFileError(true);
+                    response.setFileError(true);
                 }
-                return result;
+                return response;
             case GET:
-                if (command.getArguments()[0].equals("all"))
-                    return new Response(command.getKeys(), command.getArguments());
+                if (response.getArguments()[0].equals("all"))
+                    return response;
             case FIND:
-                return new Response(command.getKeys(), command.getArguments());
+                return response;
             default:
-                Response Response = new Response(command.getKeys(), command.getArguments());
-                Response.setUnknownError(true);
-                return Response;
-
+                response.setUnknownError(true);
+                return response;
         }
     }
 
@@ -140,11 +154,12 @@ public class Model {
     private synchronized void executeEdit(Response command) {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
-        switch (keys[1]) {
+        int clientID = command.getClientID();
+                switch (keys[1]) {
             case GENRE:
                 tracks.editGenreName(genres.getGenre(arguments[0]).getName(), arguments[1]);
                 genres.editName(arguments[0], arguments[1]);
-                genres.unLockGenre(command);
+                genres.unlockGenre(arguments[0]);
                 break;
             case TRACK:
                 int id = Parser.parseID(arguments[0]);
@@ -155,7 +170,7 @@ public class Model {
                 if(newGenre.equals(""))
                     command.setTrackWithoutGenreWarning(true);
                 tracks.editGenre(id, newGenre);
-                tracks.unLockTrack(command);
+                tracks.unlockTrack(arguments[0]);
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -251,10 +266,25 @@ public class Model {
         String[] arguments = command.getArguments();
         switch (keys[1]) {
             case GENRE:
-                genres.lockGenre(command);
+                genres.lockGenre(arguments[0], command.getClientID());
                 break;
             case TRACK:
-                tracks.lockTrack(command);
+                tracks.lockTrack(arguments[0], command.getClientID());
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    public synchronized void executeUnlock(Response command){
+        Key[] keys = command.getKeys();
+        String[] arguments = command.getArguments();
+        switch (keys[1]) {
+            case GENRE:
+                genres.unlockGenre(arguments[0]);
+                break;
+            case TRACK:
+                tracks.unlockTrack(arguments[0]);
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -294,6 +324,13 @@ public class Model {
                 break;
             default:
                 throw new IllegalArgumentException();
+        }
+    }
+
+    public void unlockByID(int id) {
+        synchronized (this) {
+            genres.unlockAll(id);
+            tracks.unlockAll(id);
         }
     }
 

@@ -12,14 +12,9 @@ public class GenreList implements Genres, Serializable {
 
     private LinkedList<Genre> genres = new LinkedList<>();
 
-    public Response validateAddGenre(Request command){
-        Key[] keys = command.getKeys();
-        String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
-        if (getGenreByName(arguments[0]) != null) {
-            Response.setEqualsNameError(true);
-        }
-        return Response;
+    public void validateAddGenre(Response command){
+        if (getGenreByName(command.getArguments()[0]) != null)
+            command.setEqualsNameError(true);
     }
 
     @Override
@@ -28,14 +23,10 @@ public class GenreList implements Genres, Serializable {
         //Collections.sort(genres);
     }
 
-    public Response validateRemoveGenre(Request command){
-        Key[] keys = command.getKeys();
+    public void validateRemoveGenre(Response command){
         String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
-        if (!arguments[0].equals("all") && getGenre(arguments[0]) == null){
-            Response.setIndexError(true);
-        }
-        return Response;
+        if (!arguments[0].equals("all") && getGenre(arguments[0]) == null)
+            command.setIndexError(true);
     }
 
     @Override
@@ -48,23 +39,26 @@ public class GenreList implements Genres, Serializable {
         genres.clear();
     }
 
-    public Response validateEditGenre(Request command){
-        Key[] keys = command.getKeys();
+    public void validateEditGenre(Response command){
         String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
         Genre genre = getGenre(arguments[0]);
-        if (genre == null) Response.setObjectNotFoundError(true);
-        if (getGenreByName(arguments[1]) != null) Response.setEqualsNameError(true);
-        return Response;
+        if (genre == null) command.setObjectNotFoundError(true);
+        else if (genre.getLockID() != command.getClientID()) command.setAccessError(true);
+        else if (getGenreByName(arguments[1]) != null) command.setEqualsNameError(true);
     }
 
-    public Response validateLockGenre(Request command){
-        Key[] keys = command.getKeys();
+    public void validateLockGenre(Response command){
         String[] arguments = command.getArguments();
-        Response Response = new Response(keys, arguments);
         Genre genreToLock = getGenreByID(arguments[0]);
-        if (genreToLock == null) Response.setObjectNotFoundError(true);
-        return Response;
+        if (genreToLock == null) command.setObjectNotFoundError(true);
+        else if (genreToLock.getLockID() > -1) command.setAlreadyLockedError(true);
+    }
+
+    public void validateUnlockGenre(Response command){
+        String[] arguments = command.getArguments();
+        Genre genreToLock = getGenreByID(arguments[0]);
+        if (genreToLock == null) command.setObjectNotFoundError(true);
+        else if (genreToLock.getLockID() != command.getClientID()) command.setAccessError(true);
     }
 
     @Override
@@ -134,12 +128,20 @@ public class GenreList implements Genres, Serializable {
     }
 
     @Override
-    public void unLockGenre(Response command) {
-        getGenre(command.getArguments()[0]).setLocked(false);
+    public void unlockGenre(String genreID) {
+        getGenre(genreID).unLock();
     }
 
     @Override
-    public void lockGenre(Response command) {
-        getGenre(command.getArguments()[0]).setLocked(false);
+    public void unlockAll(int clientID) {
+        for(Genre genre : genres) {
+            if(genre.getLockID() == clientID)
+                genre.unLock();
+        }
+    }
+
+    @Override
+    public void lockGenre(String genreID, int clientID) {
+        getGenre(genreID).setLockID(clientID);
     }
 }

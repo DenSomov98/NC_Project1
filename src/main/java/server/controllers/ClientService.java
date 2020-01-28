@@ -45,14 +45,16 @@ public class ClientService extends Thread {
                     processing(request);
             }
             clients.remove(client);
+            model.unlockByID(client.getId());
             socket.close();
         } catch (IOException | ClassNotFoundException ex) {
+            model.unlockByID(client.getId());
             ex.printStackTrace();
         }
     }
 
     private void processing(Request request) throws IOException {
-        Response response = model.validate(request);
+        Response response = model.validate(request, client.getId());
         Key[] keys = response.getKeys();
         switch (keys[0]) {
             case GET:
@@ -62,7 +64,8 @@ public class ClientService extends Thread {
                 break;
             case SAVE:
             case LOCK:
-                model.execute(response);
+                if(!response.hasErrors())
+                    model.execute(response);
                 client.send(response);
                 break;
             case FIND:

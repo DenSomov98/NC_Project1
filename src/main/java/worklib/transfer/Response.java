@@ -18,18 +18,18 @@ public class Response implements Serializable {
     private boolean trackWithoutGenreWarning;
     private boolean fileExistsError;
     private boolean alreadyLockedError;
+    private boolean accessError;
+    private int clientID;
     private Key[] keys;
     private String[] arguments;
 
-    public Response(boolean isSuccessful, Key[] keys) {
-        this.keys = keys.clone();
-        this.arguments = null;
-    }
-
-    public Response(Key[] keys, String[] arguments) {
+    public Response(int clientID, Key[] keys, String[] arguments) {
+        this.clientID = clientID;
         this.keys = keys.clone();
         this.arguments = arguments.clone();
     }
+
+    public int getClientID() { return clientID; }
 
     public Key[] getKeys() {
         return keys.clone();
@@ -115,6 +115,14 @@ public class Response implements Serializable {
         this.alreadyLockedError = alreadyLockedError;
     }
 
+    public boolean isAccessError() {
+        return accessError;
+    }
+
+    public void setAccessError(boolean accessError) {
+        this.accessError = accessError;
+    }
+
     public boolean isObjMatchesNoLongerWarning() {return objMatchesNoLongerWarning; }
 
     public void setObjMatchesNoLongerWarning(boolean objMatchesNoLongerWarning) {
@@ -122,8 +130,8 @@ public class Response implements Serializable {
     }
 
     public boolean hasErrors() {return unknownError || indexError || equalsNameError || objectNotFoundError
-            || fileError || fileIsCorruptedError || fileExistsError || alreadyLockedError;}
+            || fileError || fileIsCorruptedError || fileExistsError || alreadyLockedError || accessError;}
 
-    public boolean hasWarnings() {return trackWithoutGenreWarning || fileIsEmptyWarning;}
+    public boolean hasWarnings() {return trackWithoutGenreWarning || fileIsEmptyWarning || objMatchesNoLongerWarning;}
 
 }
