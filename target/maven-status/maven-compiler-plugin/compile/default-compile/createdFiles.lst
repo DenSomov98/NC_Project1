@@ -6,9 +6,13 @@ worklib\entities\Track.class
 server\controllers\Controller.class
 worklib\entities\Track$CounterOfTrack.class
 client\controllers\Controller.class
+worklib\entities\Artist.class
 server\controllers\ClientService.class
 worklib\entities\Wrapper.class
+server\model\ArtistList.class
+server\model\Artists.class
 server\model\Model.class
+worklib\entities\Artist$CounterOfArtist.class
 client\controllers\EntryFormController.class
 client\controllers\ServerListener.class
 worklib\entities\Genre$CounterOfGenre.class

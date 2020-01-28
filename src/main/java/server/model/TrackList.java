@@ -53,18 +53,29 @@ public class TrackList implements Tracks, Serializable {
             if(track.getGenre().equalsIgnoreCase(oldName))
                 track.setGenre(newName);
         }
-        //Collections.sort(tracks);
     }
 
-    public void validateEditTrack(Response command, boolean isGenreCorrect){
+    public void editArtistName(String oldName, String newName){
+        for(Track track : tracks) {
+            if(track.getArtist().equalsIgnoreCase(oldName))
+                track.setArtist(newName);
+        }
+    }
+
+    public void validateEditTrack(Response command, boolean isArtistCorrect, boolean isGenreCorrect){
         String[] arguments = command.getArguments();
         int id = Parser.parseID(arguments[0]);
+        if(!isArtistCorrect)
+            arguments[2] = "";
         if(!isGenreCorrect)
             arguments[3] = "";
         Track test = new Track(arguments[1], arguments[2], arguments[3]);
         if (getTrackByID(id).getLockID() != command.getClientID()) command.setAccessError(true);
         else if (alreadyExist(test)) command.setEqualsNameError(true);
-        else if(arguments[3].equals("")) command.setTrackWithoutGenreWarning(true);
+        else {
+            if(arguments[2].equals("")) command.setTrackWithoutArtistWarning(true);
+            if(arguments[3].equals("")) command.setTrackWithoutGenreWarning(true);
+        }
     }
 
     public void validateLockTrack(Response command) {

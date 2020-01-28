@@ -59,6 +59,14 @@ public class Controller {
         out.writeObject(request);
     }
 
+    public void requestToAddArtist(ArrayList<String> arguments) throws IOException {
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.ADD);
+        keys.add(Key.ARTIST);
+        Request request = new Request(true, keys, arguments);
+        out.writeObject(request);
+    }
+
     public void requestToRemoveTrack(ArrayList<String> arguments) throws IOException {
         ArrayList<Key> keys = new ArrayList<>();
         keys.add(Key.REMOVE);
@@ -71,6 +79,14 @@ public class Controller {
         ArrayList<Key> keys = new ArrayList<>();
         keys.add(Key.REMOVE);
         keys.add(Key.GENRE);
+        Request request = new Request(true, keys, arguments);
+        out.writeObject(request);
+    }
+
+    public void requestToRemoveArtist(ArrayList<String> arguments) throws IOException {
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.REMOVE);
+        keys.add(Key.ARTIST);
         Request request = new Request(true, keys, arguments);
         out.writeObject(request);
     }
@@ -91,6 +107,14 @@ public class Controller {
         out.writeObject(request);
     }
 
+    public void requestToLockArtist(ArrayList<String> arguments) throws IOException{
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.LOCK);
+        keys.add(Key.ARTIST);
+        Request request = new Request(true, keys, arguments);
+        out.writeObject(request);
+    }
+
     public void requestToEditTrack(ArrayList<String> arguments) throws IOException{
         ArrayList<Key> keys = new ArrayList<>();
         keys.add(Key.EDIT);
@@ -103,6 +127,14 @@ public class Controller {
         ArrayList<Key> keys = new ArrayList<>();
         keys.add(Key.EDIT);
         keys.add(Key.GENRE);
+        Request request = new Request(true, keys, arguments);
+        out.writeObject(request);
+    }
+
+    public void requestToEditArtist(ArrayList<String> arguments) throws IOException{
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.EDIT);
+        keys.add(Key.ARTIST);
         Request request = new Request(true, keys, arguments);
         out.writeObject(request);
     }

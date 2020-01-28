@@ -1,5 +1,6 @@
 package server.controllers;
 
+import server.model.ArtistList;
 import server.model.GenreList;
 import server.model.Model;
 import server.model.TrackList;
@@ -13,7 +14,7 @@ import java.util.LinkedList;
 public class Controller {
 
     private LinkedList<ClientDataHolder> clients = new LinkedList<>();
-    private Model model = new Model(new TrackList(), new GenreList());
+    private Model model = new Model(new TrackList(), new ArtistList(), new GenreList());
 
     public void startSever() {
         try (ServerSocket ss = new ServerSocket(1667)) {

@@ -20,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import worklib.entities.Artist;
 import worklib.entities.Genre;
 import worklib.entities.Track;
 import worklib.entities.Wrapper;
@@ -61,6 +62,13 @@ public class MainFormController {
     private TableColumn<Genre, Integer> idColumnGenre;
     @FXML
     private TableColumn<Genre, String> nameColumnGenre;
+
+    @FXML
+    private TableView<Artist> tableArtist; // таблица жанров
+    @FXML
+    private TableColumn<Artist, Integer> idColumnArtist;
+    @FXML
+    private TableColumn<Artist, String> nameColumnArtist;
 
     @FXML
     private TextField nameField; //поле названия
@@ -137,8 +145,11 @@ public class MainFormController {
         genreColumnTrack.setCellValueFactory(new PropertyValueFactory<>("genre"));
         idColumnGenre.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumnGenre.setCellValueFactory(new PropertyValueFactory<>("name"));
+        idColumnArtist.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumnArtist.setCellValueFactory(new PropertyValueFactory<>("name"));
         serverListener.setTableViewTrack(tableTrack);
         serverListener.setTableViewGenre(tableGenres);
+        serverListener.setTableViewArtist(tableArtist);
         serverListener.setTabPane(tabpane);
         serverListener.setExchanger(exchanger);
         controller.getAllData();
@@ -201,6 +212,17 @@ public class MainFormController {
         controller.requestToAddGenre(arguments);
     }
 
+    public void requestToAddArtist() throws IOException {
+        System.out.println("нажата иконка \"Ок  Добавить Исполнителя\"");
+        if(nameField.getText().length() == 0){
+            callAlertEmptyFields();
+            return;
+        }
+        ArrayList<String> arguments = new ArrayList<>();
+        arguments.add(nameField.getText());
+        controller.requestToAddArtist(arguments);
+    }
+
     @FXML
     //нажата иконка "Добавить"
     private void clickAdd() {
@@ -209,45 +231,63 @@ public class MainFormController {
         shadowEffect.setColor(Color.GREEN);
         shadowEffect.setChoke(1);
         addImage.setEffect(shadowEffect);
-        if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
-            operationName.setText("Операция: Добавление трека");
-            nameField.setVisible(true);
-            artistField.setVisible(true);
-            genreField.setVisible(true);
-            okayButton.setVisible(true);
-            okayButton.setOnAction(args -> {
-                try {
-                    requestToAddTrack();
-                    nameField.clear();
-                    artistField.clear();
-                    genreField.clear();
-                    unHighlightImages();
-                    nameField.setVisible(false);
-                    artistField.setVisible(false);
-                    genreField.setVisible(false);
-                    okayButton.setVisible(false);
-                    operationName.setText("");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-        if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
-            operationName.setText("Операция: Добавление жанра");
-            nameField.setVisible(true);
-            okayButton.setVisible(true);
-            okayButton.setOnAction(args -> {
-                try {
-                    requestToAddGenre();
-                    nameField.clear();
-                    unHighlightImages();
-                    nameField.setVisible(false);
-                    okayButton.setVisible(false);
-                    operationName.setText("");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+        switch (tabpane.getSelectionModel().getSelectedItem().getText()){
+            case "Треки":
+                operationName.setText("Операция: Добавление трека");
+                nameField.setVisible(true);
+                artistField.setVisible(true);
+                genreField.setVisible(true);
+                okayButton.setVisible(true);
+                okayButton.setOnAction(args -> {
+                    try {
+                        requestToAddTrack();
+                        nameField.clear();
+                        artistField.clear();
+                        genreField.clear();
+                        unHighlightImages();
+                        nameField.setVisible(false);
+                        artistField.setVisible(false);
+                        genreField.setVisible(false);
+                        okayButton.setVisible(false);
+                        operationName.setText("");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "Жанры":
+                operationName.setText("Операция: Добавление жанра");
+                nameField.setVisible(true);
+                okayButton.setVisible(true);
+                okayButton.setOnAction(args -> {
+                    try {
+                        requestToAddGenre();
+                        nameField.clear();
+                        unHighlightImages();
+                        nameField.setVisible(false);
+                        okayButton.setVisible(false);
+                        operationName.setText("");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "Исполнители":
+                operationName.setText("Операция: Добавление исполнителя");
+                nameField.setVisible(true);
+                okayButton.setVisible(true);
+                okayButton.setOnAction(args -> {
+                    try {
+                        requestToAddArtist();
+                        nameField.clear();
+                        unHighlightImages();
+                        nameField.setVisible(false);
+                        okayButton.setVisible(false);
+                        operationName.setText("");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
         }
         System.out.println("нажата иконка \"Добавить\"");
     }
@@ -291,6 +331,22 @@ public class MainFormController {
         controller.requestToRemoveGenre(arguments);
     }
 
+    public void requestToRemoveArtist() throws IOException {
+        Artist artistToDelete = tableArtist.getSelectionModel().getSelectedItem();
+        if(artistToDelete == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не выбран исполнитель для удаления!");
+            alert.showAndWait();
+            removeImage.setEffect(new Blend());
+            return;
+        }
+        ArrayList<String> arguments = new ArrayList<>();
+        arguments.add(artistToDelete.getName());
+        controller.requestToRemoveArtist(arguments);
+    }
+
     @FXML
     private void clickRemove() throws IOException {
         unHighlightImages();
@@ -299,11 +355,16 @@ public class MainFormController {
         shadowEffect.setChoke(1);
         removeImage.setEffect(shadowEffect);
         System.out.println("нажата иконка \"Удалить\"");
-        if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
-            requestToRemoveTrack();
-        }
-        if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
-            requestToRemoveGenre();
+        switch (tabpane.getSelectionModel().getSelectedItem().getText()){
+            case "Треки":
+                requestToRemoveTrack();
+                break;
+            case "Жанры":
+                requestToRemoveGenre();
+                break;
+            case "Исполнители":
+                requestToRemoveArtist();
+                break;
         }
     }
 
@@ -341,6 +402,24 @@ public class MainFormController {
         }
         arguments.add(String.valueOf(tableGenres.getSelectionModel().getSelectedItem().getId()));
         controller.requestToLockGenre(arguments);
+    }
+
+    public void requestToLockArtist() throws IOException {
+        ArrayList<String> arguments = new ArrayList<>();
+        Artist artistToEdit = tableArtist.getSelectionModel().getSelectedItem();
+        if(artistToEdit == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Не выбран исполнитель для редактирования!");
+            alert.showAndWait();
+            editImage.setEffect(new Blend());
+            setDisableAllControlElements(false);
+            operationName.setText("");
+            return;
+        }
+        arguments.add(String.valueOf(tableArtist.getSelectionModel().getSelectedItem().getId()));
+        controller.requestToLockArtist(arguments);
     }
 
     public void requestToEditTrack() throws IOException {
@@ -387,6 +466,27 @@ public class MainFormController {
         controller.requestToEditGenre(arguments);
     }
 
+    public void requestToEditArtist() throws IOException {
+        System.out.println("нажата иконка \"Ок  Редактировать Исполнителя\"");
+        if(nameField.getText().length() == 0){
+            callAlertEmptyFields();
+            return;
+        }
+        ArrayList<String> arguments = new ArrayList<>();
+        if(tableArtist.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Похоже, выбранный исполнитель уже удалён.");
+            alert.showAndWait();
+            removeImage.setEffect(new Blend());
+            return;
+        }
+        arguments.add(String.valueOf(tableArtist.getSelectionModel().getSelectedItem().getId()));
+        arguments.add(nameField.getText());
+        controller.requestToEditArtist(arguments);
+    }
+
     @FXML
     //нажата иконка "Редактировать"
     private void clickEdit() throws IOException {
@@ -396,103 +496,142 @@ public class MainFormController {
         shadowEffect.setChoke(1);
         editImage.setEffect(shadowEffect);
         System.out.println("нажата иконка \"Редактировать\"");
-        if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
-            operationName.setText("Операция: Редактирование трека");
-            requestToLockTrack();
-            try {
-                Response response = exchanger.exchange(null, 15000, TimeUnit.MILLISECONDS);
-                if(response.isAlreadyLockedError()) {
-                    System.out.println("Занято");
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Выбранный трек в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
-                    alert.showAndWait();
+        switch (tabpane.getSelectionModel().getSelectedItem().getText()){
+            case "Треки":
+                operationName.setText("Операция: Редактирование трека");
+                requestToLockTrack();
+                try {
+                    Response response = exchanger.exchange(null, 15000, TimeUnit.MILLISECONDS);
+                    if(response.isAlreadyLockedError()) {
+                        System.out.println("Занято");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Выбранный трек в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
+                        alert.showAndWait();
+                        return;
+                    }
+                    nameField.setVisible(true);
+                    artistField.setVisible(true);
+                    genreField.setVisible(true);
+                    okayButton.setVisible(true);
+                    nameField.setText(tableTrack.getSelectionModel().getSelectedItem().getName());
+                    artistField.setText(tableTrack.getSelectionModel().getSelectedItem().getArtist());
+                    genreField.setText(tableTrack.getSelectionModel().getSelectedItem().getGenre());
+                    okayButton.setOnAction(args-> {
+                        try {
+                            setDisableAllControlElements(false);
+                            requestToEditTrack();
+                            unHighlightImages();
+                            nameField.setVisible(false);
+                            artistField.setVisible(false);
+                            genreField.setVisible(false);
+                            okayButton.setVisible(false);
+                            operationName.setText("");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (TimeoutException ignored) {
+                }
+                break;
+            case "Жанры":
+                operationName.setText("Операция: Редактирование жанра");
+                requestToLockGenre();
+                try {
+                    Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
+                    System.out.println(response);
+                    if(response.isAlreadyLockedError()) {
+                        System.out.println("Занято");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Выбранный жанр в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
+                        alert.showAndWait();
+                        return;
+                    }
+                    nameField.setVisible(true);
+                    okayButton.setVisible(true);
+                    artistField.setVisible(false);
+                    genreField.setVisible(false);
+                    nameField.setText(tableGenres.getSelectionModel().getSelectedItem().getName());
+                    okayButton.setOnAction(args-> {
+                        try {
+                            setDisableAllControlElements(false);
+                            requestToEditGenre();
+                            unHighlightImages();
+                            nameField.setVisible(false);
+                            artistField.setVisible(false);
+                            genreField.setVisible(false);
+                            okayButton.setVisible(false);
+                            operationName.setText("");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                } catch (InterruptedException | TimeoutException e) {
+                    e.printStackTrace();
                     return;
                 }
-                nameField.setVisible(true);
-                artistField.setVisible(true);
-                genreField.setVisible(true);
-                okayButton.setVisible(true);
-                nameField.setText(tableTrack.getSelectionModel().getSelectedItem().getName());
-                artistField.setText(tableTrack.getSelectionModel().getSelectedItem().getArtist());
-                genreField.setText(tableTrack.getSelectionModel().getSelectedItem().getGenre());
-                okayButton.setOnAction(args-> {
-                    try {
-                        setDisableAllControlElements(false);
-                        requestToEditTrack();
-                        unHighlightImages();
-                        nameField.setVisible(false);
-                        artistField.setVisible(false);
-                        genreField.setVisible(false);
-                        okayButton.setVisible(false);
-                        operationName.setText("");
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                break;
+            case "Исполнители":
+                operationName.setText("Операция: Редактирование исполнителя");
+                requestToLockArtist();
+                try {
+                    Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
+                    System.out.println(response);
+                    if(response.isAlreadyLockedError()) {
+                        System.out.println("Занято");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Выбранный исполнитель в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
+                        alert.showAndWait();
+                        return;
                     }
-                });
+                    nameField.setVisible(true);
+                    okayButton.setVisible(true);
+                    artistField.setVisible(false);
+                    genreField.setVisible(false);
+                    nameField.setText(tableArtist.getSelectionModel().getSelectedItem().getName());
+                    okayButton.setOnAction(args-> {
+                        try {
+                            setDisableAllControlElements(false);
+                            requestToEditArtist();
+                            unHighlightImages();
+                            nameField.setVisible(false);
+                            artistField.setVisible(false);
+                            genreField.setVisible(false);
+                            okayButton.setVisible(false);
+                            operationName.setText("");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (TimeoutException ignored) {
-            }
-        }
-        else if (tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")) {
-            operationName.setText("Операция: Редактирование жанра");
-            requestToLockGenre();
-            try {
-                Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
-                System.out.println(response);
-                if(response.isAlreadyLockedError()) {
-                    System.out.println("Занято");
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Выбранный жанр в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
-                    alert.showAndWait();
+                } catch (InterruptedException | TimeoutException e) {
+                    e.printStackTrace();
                     return;
                 }
-                nameField.setVisible(true);
-                okayButton.setVisible(true);
-                artistField.setVisible(false);
-                genreField.setVisible(false);
-                nameField.setText(tableGenres.getSelectionModel().getSelectedItem().getName());
-                okayButton.setOnAction(args-> {
-                    try {
-                        setDisableAllControlElements(false);
-                        requestToEditGenre();
-                        unHighlightImages();
-                        nameField.setVisible(false);
-                        artistField.setVisible(false);
-                        genreField.setVisible(false);
-                        okayButton.setVisible(false);
-                        operationName.setText("");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-            } catch (InterruptedException | TimeoutException e) {
-                e.printStackTrace();
-                return;
-            }
         }
-        /*unHighlightImages();
-        artistField.setVisible(false);
-        genreField.setVisible(false);
-        okayButton.setVisible(false);
-        operationName.setText("");*/
     }
 
     private void setDisableAllControlElements(boolean flag){
         addImage.setDisable(flag);
         removeImage.setDisable(flag);
         searchImage.setDisable(flag);
-        if(tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")){
-            tabpane.getTabs().get(0).setDisable(flag);
-        }
-        else if(tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
-            tabpane.getTabs().get(1).setDisable(flag);
+        switch (tabpane.getSelectionModel().getSelectedItem().getText()){
+            case "Треки":
+                tabpane.getTabs().get(1).setDisable(flag);
+                break;
+            case "Жанры":
+            case "Исполнители":
+                tabpane.getTabs().get(0).setDisable(flag);
+                break;
         }
         menuBar.setDisable(flag);
     }

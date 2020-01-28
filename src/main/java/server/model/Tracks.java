@@ -17,7 +17,7 @@ public interface Tracks {
 
     //void validateEditByArtistOrNameTrack(Response command);
 
-    void validateEditTrack(Response command, boolean isGenreCorrect);
+    void validateEditTrack(Response command, boolean isArtistCorrect, boolean isGenreCorrect);
 
     void validateLockTrack(Response command);
 
@@ -42,6 +42,9 @@ public interface Tracks {
     Track[] getAllTracks();
 
     void editGenreName(String oldName, String newName);
+
+    void editArtistName(String oldName, String newName);
+
 
     void addReadTracks(Track[] tracks, boolean duplicate);
 

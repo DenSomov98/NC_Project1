@@ -16,6 +16,7 @@ public class Response implements Serializable {
     private boolean fileIsEmptyWarning;
     private boolean objMatchesNoLongerWarning;
     private boolean trackWithoutGenreWarning;
+    private boolean trackWithoutArtistWarning;
     private boolean fileExistsError;
     private boolean alreadyLockedError;
     private boolean accessError;
@@ -89,6 +90,14 @@ public class Response implements Serializable {
 
     public void setTrackWithoutGenreWarning(boolean trackWithoutGenreWarning) {
         this.trackWithoutGenreWarning = trackWithoutGenreWarning;
+    }
+
+    public boolean isTrackWithoutArtistWarning() {
+        return trackWithoutArtistWarning;
+    }
+
+    public void setTrackWithoutArtistWarning(boolean trackWithoutArtistWarning) {
+        this.trackWithoutArtistWarning = trackWithoutArtistWarning;
     }
 
     public boolean isFileIsEmptyWarning() {

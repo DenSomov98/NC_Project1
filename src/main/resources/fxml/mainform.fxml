@@ -42,6 +42,20 @@
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab text="Исполнители">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="tableArtist" prefHeight="210.0" prefWidth="438.0">
+                                <columns>
+                                    <TableColumn fx:id="idColumnArtist" prefWidth="75.0" text="№" />
+                                    <TableColumn fx:id="nameColumnArtist" prefWidth="116.0" text="Название" />
+                                </columns>
+                            </TableView>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
           <Tab text="Жанры">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

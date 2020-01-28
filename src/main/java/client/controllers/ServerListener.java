@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import worklib.entities.Artist;
 import worklib.entities.Genre;
 import worklib.entities.Track;
 import worklib.entities.Wrapper;
@@ -26,6 +27,8 @@ public class ServerListener extends Thread {
     private ObjectInputStream in;
     private Wrapper wrapper;
     private TableView<Track> tableViewTrack;
+    private TableView<Artist> tableViewArtist;
+
     private TableView<Genre> tableViewGenre;
 
     public static void setStage(Stage stage) {
@@ -50,6 +53,10 @@ public class ServerListener extends Thread {
 
     public void setTableViewGenre(TableView<Genre> tableViewGenre) {
         this.tableViewGenre = tableViewGenre;
+    }
+
+    public void setTableViewArtist(TableView<Artist> tableViewArtist) {
+        this.tableViewArtist = tableViewArtist;
     }
 
     public void setTabPane(TabPane tabPane) {
@@ -88,6 +95,7 @@ public class ServerListener extends Thread {
                     }
                     wrapper = (Wrapper)in.readObject();
                     showTracks();
+                    showArtists();
                     showGenres();
                     //Platform.runLater(() -> showTracks(wrapper));
                 }
@@ -143,6 +151,14 @@ public class ServerListener extends Thread {
         Track[] tracks = wrapper.getT();
         for(Track track: tracks) {
             tableViewTrack.getItems().add(track);
+        }
+    }
+
+    public void showArtists(){
+        tableViewArtist.getItems().clear();
+        Artist[] artists = wrapper.getA();
+        for(Artist artist: artists){
+            tableViewArtist.getItems().add(artist);
         }
     }
 

@@ -15,10 +15,12 @@ public class Model {
 
     private Tracks tracks;
     private Genres genres;
+    private Artists artists;
 
-    public Model(TrackList tracks, Genres genres) {
+    public Model(TrackList tracks, Artists artists, Genres genres) {
         this.tracks = tracks;
         this.genres = genres;
+        this.artists = artists;
     }
 
     public synchronized Response validate(Request request, int id) {
@@ -31,6 +33,8 @@ public class Model {
                     case GENRE:
                         genres.validateAddGenre(response);
                         return response;
+                    case ARTIST:
+                        artists.validateAddArtist(response);
                     case TRACK:
                         tracks.validateAddTrack(response);
                         return response;
@@ -42,6 +46,9 @@ public class Model {
                 switch (keys[1]) {
                     case GENRE:
                         genres.validateLockGenre(response);
+                        return response;
+                    case ARTIST:
+                        artists.validateLockArtist(response);
                         return response;
                     case TRACK:
                         tracks.validateLockTrack(response);
@@ -55,6 +62,9 @@ public class Model {
                     case GENRE:
                         genres.validateUnlockGenre(response);
                         return response;
+                    case ARTIST:
+                        artists.validateUnlockArtist(response);
+                        return response;
                     case TRACK:
                         tracks.validateUnlockTrack(response);
                         return response;
@@ -67,12 +77,19 @@ public class Model {
                     case GENRE:
                         genres.validateEditGenre(response);
                         return response;
+                    case ARTIST:
+                        artists.validateEditArtist(response);
+                        return response;
                     case TRACK:;
                         boolean isGenreCorrect = true;
+                        boolean isArtistCorrect = true;
+                        Artist artist = artists.getArtist(response.getArguments()[2]);
                         Genre genre = genres.getGenre(response.getArguments()[3]);
                         if(genre == null)
                             isGenreCorrect = false;
-                        tracks.validateEditTrack(response, isGenreCorrect);
+                        if(artist == null)
+                            isArtistCorrect = false;
+                        tracks.validateEditTrack(response, isArtistCorrect, isGenreCorrect);
                         return response;
                     default:
                         response.setUnknownError(true);
@@ -82,6 +99,9 @@ public class Model {
                 switch (keys[1]) {
                     case GENRE:
                         genres.validateRemoveGenre(response);
+                        return response;
+                    case ARTIST:
+                        artists.validateRemoveArtist(response);
                         return response;
                     case TRACK:
                         tracks.validateRemoveTrack(response);
@@ -135,16 +155,25 @@ public class Model {
             case GENRE:
                 genres.addGenre(arguments [0]);
                 break;
+            case ARTIST:
+                artists.addArtist(arguments[0]);
+                break;
             case TRACK:
                 String genreName = "";
+                String artistName = "";
                 if(arguments.length == 3) {
+                    Artist artist = artists.getArtist(arguments[1]);
                     Genre genre = genres.getGenre(arguments[2]);
+                    if(artist != null)
+                        artistName = artist.getName();
                     if(genre != null)
                         genreName = genre.getName();
                 }
+                if(artistName.equals(""))
+                    command.setTrackWithoutArtistWarning(true);
                 if(genreName.equals(""))
                     command.setTrackWithoutGenreWarning(true);
-                tracks.addTrack(arguments[0], arguments[1], genreName);
+                tracks.addTrack(arguments[0], artistName, genreName);
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -155,16 +184,25 @@ public class Model {
         Key[] keys = command.getKeys();
         String[] arguments = command.getArguments();
         int clientID = command.getClientID();
-                switch (keys[1]) {
+        switch (keys[1]) {
             case GENRE:
                 tracks.editGenreName(genres.getGenre(arguments[0]).getName(), arguments[1]);
                 genres.editName(arguments[0], arguments[1]);
                 genres.unlockGenre(arguments[0]);
                 break;
+            case ARTIST:
+                tracks.editArtistName(artists.getArtist(arguments[0]).getName(), arguments[1]);
+                artists.editName(arguments[0], arguments[1]);
+                artists.unlockArtist(arguments[0]);
             case TRACK:
                 int id = Parser.parseID(arguments[0]);
                 tracks.editName(id, arguments[1]);
-                tracks.editArtist(id, arguments[2]);
+                //tracks.editArtist(id, arguments[2]);
+                Artist artist = artists.getArtist(arguments[2]);
+                String newArtist = artist == null ? "" : artist.getName();
+                if(newArtist.equals(""))
+                    command.setTrackWithoutArtistWarning(true);
+                tracks.editArtist(id, newArtist);
                 Genre genre = genres.getGenre(arguments[3]);
                 String newGenre = genre == null ? "" : genre.getName();
                 if(newGenre.equals(""))
@@ -183,22 +221,19 @@ public class Model {
         String[] arguments = command.getArguments();
         switch (keys[1]) {
             case GENRE:
-                if (arguments[0].equals("all")) {
-                    tracks.setAllGenreToNull();
-                    genres.removeAllGenres();
-                }
-                else {
-                    Genre genre = genres.getGenre(arguments[0]);
-                    if(genre != null)
-                        tracks.setGenreToNull(genre.getName());
-                    genres.removeGenre(arguments[0]);
-                }
+                Genre genre = genres.getGenre(arguments[0]);
+                if(genre != null)
+                    tracks.setGenreToNull(genre.getName());
+                genres.removeGenre(arguments[0]);
+                break;
+            case ARTIST:
+                Artist artist = artists.getArtist(arguments[0]);
+                if(artist != null)
+                    tracks.setGenreToNull(artist.getName());
+                artists.removeArtist(arguments[0]);
                 break;
             case TRACK:
-                if (arguments[0].equals("all"))
-                    tracks.removeAllTracks();
-                else
-                    tracks.removeTrack(Parser.parseID(arguments[0]));
+                tracks.removeTrack(Parser.parseID(arguments[0]));
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -211,7 +246,7 @@ public class Model {
             JAXBContext context = JAXBContext.newInstance(Wrapper.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(new Wrapper(tracks.getAllTracks(), genres.getAllGenres()), new File(filePath));
+            marshaller.marshal(new Wrapper(tracks.getAllTracks(), artists.getAllArtists(), genres.getAllGenres()), new File(filePath));
         } catch (JAXBException e) {
             command.setFileIsCorruptedError(true);
         }
@@ -228,12 +263,20 @@ public class Model {
             e.printStackTrace();
         }
         Track[] tracks = null;
+        Artist[] artists = null;
         Genre[] genres = null;
         try {
             tracks = res.getT();
+            artists = res.getA();
             genres = res.getG();
             for (Track track : tracks) {
                 if(track.getName() == null || track.getArtist() == null || track.getGenre() == null) {
+                    command.setFileIsCorruptedError(true);
+                    return;
+                }
+            }
+            for (Artist artist : artists) {
+                if(artist.getName() == null) {
                     command.setFileIsCorruptedError(true);
                     return;
                 }
@@ -253,10 +296,12 @@ public class Model {
         }
         if(command.getKeys()[1] == Key.DUPLICATE) {
             this.genres.addReadGenres(genres, tracks, true);
+            this.artists.addReadArtist(artists, tracks, true);
             this.tracks.addReadTracks(tracks, true);
         }
         else {
             this.genres.addReadGenres(genres, tracks, false);
+            this.artists.addReadArtist(artists, tracks, false);
             this.tracks.addReadTracks(tracks, false);
         }
     }
@@ -267,6 +312,9 @@ public class Model {
         switch (keys[1]) {
             case GENRE:
                 genres.lockGenre(arguments[0], command.getClientID());
+                break;
+            case ARTIST:
+                artists.lockArtist(arguments[0], command.getClientID());
                 break;
             case TRACK:
                 tracks.lockTrack(arguments[0], command.getClientID());
@@ -282,6 +330,9 @@ public class Model {
         switch (keys[1]) {
             case GENRE:
                 genres.unlockGenre(arguments[0]);
+                break;
+            case ARTIST:
+                artists.unlockArtist(arguments[0]);
                 break;
             case TRACK:
                 tracks.unlockTrack(arguments[0]);
@@ -330,6 +381,7 @@ public class Model {
     public void unlockByID(int id) {
         synchronized (this) {
             genres.unlockAll(id);
+            artists.unlockAll(id);
             tracks.unlockAll(id);
         }
     }
@@ -338,6 +390,7 @@ public class Model {
         Wrapper data = new Wrapper();
         synchronized (this) {
             data.setGenres(genres.getAllGenres());
+            data.setArtists(artists.getAllArtists());
             data.setTracks(tracks.getAllTracks());
         }
         return data;
