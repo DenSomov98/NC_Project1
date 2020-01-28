@@ -2,8 +2,13 @@ package client.controllers;
 
 //import com.sun.xml.internal.ws.model.WrapperParameter;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import worklib.entities.Genre;
 import worklib.entities.Track;
 import worklib.entities.Wrapper;
@@ -17,10 +22,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 public class ServerListener extends Thread {
+    private static Stage stage;
     private ObjectInputStream in;
     private Wrapper wrapper;
     private TableView<Track> tableViewTrack;
     private TableView<Genre> tableViewGenre;
+
+    public static void setStage(Stage stage) {
+        ServerListener.stage = stage;
+    }
+
     private TabPane tabPane;
     private Exchanger<Response> exchanger;
 
@@ -65,13 +76,18 @@ public class ServerListener extends Thread {
                 System.out.println(response.isObjMatchesNoLongerWarning());
                 if (response.getKeys()[0] == Key.ADD || response.getKeys()[0] == Key.GET || response.getKeys()[0] == Key.REMOVE || response.getKeys()[0] == Key.LOAD ||
                         response.getKeys()[0] == Key.EDIT) {
+                    if (response.isObjMatchesNoLongerWarning()) {
+                        Platform.runLater(() -> {
+                            showError("Объект добавлен/изменен, но не отображается из-за параметроф фильтрации");
+                        });
+                    }
                     wrapper = (Wrapper)in.readObject();
                     showTracks();
                     showGenres();
                     //Platform.runLater(() -> showTracks(wrapper));
                 }
                 if (response.getKeys()[0] == Key.LOCK) {
-                    try {exchanger.exchange(response, 150000, TimeUnit.MILLISECONDS);
+                    try {exchanger.exchange(response, 1500, TimeUnit.MILLISECONDS);
                         } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (TimeoutException ignored) {
@@ -84,9 +100,30 @@ public class ServerListener extends Thread {
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
+                Platform.runLater(() -> {
+                    showError("Потеря соединения с сервером. Попробуйте подключиться снова");
+                    try {
+                        FXMLLoader loader = new FXMLLoader();
+                        Parent root = null;
+                        root = (Parent) loader.load(getClass().getResourceAsStream("/fxml/entry.fxml"));
+                        stage.setTitle("Music library");
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
                 break;
             }
         }
+    }
+
+    public void showError(String info) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Ошибка");
+        alert.setHeaderText(null);
+        alert.setContentText(info);
+        alert.showAndWait();
     }
 
     public void showFindTracks(Track[] tracks){

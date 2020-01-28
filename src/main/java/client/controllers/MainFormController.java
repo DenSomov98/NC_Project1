@@ -141,6 +141,7 @@ public class MainFormController {
         serverListener.setTableViewGenre(tableGenres);
         serverListener.setTabPane(tabpane);
         serverListener.setExchanger(exchanger);
+        ServerListener.setStage(stage);
         controller.getAllData();
         operationName.setText("");
 
