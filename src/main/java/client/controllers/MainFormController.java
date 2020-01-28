@@ -317,6 +317,7 @@ public class MainFormController {
             alert.setContentText("Не выбран трек для редактирования!");
             alert.showAndWait();
             editImage.setEffect(new Blend());
+            setDisableAllControlElements(false);
             operationName.setText("");
             return;
         }
@@ -334,6 +335,7 @@ public class MainFormController {
             alert.setContentText("Не выбран жанр для редактирования!");
             alert.showAndWait();
             editImage.setEffect(new Blend());
+            setDisableAllControlElements(false);
             operationName.setText("");
             return;
         }

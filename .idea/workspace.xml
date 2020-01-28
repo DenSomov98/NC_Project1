@@ -5,6 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/controllers/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/controllers/ClientService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/controllers/Controller.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/MainFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/controllers/MainFormController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/ServerListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/controllers/ServerListener.class" afterDir="false" />
@@ -18,7 +20,6 @@
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <list id="87745d90-099b-4681-a5c5-a4dc797bb58d" name="Revert &quot;+validate в Model&quot;" comment="Revert &quot;+validate в Model&quot;&#10;&#10;This reverts commit 43c17c75" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,21 +107,9 @@
       <recent name="C:\Users\mitilyas\IdeaProjects\project\src" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false">
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="NC_Project1" />
@@ -129,7 +118,7 @@
       </method>
     </configuration>
     <configuration name="Server" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="server.Main" />
       <module name="NC_Project1" />
@@ -153,6 +142,18 @@
       <item itemvalue="Application.Test" />
       <item itemvalue="Application.Server" />
     </list>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -214,6 +215,7 @@
       <workItem from="1580161392426" duration="7057000" />
       <workItem from="1580198924169" duration="1183000" />
       <workItem from="1580200494945" duration="25292000" />
+      <workItem from="1580242278957" duration="309000" />
     </task>
     <task id="LOCAL-00001" summary="основа для новой модели">
       <created>1574432592443</created>
@@ -461,10 +463,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1580032120698" />
-    <state x="186" y="80" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580234813779">
+    <state x="186" y="80" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580242323325">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="186" y="80" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.984@0.0.1280.984" timestamp="1580234813779" />
+    <state x="186" y="80" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.984@0.0.1280.984" timestamp="1580242323325" />
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1580232543303" />
     <state x="574" y="123" key="#com.intellij.ide.util.MemberChooser" timestamp="1580230741220">
       <screen x="0" y="0" width="1536" height="824" />
@@ -474,10 +476,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1579435888577" />
-    <state x="488" y="380" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580234804294">
+    <state x="488" y="380" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580242289980">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="488" y="380" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1280.984@0.0.1280.984" timestamp="1580234804294" />
+    <state x="488" y="380" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1280.984@0.0.1280.984" timestamp="1580242289980" />
     <state x="211" y="6" key="CommitChangelistDialog2" timestamp="1580219611894">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -490,25 +492,25 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1580201164126" />
-    <state width="1493" height="157" key="GridCell.Tab.0.bottom" timestamp="1580238614951">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1236" height="259" key="GridCell.Tab.0.bottom" timestamp="1580242640173">
+      <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1236" height="305" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1580237042204" />
+    <state width="1236" height="259" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1580242640173" />
     <state width="1493" height="157" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1580238614951" />
-    <state width="1493" height="157" key="GridCell.Tab.0.center" timestamp="1580238614951">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1236" height="259" key="GridCell.Tab.0.center" timestamp="1580242640172">
+      <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1236" height="305" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1580237042204" />
+    <state width="1236" height="259" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1580242640172" />
     <state width="1493" height="157" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1580238614951" />
-    <state width="1493" height="157" key="GridCell.Tab.0.left" timestamp="1580238614950">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1236" height="259" key="GridCell.Tab.0.left" timestamp="1580242640172">
+      <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1236" height="305" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1580237042203" />
+    <state width="1236" height="259" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1580242640172" />
     <state width="1493" height="157" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1580238614950" />
-    <state width="1493" height="157" key="GridCell.Tab.0.right" timestamp="1580238614951">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1236" height="259" key="GridCell.Tab.0.right" timestamp="1580242640172">
+      <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1236" height="305" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1580237042204" />
+    <state width="1236" height="259" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1580242640172" />
     <state width="1493" height="157" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1580238614951" />
     <state width="1493" height="165" key="GridCell.Tab.1.bottom" timestamp="1580238614949">
       <screen x="0" y="0" width="1536" height="824" />

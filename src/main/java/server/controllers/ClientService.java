@@ -79,6 +79,7 @@ public class ClientService extends Thread {
                 if(keys[1] == Key.TRACK && client.isInSearch() &&
                         !TrackList.isMatches(response.getArguments(), client.getSearchCriteria()))
                     response.setObjMatchesNoLongerWarning(true);
+                if (response.hasErrors()) client.send(response);
                 model.execute(response);
                 synchronized (clients) {
                     sendResponseToAll(response);

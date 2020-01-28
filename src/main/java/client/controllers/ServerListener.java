@@ -78,7 +78,12 @@ public class ServerListener extends Thread {
                         response.getKeys()[0] == Key.EDIT) {
                     if (response.isObjMatchesNoLongerWarning()) {
                         Platform.runLater(() -> {
-                            showError("Объект добавлен/изменен, но не отображается из-за параметроф фильтрации");
+                            showError("Объект добавлен/изменен, но не отображается из-за параметров фильтрации");
+                        });
+                    }
+                    if (response.hasErrors()) {
+                        Platform.runLater(() -> {
+                            showError("Такой объект уже существует");
                         });
                     }
                     wrapper = (Wrapper)in.readObject();
