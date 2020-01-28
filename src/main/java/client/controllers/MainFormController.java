@@ -141,7 +141,6 @@ public class MainFormController {
         serverListener.setTableViewGenre(tableGenres);
         serverListener.setTabPane(tabpane);
         serverListener.setExchanger(exchanger);
-        ServerListener.setStage(stage);
         controller.getAllData();
         operationName.setText("");
 
@@ -180,6 +179,10 @@ public class MainFormController {
 
     public void requestToAddTrack() throws IOException {
         System.out.println("нажата иконка \"Ок Добавить Трек\"");
+        if(nameField.getText().length() == 0 || artistField.getText().length() == 0 || genreField.getText().length() == 0){
+            callAlertEmptyFields();
+            return;
+        }
         ArrayList<String> arguments = new ArrayList<>();
         arguments.add(nameField.getText());
         arguments.add(artistField.getText());
@@ -189,6 +192,10 @@ public class MainFormController {
 
     public void requestToAddGenre() throws IOException {
         System.out.println("нажата иконка \"Ок  Добавить Жанр\"");
+        if(nameField.getText().length() == 0){
+            callAlertEmptyFields();
+            return;
+        }
         ArrayList<String> arguments = new ArrayList<>();
         arguments.add(nameField.getText());
         controller.requestToAddGenre(arguments);
@@ -336,6 +343,10 @@ public class MainFormController {
 
     public void requestToEditTrack() throws IOException {
         System.out.println("нажата иконка \"Ок  Редактировать Трек\"");
+        if(nameField.getText().length() == 0 || artistField.getText().length() == 0 || genreField.getText().length() == 0){
+            callAlertEmptyFields();
+            return;
+        }
         ArrayList<String> arguments = new ArrayList<>();
         if(tableTrack.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -355,6 +366,10 @@ public class MainFormController {
 
     public void requestToEditGenre() throws IOException {
         System.out.println("нажата иконка \"Ок  Редактировать Жанр\"");
+        if(nameField.getText().length() == 0){
+            callAlertEmptyFields();
+            return;
+        }
         ArrayList<String> arguments = new ArrayList<>();
         if(tableGenres.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -397,6 +412,9 @@ public class MainFormController {
                 artistField.setVisible(true);
                 genreField.setVisible(true);
                 okayButton.setVisible(true);
+                nameField.setText(tableTrack.getSelectionModel().getSelectedItem().getName());
+                artistField.setText(tableTrack.getSelectionModel().getSelectedItem().getArtist());
+                genreField.setText(tableTrack.getSelectionModel().getSelectedItem().getGenre());
                 okayButton.setOnAction(args-> {
                     try {
                         setDisableAllControlElements(false);
@@ -436,6 +454,7 @@ public class MainFormController {
                 okayButton.setVisible(true);
                 artistField.setVisible(false);
                 genreField.setVisible(false);
+                nameField.setText(tableGenres.getSelectionModel().getSelectedItem().getName());
                 okayButton.setOnAction(args-> {
                     try {
                         setDisableAllControlElements(false);
@@ -478,6 +497,10 @@ public class MainFormController {
 
     public void requestToFindTrack() throws IOException {
         System.out.println("нажата иконка \"Ок Найти Трек\"");
+        if(nameField.getText().length() == 0 || artistField.getText().length() == 0 || genreField.getText().length() == 0){
+            callAlertEmptyFields();
+            return;
+        }
         ArrayList<String> arguments = new ArrayList<>();
         arguments.add(nameField.getText());
         arguments.add(artistField.getText());
@@ -538,6 +561,10 @@ public class MainFormController {
     @FXML
     //нажат пункт меню "Файл - Сохранить"
     private void clickSave() {
+        if(nameField.getText().length() == 0){
+            callAlertEmptyFields();
+            return;
+        }
         unHighlightImages();
         artistField.setVisible(false);
         genreField.setVisible(false);
@@ -556,6 +583,10 @@ public class MainFormController {
 
     @FXML
     private void clickLoad() {
+        if(nameField.getText().length() == 0){
+            callAlertEmptyFields();
+            return;
+        }
         unHighlightImages();
         artistField.setVisible(false);
         genreField.setVisible(false);
@@ -572,6 +603,10 @@ public class MainFormController {
     }
 
     public void clickLoadDuplicate() {
+        if(nameField.getText() == ""){
+            callAlertEmptyFields();
+            return;
+        }
         unHighlightImages();
         artistField.setVisible(false);
         genreField.setVisible(false);
@@ -586,4 +621,13 @@ public class MainFormController {
             operationName.setText("");
         });
     }
+
+    public void callAlertEmptyFields(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Одно или несколько полей ввода пустые. Повторите ввод.");
+        alert.showAndWait();
+    }
 }
+

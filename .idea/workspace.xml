@@ -2,11 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4bb8f98-2d80-4bbe-8cae-3988d8edeec2" name="Default Changelist" comment="unlocking records when connection lost, large refactoring in models">
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/controllers/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/MainFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/controllers/MainFormController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/ServerListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/controllers/ServerListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/controllers/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/controllers/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/model/GenreList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/model/GenreList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/model/Model$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/model/Model$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/model/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/model/Model.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/server/model/TrackList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/model/TrackList.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/worklib/parse/Parser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/worklib/parse/Parser$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/worklib/parse/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/worklib/parse/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <list id="87745d90-099b-4681-a5c5-a4dc797bb58d" name="Revert &quot;+validate в Model&quot;" comment="Revert &quot;+validate в Model&quot;&#10;&#10;This reverts commit 43c17c75" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,9 +106,21 @@
       <recent name="C:\Users\mitilyas\IdeaProjects\project\src" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="NC_Project1" />
@@ -105,7 +129,7 @@
       </method>
     </configuration>
     <configuration name="Server" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="server.Main" />
       <module name="NC_Project1" />
@@ -129,18 +153,6 @@
       <item itemvalue="Application.Test" />
       <item itemvalue="Application.Server" />
     </list>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -560,11 +572,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/server/controllers/ClientService.java</url>
           <line>56</line>
           <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/server/controllers/ClientService.java</url>
