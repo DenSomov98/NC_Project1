@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="399.0" prefWidth="600.0" style="-fx-background-color: #ADD8E6;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.MainFormController">
+<AnchorPane prefHeight="399.0" prefWidth="600.0" style="-fx-background-color: #ADD8E6;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.MainFormController">
    <children>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+      <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
         <menus>
           <Menu mnemonicParsing="false" text="Файл">
             <items>
@@ -82,5 +83,6 @@
       <TextField fx:id="genreField" alignment="CENTER" layoutX="356.0" layoutY="56.0" prefHeight="26.0" prefWidth="121.0" promptText="Жанр" />
       <Button fx:id="okayButton" layoutX="483.0" layoutY="56.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="37.0" text="Ok" />
       <Label fx:id="operationName" layoutX="81.0" layoutY="94.0" text="Label" />
+      <Button fx:id="unDoSearchButton" layoutX="468.0" layoutY="365.0" mnemonicParsing="false" text="Назад" />
    </children>
 </AnchorPane>

@@ -41,6 +41,8 @@ public class MainFormController {
     private static Exchanger<Response> exchanger = new Exchanger<>();
 
     @FXML
+    private MenuBar menuBar;
+    @FXML
     private TabPane tabpane; //панель, разделяющая таблицы
     @FXML
     private TableView<Track> tableTrack; //таблица треков
@@ -79,6 +81,8 @@ public class MainFormController {
     private ImageView searchImage;//значок поиска
     @FXML
     private Label operationName;//название операции
+    @FXML
+    private Button unDoSearchButton; //кнопка возврата к первоначальным данным
 
     public MainFormController() {}
 
@@ -126,6 +130,7 @@ public class MainFormController {
         artistField.setVisible(false);
         genreField.setVisible(false);
         okayButton.setVisible(false);
+        unDoSearchButton.setVisible(false);
         idColumnTrack.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumnTrack.setCellValueFactory(new PropertyValueFactory<>("name"));
         artistColumnTrack.setCellValueFactory(new PropertyValueFactory<>("artist"));
@@ -367,6 +372,7 @@ public class MainFormController {
     @FXML
     //нажата иконка "Редактировать"
     private void clickEdit() throws IOException {
+        setDisableAllControlElements(true);
         InnerShadow shadowEffect = new InnerShadow();
         shadowEffect.setColor(Color.BLUE);
         shadowEffect.setChoke(1);
@@ -376,7 +382,7 @@ public class MainFormController {
             operationName.setText("Операция: Редактирование трека");
             requestToLockTrack();
             try {
-                Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
+                Response response = exchanger.exchange(null, 15000, TimeUnit.MILLISECONDS);
                 if(response.isAlreadyLockedError()) {
                     System.out.println("Занято");
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -392,6 +398,7 @@ public class MainFormController {
                 okayButton.setVisible(true);
                 okayButton.setOnAction(args-> {
                     try {
+                        setDisableAllControlElements(false);
                         requestToEditTrack();
                         unHighlightImages();
                         nameField.setVisible(false);
@@ -413,7 +420,7 @@ public class MainFormController {
             operationName.setText("Операция: Редактирование жанра");
             requestToLockGenre();
             try {
-                Response response = exchanger.exchange(null, 150000, TimeUnit.MILLISECONDS);
+                Response response = exchanger.exchange(null, 1500, TimeUnit.MILLISECONDS);
                 System.out.println(response);
                 if(response.isAlreadyLockedError()) {
                     System.out.println("Занято");
@@ -430,6 +437,7 @@ public class MainFormController {
                 genreField.setVisible(false);
                 okayButton.setOnAction(args-> {
                     try {
+                        setDisableAllControlElements(false);
                         requestToEditGenre();
                         unHighlightImages();
                         nameField.setVisible(false);
@@ -452,6 +460,19 @@ public class MainFormController {
         genreField.setVisible(false);
         okayButton.setVisible(false);
         operationName.setText("");*/
+    }
+
+    private void setDisableAllControlElements(boolean flag){
+        addImage.setDisable(flag);
+        removeImage.setDisable(flag);
+        searchImage.setDisable(flag);
+        if(tabpane.getSelectionModel().getSelectedItem().getText().equals("Жанры")){
+            tabpane.getTabs().get(0).setDisable(flag);
+        }
+        else if(tabpane.getSelectionModel().getSelectedItem().getText().equals("Треки")) {
+            tabpane.getTabs().get(1).setDisable(flag);
+        }
+        menuBar.setDisable(flag);
     }
 
     public void requestToFindTrack() throws IOException {
@@ -486,6 +507,11 @@ public class MainFormController {
                     genreField.setVisible(false);
                     okayButton.setVisible(false);
                     operationName.setText("");
+                    unDoSearchButton.setVisible(true);
+                    unDoSearchButton.setOnAction(arg ->{
+                        controller.getAllData();
+                        unDoSearchButton.setVisible(false);
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -560,4 +586,3 @@ public class MainFormController {
         });
     }
 }
-
