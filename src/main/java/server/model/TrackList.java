@@ -201,9 +201,9 @@ public class TrackList implements Tracks, Serializable {
         Pattern patternArtist = Pattern.compile(regexArtist.toString(), Pattern.CASE_INSENSITIVE);
         Pattern patternGenre = Pattern.compile(regexGenre.toString(),Pattern.CASE_INSENSITIVE);
 
-        Matcher matcherName = patternName.matcher(data[0]);
-        Matcher matcherArtist = patternArtist.matcher(data[1]);
-        Matcher matcherGenre = patternGenre.matcher(data[2]);
+        Matcher matcherName = patternName.matcher(data[1]);
+        Matcher matcherArtist = patternArtist.matcher(data[2]);
+        Matcher matcherGenre = patternGenre.matcher(data[3]);
         return  (matcherName.find() && matcherArtist.find() && matcherGenre.find());
     }
 
