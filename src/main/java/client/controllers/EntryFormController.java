@@ -49,7 +49,6 @@ public class EntryFormController {
         else {
             Parent mainWindow = FXMLLoader.load(getClass().getResource("/fxml/mainform.fxml"));
             stage.setScene(new Scene(mainWindow, 600, 415));
-            stage.setOnCloseRequest(event -> {controller.disconnect();});
             stage.show();
         }
     }

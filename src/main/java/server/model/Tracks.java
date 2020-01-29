@@ -53,4 +53,6 @@ public interface Tracks {
     void unlockTrack(String trackId);
 
     void unlockAll(int clientID);
+
+    void setArtistToNull(String artist);
 }

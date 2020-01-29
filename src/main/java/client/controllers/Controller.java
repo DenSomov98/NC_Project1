@@ -115,6 +115,30 @@ public class Controller {
         out.writeObject(request);
     }
 
+    public void requestToUnlockTrack(ArrayList<String> arguments) throws IOException{
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.UNLOCK);
+        keys.add(Key.TRACK);
+        Request request = new Request(true, keys, arguments);
+        out.writeObject(request);
+    }
+
+    public void requestToUnLockGenre(ArrayList<String> arguments) throws IOException{
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.UNLOCK);
+        keys.add(Key.GENRE);
+        Request request = new Request(true, keys, arguments);
+        out.writeObject(request);
+    }
+
+    public void requestToUnLockArtist(ArrayList<String> arguments) throws IOException{
+        ArrayList<Key> keys = new ArrayList<>();
+        keys.add(Key.UNLOCK);
+        keys.add(Key.ARTIST);
+        Request request = new Request(true, keys, arguments);
+        out.writeObject(request);
+    }
+
     public void requestToEditTrack(ArrayList<String> arguments) throws IOException{
         ArrayList<Key> keys = new ArrayList<>();
         keys.add(Key.EDIT);

@@ -1,14 +1,13 @@
 server\controllers\ClientDataHolder.class
 worklib\parse\Key.class
+client\controllers\ServerListener$1.class
 server\model\Genres.class
-worklib\transfer\Response.class
 worklib\entities\Track.class
 server\controllers\Controller.class
 worklib\entities\Track$CounterOfTrack.class
 client\controllers\Controller.class
 worklib\entities\Artist.class
 server\controllers\ClientService.class
-worklib\entities\Wrapper.class
 server\model\ArtistList.class
 server\model\Artists.class
 server\model\Model.class
@@ -24,7 +23,6 @@ worklib\transfer\Request.class
 server\model\GenreList.class
 server\model\TrackList.class
 worklib\entities\Genre.class
-server\model\Tracks.class
 worklib\parse\Parser.class
 client\controllers\MainFormController.class
 worklib\parse\Parser$1.class

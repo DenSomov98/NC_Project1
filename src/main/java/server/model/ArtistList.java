@@ -93,7 +93,11 @@ public class ArtistList implements Artists, Serializable {
 
     @Override
     public Artist[] getAllArtists() {
-        return artists.toArray(new Artist[0]);
+        Artist[] result = new Artist[artists.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = artists.get(i).clone();
+        }
+        return result;
     }
 
     @Override

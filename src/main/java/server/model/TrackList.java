@@ -224,6 +224,12 @@ public class TrackList implements Tracks, Serializable {
         }
     }
 
+    public void setArtistToNull(String artist){
+        for (Track track : tracks) {
+            if (track.getArtist().equalsIgnoreCase(artist)) track.setArtist("");
+        }
+    }
+
     public void setAllGenreToNull(){
         for (Track track : tracks) {
              track.setGenre(null);

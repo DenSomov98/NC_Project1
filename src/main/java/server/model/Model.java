@@ -17,7 +17,7 @@ public class Model {
     private Genres genres;
     private Artists artists;
 
-    public Model(TrackList tracks, Artists artists, Genres genres) {
+    public Model(Tracks tracks, Artists artists, Genres genres) {
         this.tracks = tracks;
         this.genres = genres;
         this.artists = artists;
@@ -80,7 +80,7 @@ public class Model {
                     case ARTIST:
                         artists.validateEditArtist(response);
                         return response;
-                    case TRACK:;
+                    case TRACK:
                         boolean isGenreCorrect = true;
                         boolean isArtistCorrect = true;
                         Artist artist = artists.getArtist(response.getArguments()[2]);
@@ -194,6 +194,7 @@ public class Model {
                 tracks.editArtistName(artists.getArtist(arguments[0]).getName(), arguments[1]);
                 artists.editName(arguments[0], arguments[1]);
                 artists.unlockArtist(arguments[0]);
+                break;
             case TRACK:
                 int id = Parser.parseID(arguments[0]);
                 tracks.editName(id, arguments[1]);
@@ -229,7 +230,7 @@ public class Model {
             case ARTIST:
                 Artist artist = artists.getArtist(arguments[0]);
                 if(artist != null)
-                    tracks.setGenreToNull(artist.getName());
+                    tracks.setArtistToNull(artist.getName());
                 artists.removeArtist(arguments[0]);
                 break;
             case TRACK:
@@ -369,6 +370,9 @@ public class Model {
                 break;
             case LOCK:
                 executeLock(command);
+                break;
+            case UNLOCK:
+                executeUnlock(command);
                 break;
             case FIND:
                 executeFind(command);

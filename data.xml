@@ -52,6 +52,38 @@
             <genre>instrumental rock</genre>
         </track>
     </track-list>
+    <artist-list>
+        <artist>
+            <name>Nikolai Bakaleinokov</name>
+        </artist>
+        <artist>
+            <name>Florence and The Machine</name>
+        </artist>
+        <artist>
+            <name>Imagine Dragons</name>
+        </artist>
+        <artist>
+            <name>Bastille</name>
+        </artist>
+        <artist>
+            <name>Mumford and Sons</name>
+        </artist>
+        <artist>
+            <name>OneRepublic</name>
+        </artist>
+        <artist>
+            <name>Ed Sheeran</name>
+        </artist>
+        <artist>
+            <name>Stephane Blet</name>
+        </artist>
+        <artist>
+            <name>Ray Charles</name>
+        </artist>
+        <artist>
+            <name>Delta Rae</name>
+        </artist>
+    </artist-list>
     <genre-list>
         <genre>
             <name>classic</name>

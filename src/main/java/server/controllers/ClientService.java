@@ -31,12 +31,19 @@ public class ClientService extends Thread {
         this.in = new ObjectInputStream(socket.getInputStream());
         this.out = new ObjectOutputStream(socket.getOutputStream());
         this.client = new ClientDataHolder(out);
-        clients.add(client);
+    }
+
+    void sendIDtoClient() throws IOException {
+        client.send(new Response(client.getId(), new Key[0], new String[0]));
     }
 
     @Override
     public void run() {
         try {
+            sendIDtoClient();
+            synchronized (clients) {
+                clients.add(client);
+            }
             while (true) {
                 Request request = (Request) in.readObject();
                 if (request.getKeys()[0] == Key.DISCONNECT)
@@ -55,6 +62,10 @@ public class ClientService extends Thread {
 
     private void processing(Request request) throws IOException {
         Response response = model.validate(request, client.getId());
+        if(response.hasErrors()) {
+            client.send(response);
+            return;
+        }
         Key[] keys = response.getKeys();
         switch (keys[0]) {
             case GET:
@@ -64,8 +75,8 @@ public class ClientService extends Thread {
                 break;
             case SAVE:
             case LOCK:
-                if(!response.hasErrors())
-                    model.execute(response);
+            case UNLOCK:
+                model.execute(response);
                 client.send(response);
                 break;
             case FIND:
@@ -79,7 +90,6 @@ public class ClientService extends Thread {
                 if(keys[1] == Key.TRACK && client.isInSearch() &&
                         !TrackList.isMatches(response.getArguments(), client.getSearchCriteria()))
                     response.setObjMatchesNoLongerWarning(true);
-                if (response.hasErrors()) client.send(response);
                 model.execute(response);
                 synchronized (clients) {
                     sendResponseToAll(response);
@@ -112,7 +122,7 @@ public class ClientService extends Thread {
     private Wrapper getMatches(ClientDataHolder client, Wrapper data) {
         Wrapper result = new Wrapper();
         result.setGenres(data.getG());
-        // TODO: 28.01.2020 result.setArtists(data.getA());
+        result.setArtists(data.getA());
         Track[] tracks = data.getT();
         String[] searchCriteria = client.getSearchCriteria();
         result.setTracks(TrackList.find(tracks, searchCriteria));
