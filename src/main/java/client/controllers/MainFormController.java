@@ -522,6 +522,10 @@ public class MainFormController {
                         alert.setHeaderText(null);
                         alert.setContentText("Выбранный трек в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
                         alert.showAndWait();
+                        setDisableAllControlElements(false);
+                        unHighlightImages();
+                        okayButton.setVisible(false);
+                        operationName.setText("");
                         return;
                     }
                     nameField.setVisible(true);
@@ -559,6 +563,8 @@ public class MainFormController {
                     e.printStackTrace();
                 } catch (TimeoutException ignored) {
                 }
+                catch (NullPointerException ignored) {
+                }
                 break;
             case "Жанры":
                 operationName.setText("Операция: Редактирование жанра");
@@ -575,6 +581,10 @@ public class MainFormController {
                         alert.setHeaderText(null);
                         alert.setContentText("Выбранный жанр в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
                         alert.showAndWait();
+                        setDisableAllControlElements(false);
+                        unHighlightImages();
+                        okayButton.setVisible(false);
+                        operationName.setText("");
                         return;
                     }
                     nameField.setVisible(true);
@@ -597,8 +607,7 @@ public class MainFormController {
                             }
                             nameField.setVisible(false);
                             requestToEditGenre();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (IOException | NullPointerException ignored) {
                         }
                     });
 
@@ -622,6 +631,10 @@ public class MainFormController {
                         alert.setHeaderText(null);
                         alert.setContentText("Выбранный исполнитель в данный момент запрещен для редактирования. Попробуйте выполнить операцию позже.");
                         alert.showAndWait();
+                        setDisableAllControlElements(false);
+                        unHighlightImages();
+                        okayButton.setVisible(false);
+                        operationName.setText("");
                         return;
                     }
                     nameField.setVisible(true);
@@ -649,10 +662,7 @@ public class MainFormController {
                         }
                     });
 
-                } catch (InterruptedException | TimeoutException e) {
-                    e.printStackTrace();
-                    return;
-                }
+                } catch (InterruptedException | TimeoutException | NullPointerException ignored) { }
         }
     }
 

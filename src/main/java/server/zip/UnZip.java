@@ -8,8 +8,8 @@ import java.util.zip.ZipInputStream;
 
 public class UnZip {
     public static void main(String[] args) {
-        final String OUTPUT_FOLDER = "C:\\Users\\aaa\\IdeaProjects\\NC_Project2";
-        String FILE_PATH = "C:\\Users\\aaa\\IdeaProjects\\NC_Project2\\outfile.zip";
+        final String OUTPUT_FOLDER = "C:\\Users\\alex1\\IdeaProjects\\NC_Project1";
+        String FILE_PATH = "C:\\Users\\alex1\\IdeaProjects\\NC_Project1\\outfile.zip";
 
         // Создать папку Output если она не существует.
         File folder = new File(OUTPUT_FOLDER);

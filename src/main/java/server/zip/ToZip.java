@@ -6,7 +6,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class ToZip {
-    private static final String PATH = "C:\\Users\\aaa\\IdeaProjects\\NC_Project2\\";
+    private static final String PATH = "C:\\Users\\alex1\\IdeaProjects\\NC_Project1\\";
     public static void main(String[] args) {
         try {
             String inFile = PATH + "data.xml";

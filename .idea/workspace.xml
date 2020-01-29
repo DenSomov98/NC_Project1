@@ -1,44 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4bb8f98-2d80-4bbe-8cae-3988d8edeec2" name="Default Changelist" comment="">
+    <list default="true" id="a4bb8f98-2d80-4bbe-8cae-3988d8edeec2" name="Default Changelist" comment="Release">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/data.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/EntryFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/EntryFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/MainFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/controllers/ServerListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/controllers/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/controllers/ClientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/ArtistList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/ArtistList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/TrackList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/model/Tracks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/model/Tracks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/EntryFormController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/MainFormController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/client/controllers/ServerListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/controllers/ClientDataHolder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/controllers/ClientService$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/controllers/ClientService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/controllers/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/model/GenreList.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/model/Genres.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/model/Model$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/model/Model.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/model/TrackList.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/model/Tracks.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/model/Tracks.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/worklib/entities/Genre$CounterOfGenre.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/worklib/entities/Genre.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/worklib/entities/Track$CounterOfTrack.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/worklib/entities/Track.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/worklib/parse/Key.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/worklib/parse/Parser$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/worklib/parse/Parser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/worklib/transfer/Request.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/zip/ToZip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/zip/ToZip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/zip/UnZip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/zip/UnZip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/controllers/ClientService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/controllers/ClientService$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/controllers/ClientService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/controllers/ClientService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <list id="87745d90-099b-4681-a5c5-a4dc797bb58d" name="Revert &quot;+validate в Model&quot;" comment="Revert &quot;+validate в Model&quot;&#10;&#10;This reverts commit 43c17c75" />
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +102,7 @@
       <recent name="C:\Users\alex1\IdeaProjects\NC_Project1\src\main\java" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false">
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -143,9 +113,16 @@
       </method>
     </configuration>
     <configuration name="Server" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="server.Main" />
+      <module name="NC_Project1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ToZip" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="server.Main" />
+      <option name="MAIN_CLASS_NAME" value="server.zip.ToZip" />
       <module name="NC_Project1" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
@@ -153,10 +130,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="client.Test" />
+    <configuration name="UnZip" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="server.zip.UnZip" />
       <module name="NC_Project1" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -164,7 +139,8 @@
     </configuration>
     <list>
       <item itemvalue="Application.Client" />
-      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.ToZip" />
+      <item itemvalue="Application.UnZip" />
       <item itemvalue="Application.Server" />
     </list>
   </component>
@@ -242,6 +218,8 @@
       <workItem from="1580200494945" duration="25292000" />
       <workItem from="1580242278957" duration="7930000" />
       <workItem from="1580282744402" duration="880000" />
+      <workItem from="1580299002765" duration="3074000" />
+      <workItem from="1580304623768" duration="1889000" />
     </task>
     <task id="LOCAL-00001" summary="основа для новой модели">
       <created>1574432592443</created>
@@ -432,7 +410,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580283848615</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Release">
+      <created>1580298807760</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1580298807761</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -501,7 +486,8 @@
     <MESSAGE value="Search works(90%), DISPLAYING FIXED FUCK YEAH, refactoring" />
     <MESSAGE value="edit fix" />
     <MESSAGE value="+ARTIST" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ARTIST" />
+    <MESSAGE value="Release" />
+    <option name="LAST_COMMIT_MESSAGE" value="Release" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="72" key="#Project_Structure" timestamp="1580161473188">
@@ -512,29 +498,29 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="167" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1580032120698" />
-    <state x="186" y="80" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580242323325">
-      <screen x="0" y="0" width="1280" height="984" />
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580299683473">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="186" y="80" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.984@0.0.1280.984" timestamp="1580242323325" />
-    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1580232543303" />
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1580299683473" />
     <state x="574" y="123" key="#com.intellij.ide.util.MemberChooser" timestamp="1580297890452">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="478" y="147" key="#com.intellij.ide.util.MemberChooser/0.0.1280.984@0.0.1280.984" timestamp="1580250454962" />
     <state x="574" y="123" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1580297890452" />
-    <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1579435888577">
+    <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1580299680188">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1579435888577" />
+    <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1580299680188" />
     <state x="488" y="380" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580242289980">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="488" y="380" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1280.984@0.0.1280.984" timestamp="1580242289980" />
-    <state x="176" y="7" key="CommitChangelistDialog2" timestamp="1580283950221">
-      <screen x="0" y="0" width="1280" height="984" />
+    <state x="211" y="6" key="CommitChangelistDialog2" timestamp="1580311816885">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="176" y="7" key="CommitChangelistDialog2/0.0.1280.984@0.0.1280.984" timestamp="1580283950221" />
-    <state x="211" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1580219611894" />
+    <state x="211" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1580311816885" />
     <state width="418" height="438" key="DebuggerActiveHint" timestamp="1580167414662">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -543,46 +529,50 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1580201164126" />
-    <state width="1493" height="150" key="GridCell.Tab.0.bottom" timestamp="1580298743336">
+    <state width="1493" height="150" key="GridCell.Tab.0.bottom" timestamp="1580307958886">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1236" height="259" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1580251049742" />
-    <state width="1493" height="150" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1580298743336" />
-    <state width="1493" height="150" key="GridCell.Tab.0.center" timestamp="1580298743332">
+    <state width="1493" height="150" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1580307958886" />
+    <state width="1493" height="150" key="GridCell.Tab.0.center" timestamp="1580307958886">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1236" height="259" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1580251049742" />
-    <state width="1493" height="150" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1580298743332" />
-    <state width="1493" height="150" key="GridCell.Tab.0.left" timestamp="1580298743332">
+    <state width="1493" height="150" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1580307958886" />
+    <state width="1493" height="150" key="GridCell.Tab.0.left" timestamp="1580307958886">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1236" height="259" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1580251049742" />
-    <state width="1493" height="150" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1580298743332" />
-    <state width="1493" height="150" key="GridCell.Tab.0.right" timestamp="1580298743336">
+    <state width="1493" height="150" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1580307958886" />
+    <state width="1493" height="150" key="GridCell.Tab.0.right" timestamp="1580307958886">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1236" height="259" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1580251049742" />
-    <state width="1493" height="150" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1580298743336" />
-    <state width="1493" height="165" key="GridCell.Tab.1.bottom" timestamp="1580289582955">
+    <state width="1493" height="150" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1580307958886" />
+    <state width="1493" height="165" key="GridCell.Tab.1.bottom" timestamp="1580298897776">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1236" height="305" key="GridCell.Tab.1.bottom/0.0.1280.984@0.0.1280.984" timestamp="1580251049738" />
-    <state width="1493" height="165" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1580289582955" />
-    <state width="1493" height="165" key="GridCell.Tab.1.center" timestamp="1580289582955">
+    <state width="1493" height="165" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1580298897776" />
+    <state width="1493" height="165" key="GridCell.Tab.1.center" timestamp="1580298897776">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1236" height="305" key="GridCell.Tab.1.center/0.0.1280.984@0.0.1280.984" timestamp="1580251049738" />
-    <state width="1493" height="165" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1580289582955" />
-    <state width="1493" height="165" key="GridCell.Tab.1.left" timestamp="1580289582955">
+    <state width="1493" height="165" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1580298897776" />
+    <state width="1493" height="165" key="GridCell.Tab.1.left" timestamp="1580298897776">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1236" height="305" key="GridCell.Tab.1.left/0.0.1280.984@0.0.1280.984" timestamp="1580251049738" />
-    <state width="1493" height="165" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1580289582955" />
-    <state width="1493" height="165" key="GridCell.Tab.1.right" timestamp="1580289582955">
+    <state width="1493" height="165" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1580298897776" />
+    <state width="1493" height="165" key="GridCell.Tab.1.right" timestamp="1580298897776">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1236" height="305" key="GridCell.Tab.1.right/0.0.1280.984@0.0.1280.984" timestamp="1580251049738" />
-    <state width="1493" height="165" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1580289582955" />
+    <state width="1493" height="165" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1580298897776" />
+    <state x="481" y="129" key="MultipleFileMergeDialog" timestamp="1580299486992">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="481" y="129" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1580299486992" />
     <state x="348" y="134" key="RollbackChangesDialog" timestamp="1579437336599">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -591,20 +581,20 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1579438834231" />
-    <state x="301" y="174" key="Vcs.Push.Dialog.v2" timestamp="1580283852728">
-      <screen x="0" y="0" width="1280" height="984" />
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1580300050307">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="301" y="174" key="Vcs.Push.Dialog.v2/0.0.1280.984@0.0.1280.984" timestamp="1580283852728" />
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1580219618225" />
+    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1580300050307" />
     <state x="335" y="314" key="com.intellij.ide.util.TipDialog" timestamp="1580282742723">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="335" y="314" key="com.intellij.ide.util.TipDialog/0.0.1280.984@0.0.1280.984" timestamp="1580282742723" />
-    <state x="482" y="393" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580235538765">
-      <screen x="0" y="0" width="1280" height="984" />
+    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580299471891">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="482" y="393" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.984@0.0.1280.984" timestamp="1580235538765" />
-    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1579335410930" />
+    <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1580299471891" />
     <state x="462" y="144" width="611" height="536" key="find.popup" timestamp="1580298622189">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
