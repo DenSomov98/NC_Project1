@@ -1,3 +1,4 @@
+server\zip\UnZip.class
 server\controllers\ClientDataHolder.class
 worklib\parse\Key.class
 server\model\Genres.class
@@ -28,3 +29,4 @@ server\model\Tracks.class
 worklib\parse\Parser.class
 client\controllers\MainFormController.class
 worklib\parse\Parser$1.class
+server\zip\ToZip.class
